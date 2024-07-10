@@ -1,0 +1,6 @@
+[submodule "fixtures/vscode-iconify"]
+	path = fixtures/vscode-iconify
+	url = https://github.com/antfu/vscode-iconify
+[submodule "fixtures/i18n-ally"]
+	path = fixtures/i18n-ally
+	url = https://github.com/lokalise/i18n-ally
