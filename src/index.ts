@@ -34,11 +34,18 @@ export function generate(packageJson: any) {
   lines.push(
     '',
     ...generateCommentBlock('Type union of all commands'),
-    'export type CommandId = ',
-    ...(packageJson.contributes?.commands || []).map((c: any) =>
-      `  | ${JSON.stringify(c.command)}`,
-    ),
   )
+  if (!packageJson.contributes?.commands?.length) {
+    lines.push('export type CommandId = never')
+  }
+  else {
+    lines.push(
+      'export type CommandId = ',
+      ...(packageJson.contributes?.commands || []).map((c: any) =>
+      `  | ${JSON.stringify(c.command)}`,
+      ),
+    )
+  }
 
   lines.push(
     '',
@@ -65,11 +72,18 @@ export function generate(packageJson: any) {
   lines.push(
     '',
     ...generateCommentBlock('Type union of all configurations'),
-    'export type ConfigurationId = ',
-    ...Object.keys(configurationObject).map(c =>
-      `  | "${c}"`,
-    ),
   )
+  if (!Object.keys(configurationObject).length) {
+    lines.push('export type ConfigurationId = never')
+  }
+  else {
+    lines.push(
+      'export type ConfigurationId = ',
+      ...Object.keys(configurationObject).map(c =>
+      `  | "${c}"`,
+      ),
+    )
+  }
 
   lines.push(
     '',
@@ -103,12 +117,12 @@ export function generate(packageJson: any) {
           `  ${JSON.stringify(key)}: ${JSON.stringify(value.default)},`,
         ]
       }),
-    '} satisfies Record<ConfigurationId, unknown>',
+    '} satisfies { [key in ConfigurationId]: ConfigurationTypeMap[key] | null | undefined }',
   )
 
   lines.push(
     '',
-    'export type ConfigurationTypeMap = {',
+    'export interface ConfigurationTypeMap {',
     ...Object.entries(configurationObject)
       .flatMap(([key, value]: any) => {
         return [

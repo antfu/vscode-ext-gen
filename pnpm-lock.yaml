@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      cac:
+        specifier: ^6.7.14
+        version: 6.7.14
       yargs:
         specifier: ^17.7.2
         version: 17.7.2

@@ -1185,9 +1185,9 @@ export const configurationsDefaults = {
   "vue-i18n-ally.sortKeys": undefined,
   "vue-i18n-ally.preferredDelimiter": undefined,
   "vue-i18n-ally.readonly": undefined,
-} satisfies Record<ConfigurationId, unknown>
+} satisfies { [key in ConfigurationId]: ConfigurationTypeMap[key] | null | undefined }
 
-export type ConfigurationTypeMap = {
+export interface ConfigurationTypeMap {
   "i18n-ally.disabled": boolean,
   "i18n-ally.autoDetection": boolean,
   "i18n-ally.localesPaths": unknown,

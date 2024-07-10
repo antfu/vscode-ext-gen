@@ -6,10 +6,7 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-_description_
-
-> **Note**:
-> Replace `vscode-ext-gen`, `_description_` and `antfu` globally to use this template.
+Generate TypeScript meta info for VS Code extension from package.json
 
 ## Sponsors
 

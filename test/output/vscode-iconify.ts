@@ -177,9 +177,9 @@ export const configurationsDefaults = {
   "iconify.customCollectionIdsMap": {},
   "iconify.customAliasesJsonPaths": [],
   "iconify.customAliasesOnly": false,
-} satisfies Record<ConfigurationId, unknown>
+} satisfies { [key in ConfigurationId]: ConfigurationTypeMap[key] | null | undefined }
 
-export type ConfigurationTypeMap = {
+export interface ConfigurationTypeMap {
   "iconify.inplace": boolean,
   "iconify.annotations": boolean,
   "iconify.position": ("before" | "after"),
