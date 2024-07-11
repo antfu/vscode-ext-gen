@@ -8,6 +8,109 @@
 
 Generate TypeScript meta info for VS Code extension from package.json
 
+## Usage
+
+```bash
+npx vscode-ext-gen
+```
+
+Under the VS Code extension project root
+
+## Continuous Update
+
+We recommend using the [Run on Save](https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave) extension with the following config in your `.vscode/settings.json` to always generate the meta file on save:
+
+```json
+{
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "package.json",
+        "isAsync": true,
+        "cmd": "npm run update"
+      }
+    ]
+  }
+}
+```
+
+## Examples
+
+Generates `src/generated-meta.ts` file with the following content which syncs with your `package.json`:
+
+```ts
+// Meta info
+export const publisher = 'antfu'
+export const name = 'iconify'
+export const version = '0.8.1'
+export const displayName = 'Iconify IntelliSense'
+export const description = 'Intelligent Iconify previewing and searching for VS Code'
+export const extensionName = `${publisher}.${name}`
+
+/**
+ * Type union of all commands
+ */
+export type CommandId =
+  | 'iconify.toggle-annotations'
+  | 'iconify.clear-cache'
+  // ...
+
+/**
+ * Commands map registed by `antfu.iconify`
+ */
+export const commands = {
+  /**
+   * Toggle Annotations
+   * @value `iconify.toggle-annotations`
+   */
+  toggleAnnotations: 'iconify.toggle-annotations',
+  // ...
+} satisfies Record<string, CommandId>
+
+/**
+ * Type union of all configs
+ */
+export type ConfigKey =
+  | 'iconify.annotations'
+  | 'iconify.position'
+  // ...
+
+/**
+ * Configs map registed by `antfu.iconify`
+ */
+export const configs = {
+  /**
+   * Enabled Iconify inline annotations
+   * @key `iconify.annotations`
+   * @default `true`
+   * @type `boolean`
+   */
+  annotations: 'iconify.annotations',
+  /**
+   * Position the icon before or after the icon name
+   * @key `iconify.position`
+   * @default `"before"`
+   * @type `string`
+   */
+  position: 'iconify.position',
+  // ...
+} satisfies Record<string, ConfigKey>
+
+export const configDefaults = {
+  'iconify.annotations': true,
+  'iconify.position': 'before',
+  // ...
+} satisfies { [key in ConfigKey]: ConfigTypeMap[key] | null | undefined }
+
+export interface ConfigTypeMap {
+  'iconify.annotations': boolean
+  'iconify.position': ('before' | 'after')
+  // ...
+}
+```
+
+For a full example, check [this file](./test/output/vscode-iconify.ts)
+
 ## Sponsors
 
 <p align="center">
