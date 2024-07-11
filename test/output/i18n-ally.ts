@@ -270,7 +270,7 @@ export const commands = {
    * @value `i18n-ally.extract-enable-auto-detect`
    */
   extractEnableAutoDetect: "i18n-ally.extract-enable-auto-detect",
-} stratifies Record<string, CommandKey>
+} satisfies Record<string, CommandKey>
 
 /**
  * Type union of all configs

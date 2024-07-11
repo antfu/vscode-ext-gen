@@ -80,7 +80,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
           `  ${camelCase(name)}: ${JSON.stringify(c.command)},`,
         ]
       }),
-    '} stratifies Record<string, CommandKey>',
+    '} satisfies Record<string, CommandKey>',
   )
 
   // ========== Configs ==========

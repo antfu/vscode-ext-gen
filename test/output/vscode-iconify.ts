@@ -36,7 +36,7 @@ export const commands = {
    * @value `iconify.clear-cache`
    */
   clearCache: "iconify.clear-cache",
-} stratifies Record<string, CommandKey>
+} satisfies Record<string, CommandKey>
 
 /**
  * Type union of all configs
