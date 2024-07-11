@@ -9,13 +9,17 @@ export const displayName = "Iconify IntelliSense"
 export const description = "Intelligent Iconify previewing and searching for VS Code"
 export const extensionName = `${publisher}.${name}`
 
-/** Type union of all commands */
+/**
+ * Type union of all commands
+ */
 export type CommandId = 
   | "iconify.toggle-annotations"
   | "iconify.toggle-inplace"
   | "iconify.clear-cache"
 
-/** Commands map registed by `antfu.iconify` */
+/**
+ * Commands map registed by `antfu.iconify`
+ */
 export const commands = {
   /**
    * Toggle Annotations
@@ -34,7 +38,9 @@ export const commands = {
   ClearCache: "iconify.clear-cache",
 } satisfies Record<string, CommandId>
 
-/** Type union of all configurations */
+/**
+ * Type union of all configurations
+ */
 export type ConfigurationId = 
   | "iconify.inplace"
   | "iconify.annotations"
@@ -52,7 +58,9 @@ export type ConfigurationId =
   | "iconify.customAliasesJsonPaths"
   | "iconify.customAliasesOnly"
 
-/** Configs map registed by `antfu.iconify` */
+/**
+ * Configs map registed by `antfu.iconify`
+ */
 export const configurations = {
   /**
    * Use icon graph to replace the icon name.

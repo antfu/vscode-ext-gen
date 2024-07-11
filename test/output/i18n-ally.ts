@@ -9,7 +9,9 @@ export const displayName = "i18n Ally"
 export const description = "🌍 All in one i18n extension for VS Code"
 export const extensionName = `${publisher}.${name}`
 
-/** Type union of all commands */
+/**
+ * Type union of all commands
+ */
 export type CommandId = 
   | "i18n-ally.config-locales"
   | "i18n-ally.config-locales-auto"
@@ -54,7 +56,9 @@ export type CommandId =
   | "i18n-ally.extract-disable-auto-detect"
   | "i18n-ally.extract-enable-auto-detect"
 
-/** Commands map registed by `lokalise.i18n-ally` */
+/**
+ * Commands map registed by `lokalise.i18n-ally`
+ */
 export const commands = {
   /**
    * %command.config_locales%
@@ -268,7 +272,9 @@ export const commands = {
   ExtractEnableAutoDetect: "i18n-ally.extract-enable-auto-detect",
 } satisfies Record<string, CommandId>
 
-/** Type union of all configurations */
+/**
+ * Type union of all configurations
+ */
 export type ConfigurationId = 
   | "i18n-ally.disabled"
   | "i18n-ally.autoDetection"
@@ -372,7 +378,9 @@ export type ConfigurationId =
   | "vue-i18n-ally.preferredDelimiter"
   | "vue-i18n-ally.readonly"
 
-/** Configs map registed by `lokalise.i18n-ally` */
+/**
+ * Configs map registed by `lokalise.i18n-ally`
+ */
 export const configurations = {
   /**
    * %config.disabled%
