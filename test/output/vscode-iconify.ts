@@ -25,23 +25,23 @@ export const commands = {
    * Toggle Annotations
    * @value `iconify.toggle-annotations`
    */
-  ToggleAnnotations: "iconify.toggle-annotations",
+  toggleAnnotations: "iconify.toggle-annotations",
   /**
    * Toggle In-place Mode
    * @value `iconify.toggle-inplace`
    */
-  ToggleInplace: "iconify.toggle-inplace",
+  toggleInplace: "iconify.toggle-inplace",
   /**
    * Clear icon cache
    * @value `iconify.clear-cache`
    */
-  ClearCache: "iconify.clear-cache",
+  clearCache: "iconify.clear-cache",
 } satisfies Record<string, CommandId>
 
 /**
- * Type union of all configurations
+ * Type union of all configs
  */
-export type ConfigurationId = 
+export type ConfigKey = 
   | "iconify.inplace"
   | "iconify.annotations"
   | "iconify.position"
@@ -61,115 +61,115 @@ export type ConfigurationId =
 /**
  * Configs map registed by `antfu.iconify`
  */
-export const configurations = {
+export const configs = {
   /**
    * Use icon graph to replace the icon name.
    * @key `iconify.inplace`
    * @default `true`
    * @type `boolean`
    */
-  Inplace: "iconify.inplace",
+  inplace: "iconify.inplace",
   /**
    * Enabled Iconify inline annotations
    * @key `iconify.annotations`
    * @default `true`
    * @type `boolean`
    */
-  Annotations: "iconify.annotations",
+  annotations: "iconify.annotations",
   /**
    * Position the icon before or after the icon name
    * @key `iconify.position`
    * @default `"before"`
    * @type `string`
    */
-  Position: "iconify.position",
+  position: "iconify.position",
   /**
    * Icon color hex for inline displaying
    * @key `iconify.color`
    * @default `"auto"`
    * @type `string`
    */
-  Color: "iconify.color",
+  color: "iconify.color",
   /**
    * Delimiters for separating between collection id and icon id
    * @key `iconify.delimiters`
    * @default `[":","--","-","/"]`
    * @type `array`
    */
-  Delimiters: "iconify.delimiters",
+  delimiters: "iconify.delimiters",
   /**
    * Prefixes for matching
    * @key `iconify.prefixes`
    * @default `["","i-","~icons/"]`
    * @type `array`
    */
-  Prefixes: "iconify.prefixes",
+  prefixes: "iconify.prefixes",
   /**
    * Suffixes for matching
    * @key `iconify.suffixes`
    * @default `["","i-"]`
    * @type `array`
    */
-  Suffixes: "iconify.suffixes",
+  suffixes: "iconify.suffixes",
   /**
    * Array of language IDs to enable annotations
    * @key `iconify.languageIds`
    * @default `["javascript","javascriptreact","typescript","typescriptreact","vue","svelte","html","pug","json","yaml"]`
    * @type `array`
    */
-  LanguageIds: "iconify.languageIds",
+  languageIds: "iconify.languageIds",
   /**
    * Collection IDs to be included for detection
    * @key `iconify.includes`
    * @default `null`
    * @type `array`
    */
-  Includes: "iconify.includes",
+  includes: "iconify.includes",
   /**
    * Collection IDs to be excluded for detection
    * @key `iconify.excludes`
    * @default `null`
    * @type `array`
    */
-  Excludes: "iconify.excludes",
+  excludes: "iconify.excludes",
   /**
    * CDN entry of iconify icon-sets
    * @key `iconify.cdnEntry`
    * @default `"https://icones.js.org/collections"`
    * @type `string`
    */
-  CdnEntry: "iconify.cdnEntry",
+  cdnEntry: "iconify.cdnEntry",
   /**
    * JSON paths for custom collection
    * @key `iconify.customCollectionJsonPaths`
    * @default `[]`
    * @type `array`
    */
-  CustomCollectionJsonPaths: "iconify.customCollectionJsonPaths",
+  customCollectionJsonPaths: "iconify.customCollectionJsonPaths",
   /**
    * Collection IDs Map for collection name alias, e.g. { 'mc': 'mingcute' }
    * @key `iconify.customCollectionIdsMap`
    * @default `{}`
    * @type `object`
    */
-  CustomCollectionIdsMap: "iconify.customCollectionIdsMap",
+  customCollectionIdsMap: "iconify.customCollectionIdsMap",
   /**
    * JSON paths for custom aliases
    * @key `iconify.customAliasesJsonPaths`
    * @default `[]`
    * @type `array`
    */
-  CustomAliasesJsonPaths: "iconify.customAliasesJsonPaths",
+  customAliasesJsonPaths: "iconify.customAliasesJsonPaths",
   /**
    * Only use the icon aliases. Non aliased icons will be ignored.
    * @key `iconify.customAliasesOnly`
    * @default `false`
    * @type `boolean`
    */
-  CustomAliasesOnly: "iconify.customAliasesOnly",
-} satisfies Record<string, ConfigurationId>
+  customAliasesOnly: "iconify.customAliasesOnly",
+} satisfies Record<string, ConfigKey>
 
-export const configurationsDefaults = {
+export const configDefaults = {
   "iconify.inplace": true,
   "iconify.annotations": true,
   "iconify.position": "before",
@@ -185,9 +185,9 @@ export const configurationsDefaults = {
   "iconify.customCollectionIdsMap": {},
   "iconify.customAliasesJsonPaths": [],
   "iconify.customAliasesOnly": false,
-} satisfies { [key in ConfigurationId]: ConfigurationTypeMap[key] | null | undefined }
+} satisfies { [key in ConfigKey]: ConfigTypeMap[key] | null | undefined }
 
-export interface ConfigurationTypeMap {
+export interface ConfigTypeMap {
   "iconify.inplace": boolean,
   "iconify.annotations": boolean,
   "iconify.position": ("before" | "after"),

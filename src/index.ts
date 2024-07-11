@@ -1,4 +1,4 @@
-import { pascalCase } from 'scule'
+import { camelCase } from 'scule'
 
 const forwardKeys = [
   'publisher',
@@ -77,7 +77,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
         const name = withoutExtensionPrefix(c.command)
         return [
           ...generateCommentBlock(`${c.title}\n@value \`${c.command}\``, 2),
-          `  ${pascalCase(name)}: ${JSON.stringify(c.command)},`,
+          `  ${camelCase(name)}: ${JSON.stringify(c.command)},`,
         ]
       }),
     '} satisfies Record<string, CommandId>',
@@ -85,19 +85,19 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   // ========== Configs ==========
 
-  const configurationObject = packageJson.contributes?.configuration?.properties || {}
+  const configsObject = packageJson.contributes?.configuration?.properties || {}
 
   lines.push(
     '',
-    ...generateCommentBlock('Type union of all configurations'),
+    ...generateCommentBlock('Type union of all configs'),
   )
-  if (!Object.keys(configurationObject).length) {
-    lines.push('export type ConfigurationId = never')
+  if (!Object.keys(configsObject).length) {
+    lines.push('export type ConfigKey = never')
   }
   else {
     lines.push(
-      'export type ConfigurationId = ',
-      ...Object.keys(configurationObject).map(c =>
+      'export type ConfigKey = ',
+      ...Object.keys(configsObject).map(c =>
       `  | "${c}"`,
       ),
     )
@@ -106,8 +106,8 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   lines.push(
     '',
     ...generateCommentBlock(`Configs map registed by \`${extensionName}\``),
-    'export const configurations = {',
-    ...Object.entries(configurationObject)
+    'export const configs = {',
+    ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
         const name = withoutExtensionPrefix(key)
         return [
@@ -117,28 +117,28 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
             `@default \`${JSON.stringify(value.default)}\``,
             `@type \`${value.type}\``,
           ].join('\n'), 2),
-          `  ${pascalCase(name)}: "${key}",`,
+          `  ${camelCase(name)}: "${key}",`,
         ]
       }),
-    '} satisfies Record<string, ConfigurationId>',
+    '} satisfies Record<string, ConfigKey>',
   )
 
   lines.push(
     '',
-    'export const configurationsDefaults = {',
-    ...Object.entries(configurationObject)
+    'export const configDefaults = {',
+    ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
         return [
           `  ${JSON.stringify(key)}: ${JSON.stringify(value.default)},`,
         ]
       }),
-    '} satisfies { [key in ConfigurationId]: ConfigurationTypeMap[key] | null | undefined }',
+    '} satisfies { [key in ConfigKey]: ConfigTypeMap[key] | null | undefined }',
   )
 
   lines.push(
     '',
-    'export interface ConfigurationTypeMap {',
-    ...Object.entries(configurationObject)
+    'export interface ConfigTypeMap {',
+    ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
         return [
           `  ${JSON.stringify(key)}: ${typeFromSchema(value)},`,
