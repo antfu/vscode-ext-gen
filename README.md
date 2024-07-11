@@ -39,73 +39,102 @@ We recommend using the [Run on Save](https://marketplace.visualstudio.com/items?
 Generates `src/generated-meta.ts` file with the following content which syncs with your `package.json`:
 
 ```ts
-// Meta info
-export const publisher = 'antfu'
-export const name = 'iconify'
-export const version = '0.8.1'
-export const displayName = 'Iconify IntelliSense'
-export const description = 'Intelligent Iconify previewing and searching for VS Code'
-export const extensionName = `${publisher}.${name}`
+export namespace ExtensionMeta {
+  // Meta info
+  export const publisher = 'antfu'
+  export const name = 'iconify'
+  export const version = '0.8.1'
+  export const displayName = 'Iconify IntelliSense'
+  export const description = 'Intelligent Iconify previewing and searching for VS Code'
+  export const extensionId = `${publisher}.${name}`
 
-/**
- * Type union of all commands
- */
-export type CommandId =
-  | 'iconify.toggle-annotations'
-  | 'iconify.clear-cache'
-  // ...
-
-/**
- * Commands map registed by `antfu.iconify`
- */
-export const commands = {
   /**
-   * Toggle Annotations
-   * @value `iconify.toggle-annotations`
+   * Type union of all commands
    */
-  toggleAnnotations: 'iconify.toggle-annotations',
-  // ...
-} satisfies Record<string, CommandId>
+  export type CommandKey =
+    | 'iconify.toggle-annotations'
+    | 'iconify.clear-cache'
+    // ...
 
-/**
- * Type union of all configs
- */
-export type ConfigKey =
-  | 'iconify.annotations'
-  | 'iconify.position'
-  // ...
-
-/**
- * Configs map registed by `antfu.iconify`
- */
-export const configs = {
   /**
-   * Enabled Iconify inline annotations
-   * @key `iconify.annotations`
-   * @default `true`
-   * @type `boolean`
+   * Commands map registed by `antfu.iconify`
    */
-  annotations: 'iconify.annotations',
+  export const commands = {
+    /**
+     * Toggle Annotations
+     * @value `iconify.toggle-annotations`
+     */
+    toggleAnnotations: 'iconify.toggle-annotations',
+    // ...
+  } satisfies Record<string, CommandId>
+
   /**
-   * Position the icon before or after the icon name
-   * @key `iconify.position`
-   * @default `"before"`
-   * @type `string`
+   * Type union of all configs
    */
-  position: 'iconify.position',
-  // ...
-} satisfies Record<string, ConfigKey>
+  export type ConfigKey =
+    | 'iconify.annotations'
+    | 'iconify.position'
+    // ...
 
-export const configDefaults = {
-  'iconify.annotations': true,
-  'iconify.position': 'before',
-  // ...
-} satisfies { [key in ConfigKey]: ConfigTypeMap[key] | null | undefined }
+  export interface ConfigKeyTypeMap {
+    'iconify.annotations': boolean
+    'iconify.position': ('before' | 'after')
+    // ...
+  }
 
-export interface ConfigTypeMap {
-  'iconify.annotations': boolean
-  'iconify.position': ('before' | 'after')
-  // ...
+  export interface ConfigMeta<T extends keyof ConfigKeyTypeMap> {
+    key: T
+    default: ConfigKeyTypeMap[T]
+  }
+
+  /**
+   * Configs map registed by `antfu.iconify`
+   */
+  export const configs = {
+    /**
+     * Enabled Iconify inline annotations
+     * @key `iconify.annotations`
+     * @default `true`
+     * @type `boolean`
+     */
+    annotations: {
+      key: 'iconify.annotations',
+      default: true,
+    } as ConfigMeta<'iconify.annotations'>,
+    /**
+     * Position the icon before or after the icon name
+     * @key `iconify.position`
+     * @default `"before"`
+     * @type `string`
+     */
+    position: {
+      key: 'iconify.position',
+      default: 'before',
+    } as ConfigMeta<'iconify.position'>,
+
+    // ...
+  }
+}
+
+export default ExtensionMeta
+```
+
+On usage:
+
+```ts
+import { commands, workspace } from 'vscode'
+import * as meta from './generated-meta'
+
+export function activate() {
+  console.log(meta.displayName, meta.extensionId)
+
+  const config = workspace
+    .getConfiguration()
+    .get(meta.configs.position.key, meta.configs.position.default)
+
+  commands.registerCommand(meta.commands.toggleAnnontations, () => {
+    // ...
+  })
 }
 ```
 

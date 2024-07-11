@@ -37,11 +37,11 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     // eslint-disable-next-line no-template-curly-in-string
-    'export const extensionName = `${publisher}.${name}`',
+    'export const extensionId = `${publisher}.${name}`',
   )
 
   const extensionPrefix = `${packageJson.name}.`
-  const extensionName = `${packageJson.publisher}.${packageJson.name}`
+  const extensionId = `${packageJson.publisher}.${packageJson.name}`
 
   function withoutExtensionPrefix(name: string) {
     if (name.startsWith(extensionPrefix)) {
@@ -57,11 +57,11 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     ...generateCommentBlock('Type union of all commands'),
   )
   if (!packageJson.contributes?.commands?.length) {
-    lines.push('export type CommandId = never')
+    lines.push('export type CommandKey = never')
   }
   else {
     lines.push(
-      'export type CommandId = ',
+      'export type CommandKey = ',
       ...(packageJson.contributes?.commands || []).map((c: any) =>
       `  | ${JSON.stringify(c.command)}`,
       ),
@@ -70,7 +70,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...generateCommentBlock(`Commands map registed by \`${extensionName}\``),
+    ...generateCommentBlock(`Commands map registed by \`${extensionId}\``),
     'export const commands = {',
     ...(packageJson.contributes?.commands || [])
       .flatMap((c: any) => {
@@ -80,7 +80,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
           `  ${camelCase(name)}: ${JSON.stringify(c.command)},`,
         ]
       }),
-    '} satisfies Record<string, CommandId>',
+    '} stratifies Record<string, CommandKey>',
   )
 
   // ========== Configs ==========
@@ -105,7 +105,40 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...generateCommentBlock(`Configs map registed by \`${extensionName}\``),
+    'export interface ConfigKeyTypeMap {',
+    ...Object.entries(configsObject)
+      .flatMap(([key, value]: any) => {
+        return [
+          `  ${JSON.stringify(key)}: ${typeFromSchema(value)},`,
+        ]
+      }),
+    '}',
+  )
+
+  lines.push(
+    '',
+    'export interface ConfigShorthandMap {',
+    ...Object.entries(configsObject)
+      .flatMap(([key]: any) => {
+        return [
+          `  ${camelCase(withoutExtensionPrefix(key))}: ${JSON.stringify(key)},`,
+        ]
+      }),
+    '}',
+  )
+
+  lines.push(
+    '',
+    `export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {`,
+    `  key: T,`,
+    `  default: ConfigKeyTypeMap[T],`,
+    `}`,
+    '',
+  )
+
+  lines.push(
+    '',
+    ...generateCommentBlock(`Configs map registed by \`${extensionId}\``),
     'export const configs = {',
     ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
@@ -117,31 +150,10 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
             `@default \`${JSON.stringify(value.default)}\``,
             `@type \`${value.type}\``,
           ].join('\n'), 2),
-          `  ${camelCase(name)}: "${key}",`,
-        ]
-      }),
-    '} satisfies Record<string, ConfigKey>',
-  )
-
-  lines.push(
-    '',
-    'export const configDefaults = {',
-    ...Object.entries(configsObject)
-      .flatMap(([key, value]: any) => {
-        return [
-          `  ${JSON.stringify(key)}: ${JSON.stringify(value.default)},`,
-        ]
-      }),
-    '} satisfies { [key in ConfigKey]: ConfigTypeMap[key] | null | undefined }',
-  )
-
-  lines.push(
-    '',
-    'export interface ConfigTypeMap {',
-    ...Object.entries(configsObject)
-      .flatMap(([key, value]: any) => {
-        return [
-          `  ${JSON.stringify(key)}: ${typeFromSchema(value)},`,
+          `  ${camelCase(name)}: {`,
+          `    key: "${key}",`,
+          `    default: ${JSON.stringify(value.default)},`,
+          `  } as ConfigItem<"${key}">,`,
         ]
       }),
     '}',
@@ -153,7 +165,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
     lines = lines.map(line => line ? `  ${line}` : line)
     lines.unshift(
-      ...generateCommentBlock(`Extension Meta for \`${extensionName}\``, 0),
+      ...generateCommentBlock(`Extension Meta for \`${extensionId}\``, 0),
       `export namespace ${namespace} {`,
     )
     lines.push(
@@ -193,27 +205,53 @@ function generateCommentBlock(text?: string, padding = 0): string[] {
   ]
 }
 
-function typeFromSchema(schema: any): string {
+function typeFromSchema(schema: any, isSubType = false): string {
   if (!schema)
     return 'unknown'
+
+  const types: string[] = []
+
   switch (schema.type) {
     case 'boolean':
-      return 'boolean'
+      types.push('boolean')
+      break
     case 'string':
       if (schema.enum) {
-        return `(${schema.enum.map((v: string) => JSON.stringify(v)).join(' | ')})`
+        types.push(...schema.enum.map((v: string) => JSON.stringify(v)))
+        break
       }
-      return 'string'
+      types.push('string')
+      break
     case 'number':
-      return 'number'
+      types.push('number')
+      break
     case 'array':
       if (schema.items) {
-        return `${typeFromSchema(schema.items)}[]`
+        types.push(`${typeFromSchema(schema.items, true)}[]`)
+        break
       }
-      return 'unknown[]'
+      types.push('unknown[]')
+      break
     case 'object':
-      return 'Record<string, unknown>'
+      if (schema.items) {
+        types.push(`Record<string, ${typeFromSchema(schema.items, true)}>`)
+        break
+      }
+      types.push('Record<string, unknown>')
+      break
     default:
-      return 'unknown'
+      types.push('unknown')
   }
+
+  if (!isSubType) {
+    if (!('default' in schema) || schema.default === undefined)
+      types.push('undefined')
+    else if (schema.default === null)
+      types.push('null')
+  }
+
+  if (types.length === 1)
+    return types[0]
+  else
+    return `(${types.join(' | ')})`
 }
