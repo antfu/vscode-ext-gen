@@ -20,6 +20,12 @@ export interface GenerateOptions {
   namespace?: string | boolean
 }
 
+function convertCase(input: string) {
+  if (input.match(/^[a-z0-9$]*$/i) && !input.match(/^\d/)) // Valid JS identifier, keep as-is
+    return input
+  return camelCase(input)
+}
+
 export function generate(packageJson: any, options: GenerateOptions = {}) {
   let {
     header = true,
@@ -54,7 +60,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...generateCommentBlock('Type union of all commands'),
+    ...commentBlock('Type union of all commands'),
   )
   if (!packageJson.contributes?.commands?.length) {
     lines.push('export type CommandKey = never')
@@ -70,14 +76,14 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...generateCommentBlock(`Commands map registed by \`${extensionId}\``),
+    ...commentBlock(`Commands map registed by \`${extensionId}\``),
     'export const commands = {',
     ...(packageJson.contributes?.commands || [])
       .flatMap((c: any) => {
         const name = withoutExtensionPrefix(c.command)
         return [
-          ...generateCommentBlock(`${c.title}\n@value \`${c.command}\``, 2),
-          `  ${camelCase(name)}: ${JSON.stringify(c.command)},`,
+          ...commentBlock(`${c.title}\n@value \`${c.command}\``, 2),
+          `  ${convertCase(name)}: ${JSON.stringify(c.command)},`,
         ]
       }),
     '} satisfies Record<string, CommandKey>',
@@ -89,7 +95,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...generateCommentBlock('Type union of all configs'),
+    ...commentBlock('Type union of all configs'),
   )
   if (!Object.keys(configsObject).length) {
     lines.push('export type ConfigKey = never')
@@ -121,7 +127,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     ...Object.entries(configsObject)
       .flatMap(([key]: any) => {
         return [
-          `  ${camelCase(withoutExtensionPrefix(key))}: ${JSON.stringify(key)},`,
+          `  ${convertCase(withoutExtensionPrefix(key))}: ${JSON.stringify(key)},`,
         ]
       }),
     '}',
@@ -138,19 +144,19 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...generateCommentBlock(`Configs map registed by \`${extensionId}\``),
+    ...commentBlock(`Configs map registed by \`${extensionId}\``),
     'export const configs = {',
     ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
         const name = withoutExtensionPrefix(key)
         return [
-          ...generateCommentBlock([
+          ...commentBlock([
             value.description,
             `@key \`${key}\``,
             `@default \`${JSON.stringify(value.default)}\``,
             `@type \`${value.type}\``,
           ].join('\n'), 2),
-          `  ${camelCase(name)}: {`,
+          `  ${convertCase(name)}: {`,
           `    key: "${key}",`,
           `    default: ${JSON.stringify(value.default)},`,
           `  } as ConfigItem<"${key}">,`,
@@ -159,13 +165,39 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     '}',
   )
 
+  const scopedConfigs = Object.entries(configsObject)
+    .filter(([key]) => key.startsWith(extensionPrefix))
+
+  lines.push(
+    '',
+    'export interface ScopedConfigKeyTypeMap {',
+    ...scopedConfigs
+      .map(([key, value]) => {
+        return `  ${JSON.stringify(withoutExtensionPrefix(key))}: ${typeFromSchema(value)},`
+      }),
+    '}',
+    '',
+    'export const scopedConfigs = {',
+    `  scope: ${JSON.stringify(packageJson.name)},`,
+    `  defaults: {`,
+    ...scopedConfigs
+      .map(([key, value]: any) => {
+        return `    ${JSON.stringify(withoutExtensionPrefix(key))}: ${JSON.stringify(value.default)},`
+      }),
+    `  } satisfies ScopedConfigKeyTypeMap,`,
+    `}`,
+    '',
+  )
+
+  // ========== Namespace ==========
+
   if (namespace) {
     if (namespace === true)
       namespace = 'ExtensionMeta'
 
     lines = lines.map(line => line ? `  ${line}` : line)
     lines.unshift(
-      ...generateCommentBlock(`Extension Meta for \`${extensionId}\``, 0),
+      ...commentBlock(`Extension Meta for \`${extensionId}\``, 0),
       `export namespace ${namespace} {`,
     )
     lines.push(
@@ -192,7 +224,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   return lines.join('\n')
 }
 
-function generateCommentBlock(text?: string, padding = 0): string[] {
+function commentBlock(text?: string, padding = 0): string[] {
   const indent = ' '.repeat(padding)
   if (!text) {
     return []
