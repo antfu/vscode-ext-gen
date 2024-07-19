@@ -18,6 +18,10 @@ export interface GenerateOptions {
    * @default false
    */
   namespace?: string | boolean
+  /**
+   * The extension prefix, default to the package name
+   */
+  prefix?: string
 }
 
 function convertCase(input: string) {
@@ -30,6 +34,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   let {
     header = true,
     namespace = false,
+    prefix = packageJson.name,
   } = options
 
   let lines: string[] = [
@@ -46,7 +51,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     'export const extensionId = `${publisher}.${name}`',
   )
 
-  const extensionPrefix = `${packageJson.name}.`
+  const extensionPrefix = `${prefix}.`
   const extensionId = `${packageJson.publisher}.${packageJson.name}`
 
   function withoutExtensionPrefix(name: string) {
@@ -178,7 +183,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     '}',
     '',
     'export const scopedConfigs = {',
-    `  scope: ${JSON.stringify(packageJson.name)},`,
+    `  scope: ${JSON.stringify(prefix)},`,
     `  defaults: {`,
     ...scopedConfigs
       .map(([key, value]: any) => {
