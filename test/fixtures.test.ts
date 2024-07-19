@@ -5,7 +5,10 @@ import fg from 'fast-glob'
 import { generate } from '../src'
 
 describe('fixtures', async () => {
-  const dirs = await fg('./fixtures/*', { onlyDirectories: true })
+  const dirs = await fg([
+    './fixtures/*',
+    '!./fixtures/forks',
+  ], { onlyDirectories: true })
 
   for (const dir of dirs) {
     it(basename(dir), async () => {
@@ -15,4 +18,11 @@ describe('fixtures', async () => {
         .toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
     })
   }
+
+  it('vscode-iconify-fork', async () => {
+    const upstreamJson = JSON.parse(await fs.readFile('./fixtures/vscode-iconify/package.json', 'utf-8'))
+    const json = JSON.parse(await fs.readFile('./fixtures/forks/vscode-iconify-fork/package.json', 'utf-8'))
+
+    await expect(generate(json, { prefix: upstreamJson.name })).toMatchFileSnapshot('./output/vscode-iconify-fork.ts')
+  })
 })
