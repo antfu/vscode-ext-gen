@@ -4,3 +4,6 @@
 [submodule "fixtures/i18n-ally"]
 	path = fixtures/i18n-ally
 	url = https://github.com/lokalise/i18n-ally
+[submodule "fixtures/vscode-iconify-fork"]
+	path = fixtures/vscode-iconify-fork
+	url = https://github.com/kvoon3/vscode-iconify-fork
