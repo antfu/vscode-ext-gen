@@ -19,9 +19,13 @@ export interface GenerateOptions {
    */
   namespace?: string | boolean
   /**
-   * The extension prefix, default to the package name
+   * The package scope for commands and configs.
+   *
+   * Default to the package name.
+   *
+   * Useful when your extension name has different prefix from the package name.
    */
-  prefix?: string
+  extensionScope?: string
 }
 
 function convertCase(input: string) {
@@ -34,7 +38,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   let {
     header = true,
     namespace = false,
-    prefix = packageJson.name,
+    extensionScope = packageJson.name,
   } = options
 
   let lines: string[] = [
@@ -51,12 +55,12 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     'export const extensionId = `${publisher}.${name}`',
   )
 
-  const extensionPrefix = `${prefix}.`
+  const extensionScopeWithDot = `${extensionScope}.`
   const extensionId = `${packageJson.publisher}.${packageJson.name}`
 
   function withoutExtensionPrefix(name: string) {
-    if (name.startsWith(extensionPrefix)) {
-      return name.slice(extensionPrefix.length)
+    if (name.startsWith(extensionScopeWithDot)) {
+      return name.slice(extensionScopeWithDot.length)
     }
     return name
   }
@@ -171,7 +175,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   )
 
   const scopedConfigs = Object.entries(configsObject)
-    .filter(([key]) => key.startsWith(extensionPrefix))
+    .filter(([key]) => key.startsWith(extensionScopeWithDot))
 
   lines.push(
     '',
@@ -183,7 +187,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     '}',
     '',
     'export const scopedConfigs = {',
-    `  scope: ${JSON.stringify(prefix)},`,
+    `  scope: ${JSON.stringify(extensionScope)},`,
     `  defaults: {`,
     ...scopedConfigs
       .map(([key, value]: any) => {
