@@ -239,9 +239,12 @@ function commentBlock(text?: string, padding = 0): string[] {
     return []
   }
 
+  // Avoid premature closure of the comment block due to the presence of "*/" in the text
+  const _text = text.replace(/\*\//g, '*\\/')
+
   return [
     `${indent}/**`,
-    ...text.split(/\n/g).map(l => `${indent} * ${l}`),
+    ..._text.split(/\n/g).map(l => `${indent} * ${l}`),
     `${indent} */`,
   ]
 }
