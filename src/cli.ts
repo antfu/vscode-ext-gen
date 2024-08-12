@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import path from 'node:path'
 import cac from 'cac'
 import { version } from '../package.json'
 import { generate } from '.'
@@ -18,6 +19,8 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
       namespace: options.namespace === 'false' ? false : options.namespace,
       extensionScope: options.scope,
     })
+    const outputDir = path.dirname(options.output)
+    await fs.mkdir(outputDir, { recursive: true })
     await fs.writeFile(options.output, file, 'utf-8')
   })
 
