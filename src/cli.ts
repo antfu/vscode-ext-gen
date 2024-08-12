@@ -20,8 +20,7 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
       extensionScope: options.scope,
     })
     const outputDir = path.dirname(options.output)
-    if (!fs.existsSync(outputDir))
-      await fs.mkdir(outputDir, { recursive: true })
+    await fs.mkdir(outputDir, { recursive: true })
     await fs.writeFile(options.output, file, 'utf-8')
   })
 
