@@ -10,3 +10,6 @@
 [submodule "fixtures/vscode-smart-clicks"]
 	path = fixtures/vscode-smart-clicks
 	url = https://github.com/antfu/vscode-smart-clicks
+[submodule "fixtures/vscode-which-key"]
+	path = fixtures/vscode-which-key
+	url = https://github.com/VSpaceCode/vscode-which-key.git
