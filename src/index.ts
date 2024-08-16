@@ -296,17 +296,11 @@ function typeFromSchema(schema: any, isSubType = false): string {
       types.push('unknown')
   }
 
-  if (!isSubType) {
-    if (schema.type === 'object') {
-      if (!('default' in schema) && !('properties' in schema))
-        types.push('{}')
-    }
-    else {
-      if (!('default' in schema) || schema.default === undefined)
-        types.push('undefined')
-      else if (schema.default === null)
-        types.push('null')
-    }
+  if (!isSubType && schema.type !== 'object') {
+    if (!('default' in schema) || schema.default === undefined)
+      types.push('undefined')
+    else if (schema.default === null)
+      types.push('null')
   }
 
   if (types.length === 1)
