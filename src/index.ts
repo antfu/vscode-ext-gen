@@ -100,7 +100,10 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   // ========== Configs ==========
 
-  const configsObject = packageJson.contributes?.configuration?.properties || {}
+  const configsObject = (Array.isArray(packageJson.contributes?.configuration)
+    ? packageJson.contributes?.configuration?.[0].properties
+    : packageJson.contributes?.configuration?.properties
+  ) || {}
 
   lines.push(
     '',
