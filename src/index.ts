@@ -283,7 +283,7 @@ function typeFromSchema(schema: any, isSubType = false): string {
     case 'object':
       if (schema.properties) {
         const propertyKeyValues = Object.entries(schema.properties).map(([key, value]) => {
-          return `'${key}': ${typeFromSchema(value)}`
+          return `'${key}': ${typeFromSchema(value, true)}`
         })
 
         types.push(`{ ${propertyKeyValues.join('; ')} }`)
