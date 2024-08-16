@@ -39,7 +39,7 @@ export interface ConfigKeyTypeMap {
   "smartClicks.clicksInterval": number,
   "smartClicks.triggerDelay": number,
   "smartClicks.htmlLanguageIds": string[],
-  "smartClicks.rules": (Record<string, unknown> | undefined),
+  "smartClicks.rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
 }
 
 export interface ConfigShorthandMap {
@@ -92,12 +92,12 @@ export const configs = {
   /**
    * Rule toggles
    * @key `smartClicks.rules`
-   * @default `undefined`
+   * @default `{ "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true }`
    * @type `object`
    */
   rules: {
     key: "smartClicks.rules",
-    default: undefined,
+    default: { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
   } as ConfigItem<"smartClicks.rules">,
 }
 
@@ -105,7 +105,7 @@ export interface ScopedConfigKeyTypeMap {
   "clicksInterval": number,
   "triggerDelay": number,
   "htmlLanguageIds": string[],
-  "rules": (Record<string, unknown> | undefined),
+  "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
 }
 
 export const scopedConfigs = {
@@ -114,7 +114,7 @@ export const scopedConfigs = {
     "clicksInterval": 600,
     "triggerDelay": 150,
     "htmlLanguageIds": ["html","vue","svelte"],
-    "rules": undefined,
+    "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
   } satisfies ScopedConfigKeyTypeMap,
 }
 

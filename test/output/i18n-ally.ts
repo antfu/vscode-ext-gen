@@ -419,7 +419,7 @@ export interface ConfigKeyTypeMap {
   "i18n-ally.regex.key": (string | undefined),
   "i18n-ally.regex.usageMatch": (string[] | undefined),
   "i18n-ally.regex.usageMatchAppend": (string[] | undefined),
-  "i18n-ally.refactor.templates": (Record<string, unknown>[] | undefined),
+  "i18n-ally.refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text" | undefined); 'template': (string | undefined); 'templates': (string[] | undefined); 'include': (string[] | undefined); 'exclude': (string[] | undefined) }[] | undefined),
   "i18n-ally.translate.saveAsCandidates": boolean,
   "i18n-ally.translate.fallbackToKey": boolean,
   "i18n-ally.translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
@@ -458,7 +458,7 @@ export interface ConfigKeyTypeMap {
   "i18n-ally.extract.autoDetect": boolean,
   "i18n-ally.extract.ignored": (string[] | undefined),
   "i18n-ally.extract.ignoredByFiles": Record<string, unknown>,
-  "i18n-ally.parserOptions": (Record<string, unknown> | undefined),
+  "i18n-ally.parserOptions": (Record<string, unknown> | {}),
   "i18n-ally.defaultNamespace": (string | undefined),
   "i18n-ally.derivedKeyRules": (unknown | undefined),
   "i18n-ally.filenameMatchRegex": (unknown | undefined),
@@ -1389,12 +1389,12 @@ export const configs = {
   /**
    * 
    * @key `i18n-ally.parserOptions`
-   * @default `undefined`
+   * @default `{}`
    * @type `object`
    */
   parserOptions: {
     key: "i18n-ally.parserOptions",
-    default: undefined,
+    default: {},
   } as ConfigItem<"i18n-ally.parserOptions">,
   /**
    * %config.default_namespace%
@@ -1649,7 +1649,7 @@ export interface ScopedConfigKeyTypeMap {
   "regex.key": (string | undefined),
   "regex.usageMatch": (string[] | undefined),
   "regex.usageMatchAppend": (string[] | undefined),
-  "refactor.templates": (Record<string, unknown>[] | undefined),
+  "refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text" | undefined); 'template': (string | undefined); 'templates': (string[] | undefined); 'include': (string[] | undefined); 'exclude': (string[] | undefined) }[] | undefined),
   "translate.saveAsCandidates": boolean,
   "translate.fallbackToKey": boolean,
   "translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
@@ -1688,7 +1688,7 @@ export interface ScopedConfigKeyTypeMap {
   "extract.autoDetect": boolean,
   "extract.ignored": (string[] | undefined),
   "extract.ignoredByFiles": Record<string, unknown>,
-  "parserOptions": (Record<string, unknown> | undefined),
+  "parserOptions": (Record<string, unknown> | {}),
   "defaultNamespace": (string | undefined),
   "derivedKeyRules": (unknown | undefined),
   "filenameMatchRegex": (unknown | undefined),
@@ -1778,7 +1778,7 @@ export const scopedConfigs = {
     "extract.autoDetect": false,
     "extract.ignored": undefined,
     "extract.ignoredByFiles": {},
-    "parserOptions": undefined,
+    "parserOptions": {},
     "defaultNamespace": undefined,
     "derivedKeyRules": undefined,
     "filenameMatchRegex": undefined,
