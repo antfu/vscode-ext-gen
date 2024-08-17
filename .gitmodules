@@ -7,3 +7,9 @@
 [submodule "fixtures/vscode-iconify-fork"]
 	path = fixtures/vscode-iconify-fork
 	url = https://github.com/kvoon3/vscode-iconify-fork
+[submodule "fixtures/vscode-smart-clicks"]
+	path = fixtures/vscode-smart-clicks
+	url = https://github.com/antfu/vscode-smart-clicks
+[submodule "fixtures/vscode-which-key"]
+	path = fixtures/vscode-which-key
+	url = https://github.com/VSpaceCode/vscode-which-key.git

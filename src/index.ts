@@ -100,7 +100,10 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   // ========== Configs ==========
 
-  const configsObject = packageJson.contributes?.configuration?.properties || {}
+  const configsObject = (Array.isArray(packageJson.contributes?.configuration)
+    ? packageJson.contributes?.configuration?.[0].properties
+    : packageJson.contributes?.configuration?.properties
+  ) || {}
 
   lines.push(
     '',
@@ -158,16 +161,17 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
         const name = withoutExtensionPrefix(key)
+        const defaultValue = defaultValFromSchema(value)
         return [
           ...commentBlock([
             value.description,
             `@key \`${key}\``,
-            `@default \`${JSON.stringify(value.default)}\``,
+            `@default \`${defaultValue}\``,
             `@type \`${value.type}\``,
           ].join('\n'), 2),
           `  ${convertCase(name)}: {`,
           `    key: "${key}",`,
-          `    default: ${JSON.stringify(value.default)},`,
+          `    default: ${defaultValue},`,
           `  } as ConfigItem<"${key}">,`,
         ]
       }),
@@ -191,7 +195,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     `  defaults: {`,
     ...scopedConfigs
       .map(([key, value]: any) => {
-        return `    ${JSON.stringify(withoutExtensionPrefix(key))}: ${JSON.stringify(value.default)},`
+        return `    ${JSON.stringify(withoutExtensionPrefix(key))}: ${defaultValFromSchema(value)},`
       }),
     `  } satisfies ScopedConfigKeyTypeMap,`,
     `}`,
@@ -277,8 +281,13 @@ function typeFromSchema(schema: any, isSubType = false): string {
       types.push('unknown[]')
       break
     case 'object':
-      if (schema.items) {
-        types.push(`Record<string, ${typeFromSchema(schema.items, true)}>`)
+      if (schema.properties) {
+        const propertyKeyValues = Object.entries(schema.properties).map(([key, value]) => {
+          return `'${key}': ${typeFromSchema(value, true)}`
+        })
+
+        types.push(`{ ${propertyKeyValues.join('; ')} }`)
+
         break
       }
       types.push('Record<string, unknown>')
@@ -287,7 +296,7 @@ function typeFromSchema(schema: any, isSubType = false): string {
       types.push('unknown')
   }
 
-  if (!isSubType) {
+  if (!isSubType && schema.type !== 'object') {
     if (!('default' in schema) || schema.default === undefined)
       types.push('undefined')
     else if (schema.default === null)
@@ -298,4 +307,22 @@ function typeFromSchema(schema: any, isSubType = false): string {
     return types[0]
   else
     return `(${types.join(' | ')})`
+}
+
+export function defaultValFromSchema(schema: any) {
+  if (schema.type !== 'object')
+    return JSON.stringify(schema.default)
+
+  if ('default' in schema)
+    return JSON.stringify(schema.default)
+
+  if ('properties' in schema) {
+    const keyValues = Object.entries(schema.properties).map(([key, value]): string => {
+      return `${JSON.stringify(key)}: ${defaultValFromSchema(value)}`
+    })
+
+    return `{ ${keyValues.join(', ')} }`
+  }
+
+  return '{}'
 }
