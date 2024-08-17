@@ -78,7 +78,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     lines.push(
       'export type CommandKey = ',
       ...(packageJson.contributes?.commands || []).map((c: any) =>
-      `  | ${JSON.stringify(c.command)}`,
+        `  | ${JSON.stringify(c.command)}`,
       ),
     )
   }
@@ -116,7 +116,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     lines.push(
       'export type ConfigKey = ',
       ...Object.keys(configsObject).map(c =>
-      `  | "${c}"`,
+        `  | "${c}"`,
       ),
     )
   }
