@@ -34,7 +34,9 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
       if (raw === content && !raw.includes('<!-- commands -->') && !raw.includes('<!-- configs -->')) {
         console.log('Add `<!-- commands --><!-- commands -->` and `<!-- configs --><!-- configs -->` to your README.md to insert commands and configurations table')
       }
-      await fs.writeFile(options.doc, content, 'utf-8')
+      else {
+        await fs.writeFile(options.readme, content, 'utf-8')
+      }
     }
   })
 
