@@ -392,7 +392,7 @@ export function defaultValFromSchema(schema: any): string | undefined {
 
 export function formatTable(table: string[][]) {
   if (!table.length)
-    return '<!-- empty -->'
+    return '**No data**'
 
   const [header, ...body] = table
   const colChars = Array.from<number>({ length: header.length }).fill(0)

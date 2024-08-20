@@ -28,8 +28,8 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
     if (options.readme && options.readme !== 'false') {
       const raw = await fs.readFile(options.readme, 'utf-8')
       const content = raw
-        .replace(/<!-- commands -->[\s\S]*<!-- commands -->/, `<!-- commands -->\n${markdown.commandsTable}\n<!-- commands -->`)
-        .replace(/<!-- configs -->[\s\S]*<!-- configs -->/, `<!-- configs -->\n${markdown.configsTable}\n<!-- configs -->`)
+        .replace(/<!-- commands -->[\s\S]*<!-- commands -->/, `<!-- commands -->\n\n${markdown.commandsTable}\n\n<!-- commands -->`)
+        .replace(/<!-- configs -->[\s\S]*<!-- configs -->/, `<!-- configs -->\n\n${markdown.configsTable}\n\n<!-- configs -->`)
 
       if (raw === content && !raw.includes('<!-- commands -->') && !raw.includes('<!-- configs -->')) {
         console.log('Add `<!-- commands --><!-- commands -->` and `<!-- configs --><!-- configs -->` to your README.md to insert commands and configurations table')
