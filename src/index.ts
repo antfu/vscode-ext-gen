@@ -34,15 +34,74 @@ function convertCase(input: string) {
   return camelCase(input)
 }
 
-export function generate(packageJson: any, options: GenerateOptions = {}) {
+function getConfigObject(packageJson: any) {
+  return (Array.isArray(packageJson.contributes?.configuration)
+    ? packageJson.contributes?.configuration?.[0].properties
+    : packageJson.contributes?.configuration?.properties
+  ) || {}
+}
+
+export function generateMarkdown(packageJson: any) {
+  const MAX_TABLE_COL_CHAR = 150
+
+  let commandsTable = [
+    ['Command', 'Title'],
+  ]
+
+  let configsTable = [
+    ['Key', 'Description', 'Type', 'Default'],
+  ]
+
+  if (packageJson.contributes?.commands.length) {
+    commandsTable.push(
+      ...packageJson.contributes.commands.map((c: any) => {
+        return [
+          `\`${c.command}\``,
+          c.category
+            ? `${c.category}: ${c.title}`
+            : c.title,
+        ]
+      }),
+    )
+  }
+  else {
+    commandsTable = []
+  }
+
+  const configsObject = getConfigObject(packageJson)
+
+  if (Object.keys(configsObject).length) {
+    configsTable.push(
+      ...Object.entries(configsObject)
+        .map(([key, value]: any) => {
+          const defaultVal = defaultValFromSchema(value) || ''
+          return [
+            `\`${key}\``,
+            value?.description || '',
+            `\`${String(value.type)}\``,
+            defaultVal.length < MAX_TABLE_COL_CHAR ? `\`${defaultVal}\`` : 'See package.json',
+          ]
+        }),
+    )
+  }
+  else {
+    configsTable = []
+  }
+
+  return {
+    commandsTable: formatTable(commandsTable),
+    configsTable: formatTable(configsTable),
+  }
+}
+
+export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   let {
     header = true,
     namespace = false,
     extensionScope = packageJson.name,
   } = options
 
-  let lines: string[] = [
-  ]
+  let lines: string[] = []
 
   lines.push('// Meta info')
 
@@ -99,11 +158,7 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   )
 
   // ========== Configs ==========
-
-  const configsObject = (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes?.configuration?.[0].properties
-    : packageJson.contributes?.configuration?.properties
-  ) || {}
+  const configsObject = getConfigObject(packageJson)
 
   lines.push(
     '',
@@ -234,7 +289,15 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   }
 
   lines.push('') // EOL
+
   return lines.join('\n')
+}
+
+export function generate(packageJson: any, options: GenerateOptions = {}) {
+  return {
+    dts: generateDTS(packageJson, options),
+    markdown: generateMarkdown(packageJson),
+  }
 }
 
 function commentBlock(text?: string, padding = 0): string[] {
@@ -309,7 +372,7 @@ function typeFromSchema(schema: any, isSubType = false): string {
     return `(${types.join(' | ')})`
 }
 
-export function defaultValFromSchema(schema: any) {
+export function defaultValFromSchema(schema: any): string | undefined {
   if (schema.type !== 'object')
     return JSON.stringify(schema.default)
 
@@ -325,4 +388,30 @@ export function defaultValFromSchema(schema: any) {
   }
 
   return '{}'
+}
+
+export function formatTable(table: string[][]) {
+  if (!table.length)
+    return '<!-- empty -->'
+
+  const [header, ...body] = table
+  const colChars = Array.from<number>({ length: header.length }).fill(0)
+
+  table.forEach((row) => {
+    row.forEach((col, idx) => {
+      colChars[idx] = Math.max(colChars[idx], col.length)
+    })
+  })
+
+  table.forEach((row, rowIdx) => {
+    row.forEach((col, colIdx) => {
+      table[rowIdx][colIdx] = col.padEnd(colChars[colIdx], ' ')
+    })
+  })
+
+  return [
+    `| ${header.join(' | ')} |`,
+    `| ${colChars.map(w => '-'.repeat(w)).join(' | ')} |`,
+    ...body.map(row => `| ${row.join(' | ')} |`),
+  ].join('\n')
 }

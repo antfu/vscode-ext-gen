@@ -23,8 +23,21 @@ describe('fixtures', async () => {
           return extensionScope = 'smartClicks'
       }
       finally {
-        await expect(generate(json, { extensionScope }))
-          .toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
+        const { dts, markdown } = generate(json, { extensionScope })
+        await expect(dts).toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
+
+        const readmeLines = [
+          `# ${basename(dir)}`,
+          '',
+          '## Commands',
+          '',
+          markdown.commandsTable,
+          '',
+          '## Configuration',
+          '',
+          markdown.configsTable,
+        ]
+        await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/${basename(dir)}.README.md`)
       }
     })
   }

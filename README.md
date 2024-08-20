@@ -6,7 +6,7 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-Generate TypeScript meta info for VS Code extension from package.json
+Generate TypeScript meta info and Markdown tables for VS Code extension from package.json
 
 ## Usage
 
@@ -139,6 +139,26 @@ export function activate() {
 ```
 
 For a full example, check [this file](./test/output/vscode-iconify.ts)
+
+## Generate Docs
+
+Add comments `<!-- commands -->` and `<!-- configs -->` as the slots in your README.md:
+
+```md
+# Your Extension
+
+## Commands
+
+<!-- commands -->
+<!-- commands -->
+
+## Configurations
+
+<!-- configs -->
+<!-- configs -->
+```
+
+They will be replaced with the generated tables when you run `npx vscode-ext-gen`.
 
 ## Sponsors
 
