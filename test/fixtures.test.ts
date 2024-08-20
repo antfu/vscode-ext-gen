@@ -35,7 +35,7 @@ describe('fixtures', async () => {
           '',
           '## Configuration',
           '',
-          markdown.commandsTable,
+          markdown.configsTable,
         ]
         await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/${basename(dir)}.README.md`)
       }

@@ -45,11 +45,11 @@ export function generateMarkdown(packageJson: any) {
   const MAX_TABLE_COL_CHAR = 150
 
   let commandsTable = [
-    ['ID', 'Title'],
+    ['Command', 'Title'],
   ]
 
   let configsTable = [
-    ['Config', 'Description', 'Type', 'Default'],
+    ['Key', 'Description', 'Type', 'Default'],
   ]
 
   if (packageJson.contributes?.commands.length) {
@@ -78,8 +78,8 @@ export function generateMarkdown(packageJson: any) {
           return [
             `\`${key}\``,
             value?.description || '',
-            String(value.type),
-            defaultVal.length < MAX_TABLE_COL_CHAR ? defaultVal : 'See package.json',
+            `\`${String(value.type)}\``,
+            defaultVal.length < MAX_TABLE_COL_CHAR ? `\`${defaultVal}\`` : 'See package.json',
           ]
         }),
     )
