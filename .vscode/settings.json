@@ -3,6 +3,11 @@
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
+  "git.autoRepositoryDetection": false,
+  "git.ignoredRepositories": [
+    "./fixtures/*"
+  ],
+
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
