@@ -34,25 +34,74 @@ function convertCase(input: string) {
   return camelCase(input)
 }
 
-export function generate(packageJson: any, options: GenerateOptions = {}) {
-  let {
-    header = true,
-    namespace = false,
-    extensionScope = packageJson.name,
-  } = options
+function getConfigObject(packageJson: any) {
+  return (Array.isArray(packageJson.contributes?.configuration)
+    ? packageJson.contributes?.configuration?.[0].properties
+    : packageJson.contributes?.configuration?.properties
+  ) || {}
+}
 
-  let lines: string[] = [
-  ]
-
+export function generateMarkdown(packageJson: any) {
   const MAX_TABLE_COL_CHAR = 150
 
   let commandsTable = [
     ['ID', 'Title'],
   ]
 
-  let configTable = [
+  let configsTable = [
     ['Config', 'Description', 'Type', 'Default'],
   ]
+
+  if (packageJson.contributes?.commands.length) {
+    commandsTable.push(
+      ...packageJson.contributes.commands.map((c: any) => {
+        return [
+          `\`${c.command}\``,
+          c.category
+            ? `${c.category}: ${c.title}`
+            : c.title,
+        ]
+      }),
+    )
+  }
+  else {
+    commandsTable = []
+  }
+
+  const configsObject = getConfigObject(packageJson)
+
+  if (Object.keys(configsObject).length) {
+    configsTable.push(
+      ...Object.entries(configsObject)
+        .map(([key, value]: any) => {
+          const defaultVal = defaultValFromSchema(value) || ''
+          return [
+            `\`${key}\``,
+            value?.description || '',
+            String(value.type),
+            defaultVal.length < MAX_TABLE_COL_CHAR ? defaultVal : 'See package.json',
+          ]
+        }),
+    )
+  }
+  else {
+    configsTable = []
+  }
+
+  return {
+    commandsTable: formatTable(commandsTable),
+    configsTable: formatTable(configsTable),
+  }
+}
+
+export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
+  let {
+    header = true,
+    namespace = false,
+    extensionScope = packageJson.name,
+  } = options
+
+  let lines: string[] = []
 
   lines.push('// Meta info')
 
@@ -108,28 +157,8 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     '} satisfies Record<string, CommandKey>',
   )
 
-  if (packageJson.contributes?.commands.length) {
-    commandsTable.push(
-      ...packageJson.contributes.commands.map((c: any) => {
-        return [
-          `\`${c.command}\``,
-          c.category
-            ? `${c.category}: ${c.title}`
-            : c.title,
-        ]
-      }),
-    )
-  }
-  else {
-    commandsTable = []
-  }
-
   // ========== Configs ==========
-
-  const configsObject = (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes?.configuration?.[0].properties
-    : packageJson.contributes?.configuration?.properties
-  ) || {}
+  const configsObject = getConfigObject(packageJson)
 
   lines.push(
     '',
@@ -228,24 +257,6 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     '',
   )
 
-  if (Object.keys(configsObject).length) {
-    configTable.push(
-      ...Object.entries(configsObject)
-        .map(([key, value]: any) => {
-          const defaultVal = defaultValFromSchema(value) || ''
-          return [
-            `\`${key}\``,
-            value?.description || '',
-            String(value.type),
-            defaultVal.length < MAX_TABLE_COL_CHAR ? defaultVal : 'See package.json',
-          ]
-        }),
-    )
-  }
-  else {
-    configTable = []
-  }
-
   // ========== Namespace ==========
 
   if (namespace) {
@@ -279,10 +290,13 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push('') // EOL
 
+  return lines.join('\n')
+}
+
+export function generate(packageJson: any, options: GenerateOptions = {}) {
   return {
-    file: lines.join('\n'),
-    commandsDocs: formatTable(commandsTable),
-    configDocs: formatTable(configTable),
+    dts: generateDTS(packageJson, options),
+    markdown: generateMarkdown(packageJson),
   }
 }
 

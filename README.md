@@ -6,7 +6,7 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-Generate TypeScript meta info for VS Code extension from package.json
+Generate TypeScript meta info and Markdown tables for VS Code extension from package.json
 
 ## Usage
 
@@ -142,39 +142,23 @@ For a full example, check [this file](./test/output/vscode-iconify.ts)
 
 ## Generate Docs
 
-`commands` and `configuration` information can be generated as Markdown tables:
+Add comments `<!-- commands -->` and `<!-- configs -->` as the slots in your README.md:
 
-1. Continuous update your docs:
+```md
+# Your Extension
 
-    ```jsonc
-    // settings.json
-    {
-      "emeraldwalk.runonsave": {
-        "commands": [
-          {
-            "match": "README.md",
-            "isAsync": true,
-            "cmd": "npm run update"
-          }
-        ]
-      }
-    }
-    ```
-2.  add comments as the slot in your docs:
+## Commands
 
-    ```md
-    # Your Extension
+<!-- commands -->
+<!-- commands -->
 
-    ## commands
+## Configurations
 
-    <!-- commands -->
-    <!-- commands -->
+<!-- configs -->
+<!-- configs -->
+```
 
-    ## Configuration
-
-    <!-- configuration -->
-    <!-- configuration -->
-    ```
+They will be replaced with the generated tables when you run `npx vscode-ext-gen`.
 
 ## Sponsors
 

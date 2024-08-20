@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import { basename } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import fg from 'fast-glob'
-import { generate } from '../src'
+import { generate, generateDTS } from '../src'
 
 describe('fixtures', async () => {
   const dirs = await fg([
@@ -23,21 +23,21 @@ describe('fixtures', async () => {
           return extensionScope = 'smartClicks'
       }
       finally {
-        const { file, commandsDocs, configDocs } = generate(json, { extensionScope })
-        await expect(file).toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
+        const { dts, markdown } = generate(json, { extensionScope })
+        await expect(dts).toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
 
         const readmeLines = [
           `# ${basename(dir)}`,
           '',
           '## Commands',
           '',
-          commandsDocs,
+          markdown.commandsTable,
           '',
           '## Configuration',
           '',
-          configDocs,
+          markdown.commandsTable,
         ]
-        await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/README.${basename(dir)}.md`)
+        await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/${basename(dir)}.README.md`)
       }
     })
   }
