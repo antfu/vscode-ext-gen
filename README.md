@@ -140,6 +140,42 @@ export function activate() {
 
 For a full example, check [this file](./test/output/vscode-iconify.ts)
 
+## Generate Docs
+
+`commands` and `configuration` information can be generated as Markdown tables:
+
+1. Continuous update your docs:
+
+    ```jsonc
+    // settings.json
+    {
+      "emeraldwalk.runonsave": {
+        "commands": [
+          {
+            "match": "README.md",
+            "isAsync": true,
+            "cmd": "npm run update"
+          }
+        ]
+      }
+    }
+    ```
+2.  add comments as the slot in your docs:
+
+    ```md
+    # Your Extension
+
+    ## commands
+
+    <!-- commands -->
+    <!-- commands -->
+
+    ## Configuration
+
+    <!-- configuration -->
+    <!-- configuration -->
+    ```
+
 ## Sponsors
 
 <p align="center">

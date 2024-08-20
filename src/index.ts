@@ -44,6 +44,16 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   let lines: string[] = [
   ]
 
+  const MAX_TABLE_COL_CHAR = 150
+
+  let commandsTable = [
+    ['ID', 'Title'],
+  ]
+
+  let configTable = [
+    ['Config', 'Description', 'Type', 'Default'],
+  ]
+
   lines.push('// Meta info')
 
   for (const key of forwardKeys) {
@@ -97,6 +107,22 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
       }),
     '} satisfies Record<string, CommandKey>',
   )
+
+  if (packageJson.contributes?.commands.length) {
+    commandsTable.push(
+      ...packageJson.contributes.commands.map((c: any) => {
+        return [
+          `\`${c.command}\``,
+          c.category
+            ? `${c.category}: ${c.title}`
+            : c.title,
+        ]
+      }),
+    )
+  }
+  else {
+    commandsTable = []
+  }
 
   // ========== Configs ==========
 
@@ -202,6 +228,24 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
     '',
   )
 
+  if (Object.keys(configsObject).length) {
+    configTable.push(
+      ...Object.entries(configsObject)
+        .map(([key, value]: any) => {
+          const defaultVal = defaultValFromSchema(value) || ''
+          return [
+            `\`${key}\``,
+            value?.description || '',
+            String(value.type),
+            defaultVal.length < MAX_TABLE_COL_CHAR ? defaultVal : 'See package.json',
+          ]
+        }),
+    )
+  }
+  else {
+    configTable = []
+  }
+
   // ========== Namespace ==========
 
   if (namespace) {
@@ -234,7 +278,12 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   }
 
   lines.push('') // EOL
-  return lines.join('\n')
+
+  return {
+    file: lines.join('\n'),
+    commandsDocs: formatTable(commandsTable),
+    configDocs: formatTable(configTable),
+  }
 }
 
 function commentBlock(text?: string, padding = 0): string[] {
@@ -309,7 +358,7 @@ function typeFromSchema(schema: any, isSubType = false): string {
     return `(${types.join(' | ')})`
 }
 
-export function defaultValFromSchema(schema: any) {
+export function defaultValFromSchema(schema: any): string | undefined {
   if (schema.type !== 'object')
     return JSON.stringify(schema.default)
 
@@ -325,4 +374,30 @@ export function defaultValFromSchema(schema: any) {
   }
 
   return '{}'
+}
+
+export function formatTable(table: string[][]) {
+  if (!table.length)
+    return '<!-- empty -->'
+
+  const [header, ...body] = table
+  const colChars = Array.from<number>({ length: header.length }).fill(0)
+
+  table.forEach((row) => {
+    row.forEach((col, idx) => {
+      colChars[idx] = Math.max(colChars[idx], col.length)
+    })
+  })
+
+  table.forEach((row, rowIdx) => {
+    row.forEach((col, colIdx) => {
+      table[rowIdx][colIdx] = col.padEnd(colChars[colIdx], ' ')
+    })
+  })
+
+  return [
+    `| ${header.join(' | ')} |`,
+    `| ${colChars.map(w => '-'.repeat(w)).join(' | ')} |`,
+    ...body.map(row => `| ${row.join(' | ')} |`),
+  ].join('\n')
 }
