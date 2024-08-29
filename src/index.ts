@@ -320,43 +320,46 @@ function typeFromSchema(schema: any, isSubType = false): string {
   if (!schema)
     return 'unknown'
 
+  const schemaTypes = Array.isArray(schema.type) ? schema.type : [schema.type]
   const types: string[] = []
 
-  switch (schema.type) {
-    case 'boolean':
-      types.push('boolean')
-      break
-    case 'string':
-      if (schema.enum) {
-        types.push(...schema.enum.map((v: string) => JSON.stringify(v)))
+  for (const schemaType of schemaTypes) {
+    switch (schemaType) {
+      case 'boolean':
+        types.push('boolean')
         break
-      }
-      types.push('string')
-      break
-    case 'number':
-      types.push('number')
-      break
-    case 'array':
-      if (schema.items) {
-        types.push(`${typeFromSchema(schema.items, true)}[]`)
+      case 'string':
+        if (schema.enum) {
+          types.push(...schema.enum.map((v: string) => JSON.stringify(v)))
+          break
+        }
+        types.push('string')
         break
-      }
-      types.push('unknown[]')
-      break
-    case 'object':
-      if (schema.properties) {
-        const propertyKeyValues = Object.entries(schema.properties).map(([key, value]) => {
-          return `'${key}': ${typeFromSchema(value, true)}`
-        })
+      case 'number':
+        types.push('number')
+        break
+      case 'array':
+        if (schema.items) {
+          types.push(`${typeFromSchema(schema.items, true)}[]`)
+          break
+        }
+        types.push('unknown[]')
+        break
+      case 'object':
+        if (schema.properties) {
+          const propertyKeyValues = Object.entries(schema.properties).map(([key, value]) => {
+            return `'${key}': ${typeFromSchema(value, true)}`
+          })
 
-        types.push(`{ ${propertyKeyValues.join('; ')} }`)
+          types.push(`{ ${propertyKeyValues.join('; ')} }`)
 
+          break
+        }
+        types.push('Record<string, unknown>')
         break
-      }
-      types.push('Record<string, unknown>')
-      break
-    default:
-      types.push('unknown')
+      default:
+        types.push('unknown')
+    }
   }
 
   if (!isSubType && schema.type !== 'object') {

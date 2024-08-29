@@ -381,7 +381,7 @@ export type ConfigKey =
 export interface ConfigKeyTypeMap {
   "i18n-ally.disabled": boolean,
   "i18n-ally.autoDetection": boolean,
-  "i18n-ally.localesPaths": (unknown | undefined),
+  "i18n-ally.localesPaths": (string | string[] | undefined),
   "i18n-ally.encoding": string,
   "i18n-ally.sourceLanguage": (string | undefined),
   "i18n-ally.displayLanguage": (string | undefined),
@@ -1611,7 +1611,7 @@ export const configs = {
 export interface ScopedConfigKeyTypeMap {
   "disabled": boolean,
   "autoDetection": boolean,
-  "localesPaths": (unknown | undefined),
+  "localesPaths": (string | string[] | undefined),
   "encoding": string,
   "sourceLanguage": (string | undefined),
   "displayLanguage": (string | undefined),
