@@ -266,9 +266,40 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     )
   }
 
-  // const scopedConfigs = Object.entries(configsObject)
-  //   .filter(([key]) => key.startsWith(extensionScopeWithDot))
-  // genScoped(lines, scopedConfigs, extensionScope)
+  function genBase(lines: string[], scopedConfigs: [string, any][], scope: string) {
+    const scopeWithDot = `${scope}.`
+
+    function removeScope(name: string) {
+      if (name.startsWith(scopeWithDot)) {
+        return name.slice(scopeWithDot.length)
+      }
+      return name
+    }
+
+    lines.push(
+      ``,
+      `export interface ScopedConfigKeyTypeMap {`,
+      ...scopedConfigs
+        .map(([key, value]) => {
+          return `  ${JSON.stringify(removeScope(key))}: ${typeFromSchema(value)},`
+        }),
+      '}',
+      '',
+      `export const scopedConfigs = {`,
+      `  scope: ${JSON.stringify(scope)},`,
+      `  defaults: {`,
+      ...scopedConfigs
+        .map(([key, value]: any) => {
+          return `    ${JSON.stringify(removeScope(key))}: ${defaultValFromSchema(value)},`
+        }),
+      `  } satisfies ScopedConfigKeyTypeMap,`,
+      `}`,
+      '',
+    )
+  }
+  const scopedConfigs = Object.entries(configsObject)
+    .filter(([key]) => key.startsWith(extensionScopeWithDot))
+  genBase(lines, scopedConfigs, extensionScope)
 
   const scopeKeys = Array.from(Object.keys(configsObject).reduce((acc, curr) => {
     const parts = curr.split('.')
