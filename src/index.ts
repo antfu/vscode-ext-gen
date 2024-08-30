@@ -1,4 +1,5 @@
 import { camelCase } from 'scule'
+import { assign, isArray } from 'radash'
 
 const forwardKeys = [
   'publisher',
@@ -34,9 +35,10 @@ function convertCase(input: string) {
   return camelCase(input)
 }
 
-function getConfigObject(packageJson: any) {
-  return (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes?.configuration?.[0].properties
+function getConfigObject(packageJson: any): Record<string, any> {
+  const conf = packageJson.contributes?.configuration
+  return (isArray(conf)
+    ? conf.reduce((acc, cur) => assign(acc, cur), {}).properties
     : packageJson.contributes?.configuration?.properties
   ) || {}
 }
@@ -232,31 +234,62 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       }),
     '}',
   )
+  function genScoped(lines: string[], scopedConfigs: [string, any][], scope: string) {
+    const scopeWithDot = `${scope}.`
 
-  const scopedConfigs = Object.entries(configsObject)
-    .filter(([key]) => key.startsWith(extensionScopeWithDot))
+    function removeScope(name: string) {
+      if (name.startsWith(scopeWithDot)) {
+        return name.slice(scopeWithDot.length)
+      }
+      return name
+    }
 
-  lines.push(
-    '',
-    'export interface ScopedConfigKeyTypeMap {',
-    ...scopedConfigs
-      .map(([key, value]) => {
-        return `  ${JSON.stringify(withoutExtensionPrefix(key))}: ${typeFromSchema(value)},`
-      }),
-    '}',
-    '',
-    'export const scopedConfigs = {',
-    `  scope: ${JSON.stringify(extensionScope)},`,
-    `  defaults: {`,
-    ...scopedConfigs
-      .map(([key, value]: any) => {
-        return `    ${JSON.stringify(withoutExtensionPrefix(key))}: ${defaultValFromSchema(value)},`
-      }),
-    `  } satisfies ScopedConfigKeyTypeMap,`,
-    `}`,
-    '',
-  )
+    lines.push(
+      ``,
+      `export interface Scoped${convertCase(scope)}ConfigKeyTypeMap {`,
+      ...scopedConfigs
+        .map(([key, value]) => {
+          return `  ${JSON.stringify(removeScope(key))}: ${typeFromSchema(value)},`
+        }),
+      '}',
+      '',
+      `export const scoped${convertCase(scope)}Configs = {`,
+      `  scope: ${JSON.stringify(scope)},`,
+      `  defaults: {`,
+      ...scopedConfigs
+        .map(([key, value]: any) => {
+          return `    ${JSON.stringify(removeScope(key))}: ${defaultValFromSchema(value)},`
+        }),
+      `  } satisfies Scoped${convertCase(scope)}ConfigKeyTypeMap,`,
+      `}`,
+      '',
+    )
+  }
 
+  // const scopedConfigs = Object.entries(configsObject)
+  //   .filter(([key]) => key.startsWith(extensionScopeWithDot))
+  // genScoped(lines, scopedConfigs, extensionScope)
+
+  const scopeKeys = Array.from(Object.keys(configsObject).reduce((acc, curr) => {
+    const parts = curr.split('.')
+    if (parts.length > 0) {
+      const scopeParts = parts.slice(0, -1)
+      for (let i = 0; i < scopeParts.length; i++) {
+        acc.add(scopeParts.slice(0, i + 1).join('.'))
+      }
+    }
+    return acc
+  }, new Set<string>()))
+
+  const scopeConfPairs = scopeKeys.reduce((acc, scope) => {
+    const conf = Object.entries(configsObject).filter(([key]) => key.startsWith(`${scope}.`))
+    acc.set(scope, conf)
+    return acc
+  }, new Map<string, [string, any][]>())
+
+  scopeConfPairs.forEach((conf, scope) => {
+    genScoped(lines, conf, scope)
+  })
   // ========== Namespace ==========
 
   if (namespace) {

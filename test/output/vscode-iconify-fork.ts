@@ -256,7 +256,7 @@ export const configs = {
   } as ConfigItem<"iconify.customAliasesOnly">,
 }
 
-export interface ScopedConfigKeyTypeMap {
+export interface ScopediconifyConfigKeyTypeMap {
   "inplace": boolean,
   "annotations": boolean,
   "position": ("before" | "after"),
@@ -274,7 +274,7 @@ export interface ScopedConfigKeyTypeMap {
   "customAliasesOnly": boolean,
 }
 
-export const scopedConfigs = {
+export const scopediconifyConfigs = {
   scope: "iconify",
   defaults: {
     "inplace": true,
@@ -292,6 +292,6 @@ export const scopedConfigs = {
     "customCollectionIdsMap": {},
     "customAliasesJsonPaths": [],
     "customAliasesOnly": false,
-  } satisfies ScopedConfigKeyTypeMap,
+  } satisfies ScopediconifyConfigKeyTypeMap,
 }
 

@@ -1608,7 +1608,7 @@ export const configs = {
   } as ConfigItem<"vue-i18n-ally.readonly">,
 }
 
-export interface ScopedConfigKeyTypeMap {
+export interface Scopedi18nAllyConfigKeyTypeMap {
   "disabled": boolean,
   "autoDetection": boolean,
   "localesPaths": (string | string[] | undefined),
@@ -1696,7 +1696,7 @@ export interface ScopedConfigKeyTypeMap {
   "keyMatchRegex": (unknown | undefined),
 }
 
-export const scopedConfigs = {
+export const scopedi18nAllyConfigs = {
   scope: "i18n-ally",
   defaults: {
     "disabled": false,
@@ -1784,6 +1784,364 @@ export const scopedConfigs = {
     "filenameMatchRegex": undefined,
     "fileNamespace": undefined,
     "keyMatchRegex": undefined,
-  } satisfies ScopedConfigKeyTypeMap,
+  } satisfies Scopedi18nAllyConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyThemeConfigKeyTypeMap {
+  "annotation": string,
+  "annotationMissing": string,
+  "annotationBorder": string,
+  "annotationMissingBorder": string,
+}
+
+export const scopedi18nAllyThemeConfigs = {
+  scope: "i18n-ally.theme",
+  defaults: {
+    "annotation": "rgba(153, 153, 153, .8)",
+    "annotationMissing": "rgba(153, 153, 153, .3)",
+    "annotationBorder": "rgba(153, 153, 153, .2)",
+    "annotationMissingBorder": "rgba(153, 153, 153, .2)",
+  } satisfies Scopedi18nAllyThemeConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyRegexConfigKeyTypeMap {
+  "key": (string | undefined),
+  "usageMatch": (string[] | undefined),
+  "usageMatchAppend": (string[] | undefined),
+}
+
+export const scopedi18nAllyRegexConfigs = {
+  scope: "i18n-ally.regex",
+  defaults: {
+    "key": undefined,
+    "usageMatch": undefined,
+    "usageMatchAppend": undefined,
+  } satisfies Scopedi18nAllyRegexConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyRefactorConfigKeyTypeMap {
+  "templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
+}
+
+export const scopedi18nAllyRefactorConfigs = {
+  scope: "i18n-ally.refactor",
+  defaults: {
+    "templates": undefined,
+  } satisfies Scopedi18nAllyRefactorConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyTranslateConfigKeyTypeMap {
+  "saveAsCandidates": boolean,
+  "fallbackToKey": boolean,
+  "engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
+  "parallels": number,
+  "promptSource": boolean,
+  "overrideExisting": boolean,
+  "google.apiKey": (string | null),
+  "deepl.apiKey": (string | null),
+  "baidu.appid": (string | null),
+  "baidu.apiSecret": (string | null),
+  "deepl.enableLog": boolean,
+  "deepl.useFreeApiEntry": boolean,
+  "libre.apiRoot": string,
+  "openai.apiKey": (string | null),
+  "openai.apiRoot": string,
+  "openai.apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
+}
+
+export const scopedi18nAllyTranslateConfigs = {
+  scope: "i18n-ally.translate",
+  defaults: {
+    "saveAsCandidates": false,
+    "fallbackToKey": false,
+    "engines": ["google"],
+    "parallels": 5,
+    "promptSource": false,
+    "overrideExisting": false,
+    "google.apiKey": null,
+    "deepl.apiKey": null,
+    "baidu.appid": null,
+    "baidu.apiSecret": null,
+    "deepl.enableLog": false,
+    "deepl.useFreeApiEntry": false,
+    "libre.apiRoot": "http://localhost:5000",
+    "openai.apiKey": null,
+    "openai.apiRoot": "https://api.openai.com",
+    "openai.apiModel": "gpt-3.5-turbo",
+  } satisfies Scopedi18nAllyTranslateConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyTranslateGoogleConfigKeyTypeMap {
+  "apiKey": (string | null),
+}
+
+export const scopedi18nAllyTranslateGoogleConfigs = {
+  scope: "i18n-ally.translate.google",
+  defaults: {
+    "apiKey": null,
+  } satisfies Scopedi18nAllyTranslateGoogleConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyTranslateDeeplConfigKeyTypeMap {
+  "apiKey": (string | null),
+  "enableLog": boolean,
+  "useFreeApiEntry": boolean,
+}
+
+export const scopedi18nAllyTranslateDeeplConfigs = {
+  scope: "i18n-ally.translate.deepl",
+  defaults: {
+    "apiKey": null,
+    "enableLog": false,
+    "useFreeApiEntry": false,
+  } satisfies Scopedi18nAllyTranslateDeeplConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyTranslateBaiduConfigKeyTypeMap {
+  "appid": (string | null),
+  "apiSecret": (string | null),
+}
+
+export const scopedi18nAllyTranslateBaiduConfigs = {
+  scope: "i18n-ally.translate.baidu",
+  defaults: {
+    "appid": null,
+    "apiSecret": null,
+  } satisfies Scopedi18nAllyTranslateBaiduConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyTranslateLibreConfigKeyTypeMap {
+  "apiRoot": string,
+}
+
+export const scopedi18nAllyTranslateLibreConfigs = {
+  scope: "i18n-ally.translate.libre",
+  defaults: {
+    "apiRoot": "http://localhost:5000",
+  } satisfies Scopedi18nAllyTranslateLibreConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyTranslateOpenaiConfigKeyTypeMap {
+  "apiKey": (string | null),
+  "apiRoot": string,
+  "apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
+}
+
+export const scopedi18nAllyTranslateOpenaiConfigs = {
+  scope: "i18n-ally.translate.openai",
+  defaults: {
+    "apiKey": null,
+    "apiRoot": "https://api.openai.com",
+    "apiModel": "gpt-3.5-turbo",
+  } satisfies Scopedi18nAllyTranslateOpenaiConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyUsageConfigKeyTypeMap {
+  "scanningIgnore": (string[] | undefined),
+  "derivedKeyRules": (string[] | null),
+}
+
+export const scopedi18nAllyUsageConfigs = {
+  scope: "i18n-ally.usage",
+  defaults: {
+    "scanningIgnore": undefined,
+    "derivedKeyRules": null,
+  } satisfies Scopedi18nAllyUsageConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyFrameworksConfigKeyTypeMap {
+  "ruby-rails.scopeRoot": string,
+}
+
+export const scopedi18nAllyFrameworksConfigs = {
+  scope: "i18n-ally.frameworks",
+  defaults: {
+    "ruby-rails.scopeRoot": "app/views",
+  } satisfies Scopedi18nAllyFrameworksConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyFrameworksRubyRailsConfigKeyTypeMap {
+  "scopeRoot": string,
+}
+
+export const scopedi18nAllyFrameworksRubyRailsConfigs = {
+  scope: "i18n-ally.frameworks.ruby-rails",
+  defaults: {
+    "scopeRoot": "app/views",
+  } satisfies Scopedi18nAllyFrameworksRubyRailsConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyParsersConfigKeyTypeMap {
+  "typescript.tsNodePath": string,
+  "typescript.compilerOptions": Record<string, unknown>,
+  "extendFileExtensions": Record<string, unknown>,
+}
+
+export const scopedi18nAllyParsersConfigs = {
+  scope: "i18n-ally.parsers",
+  defaults: {
+    "typescript.tsNodePath": "node_modules/ts-node/dist/bin.js",
+    "typescript.compilerOptions": {},
+    "extendFileExtensions": {},
+  } satisfies Scopedi18nAllyParsersConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyParsersTypescriptConfigKeyTypeMap {
+  "tsNodePath": string,
+  "compilerOptions": Record<string, unknown>,
+}
+
+export const scopedi18nAllyParsersTypescriptConfigs = {
+  scope: "i18n-ally.parsers.typescript",
+  defaults: {
+    "tsNodePath": "node_modules/ts-node/dist/bin.js",
+    "compilerOptions": {},
+  } satisfies Scopedi18nAllyParsersTypescriptConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyReviewConfigKeyTypeMap {
+  "enabled": boolean,
+  "gutters": boolean,
+  "user.name": (string | undefined),
+  "user.email": (string | undefined),
+  "removeCommentOnResolved": boolean,
+}
+
+export const scopedi18nAllyReviewConfigs = {
+  scope: "i18n-ally.review",
+  defaults: {
+    "enabled": true,
+    "gutters": true,
+    "user.name": undefined,
+    "user.email": undefined,
+    "removeCommentOnResolved": false,
+  } satisfies Scopedi18nAllyReviewConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyReviewUserConfigKeyTypeMap {
+  "name": (string | undefined),
+  "email": (string | undefined),
+}
+
+export const scopedi18nAllyReviewUserConfigs = {
+  scope: "i18n-ally.review.user",
+  defaults: {
+    "name": undefined,
+    "email": undefined,
+  } satisfies Scopedi18nAllyReviewUserConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyEditorConfigKeyTypeMap {
+  "preferEditor": boolean,
+}
+
+export const scopedi18nAllyEditorConfigs = {
+  scope: "i18n-ally.editor",
+  defaults: {
+    "preferEditor": false,
+  } satisfies Scopedi18nAllyEditorConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyExtractConfigKeyTypeMap {
+  "keygenStrategy": ("slug" | "random" | "empty" | "source"),
+  "keygenStyle": ("default" | "kebab-case" | "snake_case" | "camelCase" | "PascalCase" | "ALL_CAPS"),
+  "keyPrefix": string,
+  "keyMaxLength": (number | null),
+  "targetPickingStrategy": ("none" | "most-similar" | "most-similar-by-key" | "file-previous" | "global-previous"),
+  "parsers.html": Record<string, unknown>,
+  "parsers.babel": Record<string, unknown>,
+  "autoDetect": boolean,
+  "ignored": (string[] | undefined),
+  "ignoredByFiles": Record<string, unknown>,
+}
+
+export const scopedi18nAllyExtractConfigs = {
+  scope: "i18n-ally.extract",
+  defaults: {
+    "keygenStrategy": "slug",
+    "keygenStyle": "default",
+    "keyPrefix": "",
+    "keyMaxLength": null,
+    "targetPickingStrategy": "none",
+    "parsers.html": {},
+    "parsers.babel": {},
+    "autoDetect": false,
+    "ignored": undefined,
+    "ignoredByFiles": {},
+  } satisfies Scopedi18nAllyExtractConfigKeyTypeMap,
+}
+
+
+export interface Scopedi18nAllyExtractParsersConfigKeyTypeMap {
+  "html": Record<string, unknown>,
+  "babel": Record<string, unknown>,
+}
+
+export const scopedi18nAllyExtractParsersConfigs = {
+  scope: "i18n-ally.extract.parsers",
+  defaults: {
+    "html": {},
+    "babel": {},
+  } satisfies Scopedi18nAllyExtractParsersConfigKeyTypeMap,
+}
+
+
+export interface ScopedvueI18nAllyConfigKeyTypeMap {
+  "localesPaths": (unknown | undefined),
+  "encoding": (unknown | undefined),
+  "sourceLanguage": (unknown | undefined),
+  "displayLanguage": (unknown | undefined),
+  "ignoredLocales": (unknown | undefined),
+  "keystyle": (unknown | undefined),
+  "dirStructure": (unknown | undefined),
+  "annotations": (unknown | undefined),
+  "annotationMaxLength": (unknown | undefined),
+  "annotationDelimiter": (unknown | undefined),
+  "filenameMatchRegex": (unknown | undefined),
+  "includeSubfolders": (unknown | undefined),
+  "fullReloadOnChanged": (unknown | undefined),
+  "sortKeys": (unknown | undefined),
+  "preferredDelimiter": (unknown | undefined),
+  "readonly": (unknown | undefined),
+}
+
+export const scopedvueI18nAllyConfigs = {
+  scope: "vue-i18n-ally",
+  defaults: {
+    "localesPaths": undefined,
+    "encoding": undefined,
+    "sourceLanguage": undefined,
+    "displayLanguage": undefined,
+    "ignoredLocales": undefined,
+    "keystyle": undefined,
+    "dirStructure": undefined,
+    "annotations": undefined,
+    "annotationMaxLength": undefined,
+    "annotationDelimiter": undefined,
+    "filenameMatchRegex": undefined,
+    "includeSubfolders": undefined,
+    "fullReloadOnChanged": undefined,
+    "sortKeys": undefined,
+    "preferredDelimiter": undefined,
+    "readonly": undefined,
+  } satisfies ScopedvueI18nAllyConfigKeyTypeMap,
 }
 
