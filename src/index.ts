@@ -251,7 +251,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
     lines.push(
       ``,
-      // ...commentBlock(`config items under \`${scope}\``),
+      ...commentBlock(`Types of \`${scope}\` registed by \`${extensionId}\``),
       `export interface ${interfaceName} {`,
       ...scopedConfigs
         .flatMap(([key, value]) => {
@@ -268,12 +268,20 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
         }),
       '}',
       '',
+      ...commentBlock(`defaults/scope of \`${scope}\` registed by \`${extensionId}\``),
       `export const ${varName} = {`,
+      ...commentBlock(`scope: \`${scope}\``),
       `  scope: ${JSON.stringify(scope)},`,
+      ...commentBlock(`default values under \`${scope}\``),
       `  defaults: {`,
       ...scopedConfigs
-        .map(([key, value]: any) => {
-          return `    ${JSON.stringify(removeScope(key))}: ${defaultValFromSchema(value)},`
+        .flatMap(([key, value]: any) => {
+          return [
+            // ...commentBlock([
+            //   value.description,
+            // ].join('\n'), 2),
+            `    ${JSON.stringify(removeScope(key))}: ${defaultValFromSchema(value)},`,
+          ]
         }),
       `  } satisfies ${interfaceName},`,
       `}`,

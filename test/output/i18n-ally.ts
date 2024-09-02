@@ -1788,6 +1788,9 @@ export const scopedConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally` registed by `lokalise.i18n-ally`
+ */
 export interface I18nAllyConfigs {
   /**
    * %config.disabled%
@@ -2386,8 +2389,17 @@ export interface I18nAllyConfigs {
   "keyMatchRegex": (unknown | undefined),
 }
 
+/**
+ * defaults/scope of `i18n-ally` registed by `lokalise.i18n-ally`
+ */
 export const i18nAllyConfigs = {
+/**
+ * scope: `i18n-ally`
+ */
   scope: "i18n-ally",
+/**
+ * default values under `i18n-ally`
+ */
   defaults: {
     "disabled": false,
     "autoDetection": true,
@@ -2478,6 +2490,9 @@ export const i18nAllyConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.theme` registed by `lokalise.i18n-ally`
+ */
 export interface ThemeConfigs {
   /**
    * 
@@ -2509,8 +2524,17 @@ export interface ThemeConfigs {
   "annotationMissingBorder": string,
 }
 
+/**
+ * defaults/scope of `i18n-ally.theme` registed by `lokalise.i18n-ally`
+ */
 export const themeConfigs = {
+/**
+ * scope: `i18n-ally.theme`
+ */
   scope: "i18n-ally.theme",
+/**
+ * default values under `i18n-ally.theme`
+ */
   defaults: {
     "annotation": "rgba(153, 153, 153, .8)",
     "annotationMissing": "rgba(153, 153, 153, .3)",
@@ -2520,6 +2544,9 @@ export const themeConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.regex` registed by `lokalise.i18n-ally`
+ */
 export interface RegexConfigs {
   /**
    * %config.regex_key%
@@ -2544,8 +2571,17 @@ export interface RegexConfigs {
   "usageMatchAppend": (string[] | undefined),
 }
 
+/**
+ * defaults/scope of `i18n-ally.regex` registed by `lokalise.i18n-ally`
+ */
 export const regexConfigs = {
+/**
+ * scope: `i18n-ally.regex`
+ */
   scope: "i18n-ally.regex",
+/**
+ * default values under `i18n-ally.regex`
+ */
   defaults: {
     "key": undefined,
     "usageMatch": undefined,
@@ -2554,6 +2590,9 @@ export const regexConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.refactor` registed by `lokalise.i18n-ally`
+ */
 export interface RefactorConfigs {
   /**
    * %config.refactor_templates%
@@ -2564,14 +2603,26 @@ export interface RefactorConfigs {
   "templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
 }
 
+/**
+ * defaults/scope of `i18n-ally.refactor` registed by `lokalise.i18n-ally`
+ */
 export const refactorConfigs = {
+/**
+ * scope: `i18n-ally.refactor`
+ */
   scope: "i18n-ally.refactor",
+/**
+ * default values under `i18n-ally.refactor`
+ */
   defaults: {
     "templates": undefined,
   } satisfies RefactorConfigs,
 }
 
 
+/**
+ * Types of `i18n-ally.translate` registed by `lokalise.i18n-ally`
+ */
 export interface TranslateConfigs {
   /**
    * %config.translate_save_as_candidates%
@@ -2687,8 +2738,17 @@ export interface TranslateConfigs {
   "openai.apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
 }
 
+/**
+ * defaults/scope of `i18n-ally.translate` registed by `lokalise.i18n-ally`
+ */
 export const translateConfigs = {
+/**
+ * scope: `i18n-ally.translate`
+ */
   scope: "i18n-ally.translate",
+/**
+ * default values under `i18n-ally.translate`
+ */
   defaults: {
     "saveAsCandidates": false,
     "fallbackToKey": false,
@@ -2710,6 +2770,9 @@ export const translateConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.translate.google` registed by `lokalise.i18n-ally`
+ */
 export interface TranslateGoogleConfigs {
   /**
    * %config.google_api_key%
@@ -2720,14 +2783,26 @@ export interface TranslateGoogleConfigs {
   "apiKey": (string | null),
 }
 
+/**
+ * defaults/scope of `i18n-ally.translate.google` registed by `lokalise.i18n-ally`
+ */
 export const translateGoogleConfigs = {
+/**
+ * scope: `i18n-ally.translate.google`
+ */
   scope: "i18n-ally.translate.google",
+/**
+ * default values under `i18n-ally.translate.google`
+ */
   defaults: {
     "apiKey": null,
   } satisfies TranslateGoogleConfigs,
 }
 
 
+/**
+ * Types of `i18n-ally.translate.deepl` registed by `lokalise.i18n-ally`
+ */
 export interface TranslateDeeplConfigs {
   /**
    * %config.deepl_api_key%
@@ -2752,8 +2827,17 @@ export interface TranslateDeeplConfigs {
   "useFreeApiEntry": boolean,
 }
 
+/**
+ * defaults/scope of `i18n-ally.translate.deepl` registed by `lokalise.i18n-ally`
+ */
 export const translateDeeplConfigs = {
+/**
+ * scope: `i18n-ally.translate.deepl`
+ */
   scope: "i18n-ally.translate.deepl",
+/**
+ * default values under `i18n-ally.translate.deepl`
+ */
   defaults: {
     "apiKey": null,
     "enableLog": false,
@@ -2762,6 +2846,9 @@ export const translateDeeplConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.translate.baidu` registed by `lokalise.i18n-ally`
+ */
 export interface TranslateBaiduConfigs {
   /**
    * %config.baidu_appid%
@@ -2779,8 +2866,17 @@ export interface TranslateBaiduConfigs {
   "apiSecret": (string | null),
 }
 
+/**
+ * defaults/scope of `i18n-ally.translate.baidu` registed by `lokalise.i18n-ally`
+ */
 export const translateBaiduConfigs = {
+/**
+ * scope: `i18n-ally.translate.baidu`
+ */
   scope: "i18n-ally.translate.baidu",
+/**
+ * default values under `i18n-ally.translate.baidu`
+ */
   defaults: {
     "appid": null,
     "apiSecret": null,
@@ -2788,6 +2884,9 @@ export const translateBaiduConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.translate.libre` registed by `lokalise.i18n-ally`
+ */
 export interface TranslateLibreConfigs {
   /**
    * %config.libretranslate_api_root%
@@ -2798,14 +2897,26 @@ export interface TranslateLibreConfigs {
   "apiRoot": string,
 }
 
+/**
+ * defaults/scope of `i18n-ally.translate.libre` registed by `lokalise.i18n-ally`
+ */
 export const translateLibreConfigs = {
+/**
+ * scope: `i18n-ally.translate.libre`
+ */
   scope: "i18n-ally.translate.libre",
+/**
+ * default values under `i18n-ally.translate.libre`
+ */
   defaults: {
     "apiRoot": "http://localhost:5000",
   } satisfies TranslateLibreConfigs,
 }
 
 
+/**
+ * Types of `i18n-ally.translate.openai` registed by `lokalise.i18n-ally`
+ */
 export interface TranslateOpenaiConfigs {
   /**
    * %config.openai_api_key%
@@ -2830,8 +2941,17 @@ export interface TranslateOpenaiConfigs {
   "apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
 }
 
+/**
+ * defaults/scope of `i18n-ally.translate.openai` registed by `lokalise.i18n-ally`
+ */
 export const translateOpenaiConfigs = {
+/**
+ * scope: `i18n-ally.translate.openai`
+ */
   scope: "i18n-ally.translate.openai",
+/**
+ * default values under `i18n-ally.translate.openai`
+ */
   defaults: {
     "apiKey": null,
     "apiRoot": "https://api.openai.com",
@@ -2840,6 +2960,9 @@ export const translateOpenaiConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.usage` registed by `lokalise.i18n-ally`
+ */
 export interface UsageConfigs {
   /**
    * %config.usage.scanning_ignore%
@@ -2857,8 +2980,17 @@ export interface UsageConfigs {
   "derivedKeyRules": (string[] | null),
 }
 
+/**
+ * defaults/scope of `i18n-ally.usage` registed by `lokalise.i18n-ally`
+ */
 export const usageConfigs = {
+/**
+ * scope: `i18n-ally.usage`
+ */
   scope: "i18n-ally.usage",
+/**
+ * default values under `i18n-ally.usage`
+ */
   defaults: {
     "scanningIgnore": undefined,
     "derivedKeyRules": null,
@@ -2866,6 +2998,9 @@ export const usageConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.frameworks` registed by `lokalise.i18n-ally`
+ */
 export interface FrameworksConfigs {
   /**
    * 
@@ -2876,14 +3011,26 @@ export interface FrameworksConfigs {
   "ruby-rails.scopeRoot": string,
 }
 
+/**
+ * defaults/scope of `i18n-ally.frameworks` registed by `lokalise.i18n-ally`
+ */
 export const frameworksConfigs = {
+/**
+ * scope: `i18n-ally.frameworks`
+ */
   scope: "i18n-ally.frameworks",
+/**
+ * default values under `i18n-ally.frameworks`
+ */
   defaults: {
     "ruby-rails.scopeRoot": "app/views",
   } satisfies FrameworksConfigs,
 }
 
 
+/**
+ * Types of `i18n-ally.frameworks.ruby-rails` registed by `lokalise.i18n-ally`
+ */
 export interface FrameworksRubyRailsConfigs {
   /**
    * 
@@ -2894,14 +3041,26 @@ export interface FrameworksRubyRailsConfigs {
   "scopeRoot": string,
 }
 
+/**
+ * defaults/scope of `i18n-ally.frameworks.ruby-rails` registed by `lokalise.i18n-ally`
+ */
 export const frameworksRubyRailsConfigs = {
+/**
+ * scope: `i18n-ally.frameworks.ruby-rails`
+ */
   scope: "i18n-ally.frameworks.ruby-rails",
+/**
+ * default values under `i18n-ally.frameworks.ruby-rails`
+ */
   defaults: {
     "scopeRoot": "app/views",
   } satisfies FrameworksRubyRailsConfigs,
 }
 
 
+/**
+ * Types of `i18n-ally.parsers` registed by `lokalise.i18n-ally`
+ */
 export interface ParsersConfigs {
   /**
    * 
@@ -2926,8 +3085,17 @@ export interface ParsersConfigs {
   "extendFileExtensions": Record<string, unknown>,
 }
 
+/**
+ * defaults/scope of `i18n-ally.parsers` registed by `lokalise.i18n-ally`
+ */
 export const parsersConfigs = {
+/**
+ * scope: `i18n-ally.parsers`
+ */
   scope: "i18n-ally.parsers",
+/**
+ * default values under `i18n-ally.parsers`
+ */
   defaults: {
     "typescript.tsNodePath": "node_modules/ts-node/dist/bin.js",
     "typescript.compilerOptions": {},
@@ -2936,6 +3104,9 @@ export const parsersConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.parsers.typescript` registed by `lokalise.i18n-ally`
+ */
 export interface ParsersTypescriptConfigs {
   /**
    * 
@@ -2953,8 +3124,17 @@ export interface ParsersTypescriptConfigs {
   "compilerOptions": Record<string, unknown>,
 }
 
+/**
+ * defaults/scope of `i18n-ally.parsers.typescript` registed by `lokalise.i18n-ally`
+ */
 export const parsersTypescriptConfigs = {
+/**
+ * scope: `i18n-ally.parsers.typescript`
+ */
   scope: "i18n-ally.parsers.typescript",
+/**
+ * default values under `i18n-ally.parsers.typescript`
+ */
   defaults: {
     "tsNodePath": "node_modules/ts-node/dist/bin.js",
     "compilerOptions": {},
@@ -2962,6 +3142,9 @@ export const parsersTypescriptConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.review` registed by `lokalise.i18n-ally`
+ */
 export interface ReviewConfigs {
   /**
    * %config.review_enabled%
@@ -3000,8 +3183,17 @@ export interface ReviewConfigs {
   "removeCommentOnResolved": boolean,
 }
 
+/**
+ * defaults/scope of `i18n-ally.review` registed by `lokalise.i18n-ally`
+ */
 export const reviewConfigs = {
+/**
+ * scope: `i18n-ally.review`
+ */
   scope: "i18n-ally.review",
+/**
+ * default values under `i18n-ally.review`
+ */
   defaults: {
     "enabled": true,
     "gutters": true,
@@ -3012,6 +3204,9 @@ export const reviewConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.review.user` registed by `lokalise.i18n-ally`
+ */
 export interface ReviewUserConfigs {
   /**
    * %config.review_username%
@@ -3029,8 +3224,17 @@ export interface ReviewUserConfigs {
   "email": (string | undefined),
 }
 
+/**
+ * defaults/scope of `i18n-ally.review.user` registed by `lokalise.i18n-ally`
+ */
 export const reviewUserConfigs = {
+/**
+ * scope: `i18n-ally.review.user`
+ */
   scope: "i18n-ally.review.user",
+/**
+ * default values under `i18n-ally.review.user`
+ */
   defaults: {
     "name": undefined,
     "email": undefined,
@@ -3038,6 +3242,9 @@ export const reviewUserConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.editor` registed by `lokalise.i18n-ally`
+ */
 export interface EditorConfigs {
   /**
    * %config.editor_prefer_editor%
@@ -3048,14 +3255,26 @@ export interface EditorConfigs {
   "preferEditor": boolean,
 }
 
+/**
+ * defaults/scope of `i18n-ally.editor` registed by `lokalise.i18n-ally`
+ */
 export const editorConfigs = {
+/**
+ * scope: `i18n-ally.editor`
+ */
   scope: "i18n-ally.editor",
+/**
+ * default values under `i18n-ally.editor`
+ */
   defaults: {
     "preferEditor": false,
   } satisfies EditorConfigs,
 }
 
 
+/**
+ * Types of `i18n-ally.extract` registed by `lokalise.i18n-ally`
+ */
 export interface ExtractConfigs {
   /**
    * %config.keygen_strategy%
@@ -3129,8 +3348,17 @@ export interface ExtractConfigs {
   "ignoredByFiles": Record<string, unknown>,
 }
 
+/**
+ * defaults/scope of `i18n-ally.extract` registed by `lokalise.i18n-ally`
+ */
 export const extractConfigs = {
+/**
+ * scope: `i18n-ally.extract`
+ */
   scope: "i18n-ally.extract",
+/**
+ * default values under `i18n-ally.extract`
+ */
   defaults: {
     "keygenStrategy": "slug",
     "keygenStyle": "default",
@@ -3146,6 +3374,9 @@ export const extractConfigs = {
 }
 
 
+/**
+ * Types of `i18n-ally.extract.parsers` registed by `lokalise.i18n-ally`
+ */
 export interface ExtractParsersConfigs {
   /**
    * Parser options for extracting HTML, see https://github.com/lokalise/i18n-ally/blob/master/src/extraction/parsers/options.ts
@@ -3163,8 +3394,17 @@ export interface ExtractParsersConfigs {
   "babel": Record<string, unknown>,
 }
 
+/**
+ * defaults/scope of `i18n-ally.extract.parsers` registed by `lokalise.i18n-ally`
+ */
 export const extractParsersConfigs = {
+/**
+ * scope: `i18n-ally.extract.parsers`
+ */
   scope: "i18n-ally.extract.parsers",
+/**
+ * default values under `i18n-ally.extract.parsers`
+ */
   defaults: {
     "html": {},
     "babel": {},
@@ -3172,6 +3412,9 @@ export const extractParsersConfigs = {
 }
 
 
+/**
+ * Types of `vue-i18n-ally` registed by `lokalise.i18n-ally`
+ */
 export interface VueI18nAllyConfigs {
   /**
    * 
@@ -3287,8 +3530,17 @@ export interface VueI18nAllyConfigs {
   "readonly": (unknown | undefined),
 }
 
+/**
+ * defaults/scope of `vue-i18n-ally` registed by `lokalise.i18n-ally`
+ */
 export const vueI18nAllyConfigs = {
+/**
+ * scope: `vue-i18n-ally`
+ */
   scope: "vue-i18n-ally",
+/**
+ * default values under `vue-i18n-ally`
+ */
   defaults: {
     "localesPaths": undefined,
     "encoding": undefined,

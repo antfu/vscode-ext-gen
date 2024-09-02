@@ -296,6 +296,9 @@ export const scopedConfigs = {
 }
 
 
+/**
+ * Types of `iconify` registed by `antfu.iconify`
+ */
 export interface IconifyConfigs {
   /**
    * Use icon graph to replace the icon name.
@@ -404,8 +407,17 @@ export interface IconifyConfigs {
   "customAliasesOnly": boolean,
 }
 
+/**
+ * defaults/scope of `iconify` registed by `antfu.iconify`
+ */
 export const iconifyConfigs = {
+/**
+ * scope: `iconify`
+ */
   scope: "iconify",
+/**
+ * default values under `iconify`
+ */
   defaults: {
     "inplace": true,
     "annotations": true,

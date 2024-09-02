@@ -119,6 +119,9 @@ export const scopedConfigs = {
 }
 
 
+/**
+ * Types of `smartClicks` registed by `antfu.smart-clicks`
+ */
 export interface SmartClicksConfigs {
   /**
    * The interval between clicks in milliseconds.
@@ -150,8 +153,17 @@ export interface SmartClicksConfigs {
   "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
 }
 
+/**
+ * defaults/scope of `smartClicks` registed by `antfu.smart-clicks`
+ */
 export const smartClicksConfigs = {
+/**
+ * scope: `smartClicks`
+ */
   scope: "smartClicks",
+/**
+ * default values under `smartClicks`
+ */
   defaults: {
     "clicksInterval": 600,
     "triggerDelay": 150,
