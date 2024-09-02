@@ -1789,7 +1789,7 @@ export const scopedConfigs = {
 
 
 /**
- * Types of `i18n-ally` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally` registed by `lokalise`
  */
 export interface I18nAllyConfigs {
   /**
@@ -2390,7 +2390,7 @@ export interface I18nAllyConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally` registed by `lokalise`
  */
 export const i18nAllyConfigs = {
 /**
@@ -2491,7 +2491,7 @@ export const i18nAllyConfigs = {
 
 
 /**
- * Types of `i18n-ally.theme` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.theme` registed by `lokalise`
  */
 export interface ThemeConfigs {
   /**
@@ -2525,7 +2525,7 @@ export interface ThemeConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.theme` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.theme` registed by `lokalise`
  */
 export const themeConfigs = {
 /**
@@ -2545,7 +2545,7 @@ export const themeConfigs = {
 
 
 /**
- * Types of `i18n-ally.regex` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.regex` registed by `lokalise`
  */
 export interface RegexConfigs {
   /**
@@ -2572,7 +2572,7 @@ export interface RegexConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.regex` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.regex` registed by `lokalise`
  */
 export const regexConfigs = {
 /**
@@ -2591,7 +2591,7 @@ export const regexConfigs = {
 
 
 /**
- * Types of `i18n-ally.refactor` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.refactor` registed by `lokalise`
  */
 export interface RefactorConfigs {
   /**
@@ -2604,7 +2604,7 @@ export interface RefactorConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.refactor` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.refactor` registed by `lokalise`
  */
 export const refactorConfigs = {
 /**
@@ -2621,7 +2621,7 @@ export const refactorConfigs = {
 
 
 /**
- * Types of `i18n-ally.translate` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.translate` registed by `lokalise`
  */
 export interface TranslateConfigs {
   /**
@@ -2739,7 +2739,7 @@ export interface TranslateConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.translate` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.translate` registed by `lokalise`
  */
 export const translateConfigs = {
 /**
@@ -2771,7 +2771,7 @@ export const translateConfigs = {
 
 
 /**
- * Types of `i18n-ally.translate.google` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.translate.google` registed by `lokalise`
  */
 export interface TranslateGoogleConfigs {
   /**
@@ -2784,7 +2784,7 @@ export interface TranslateGoogleConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.translate.google` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.translate.google` registed by `lokalise`
  */
 export const translateGoogleConfigs = {
 /**
@@ -2801,7 +2801,7 @@ export const translateGoogleConfigs = {
 
 
 /**
- * Types of `i18n-ally.translate.deepl` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.translate.deepl` registed by `lokalise`
  */
 export interface TranslateDeeplConfigs {
   /**
@@ -2828,7 +2828,7 @@ export interface TranslateDeeplConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.translate.deepl` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.translate.deepl` registed by `lokalise`
  */
 export const translateDeeplConfigs = {
 /**
@@ -2847,7 +2847,7 @@ export const translateDeeplConfigs = {
 
 
 /**
- * Types of `i18n-ally.translate.baidu` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.translate.baidu` registed by `lokalise`
  */
 export interface TranslateBaiduConfigs {
   /**
@@ -2867,7 +2867,7 @@ export interface TranslateBaiduConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.translate.baidu` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.translate.baidu` registed by `lokalise`
  */
 export const translateBaiduConfigs = {
 /**
@@ -2885,7 +2885,7 @@ export const translateBaiduConfigs = {
 
 
 /**
- * Types of `i18n-ally.translate.libre` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.translate.libre` registed by `lokalise`
  */
 export interface TranslateLibreConfigs {
   /**
@@ -2898,7 +2898,7 @@ export interface TranslateLibreConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.translate.libre` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.translate.libre` registed by `lokalise`
  */
 export const translateLibreConfigs = {
 /**
@@ -2915,7 +2915,7 @@ export const translateLibreConfigs = {
 
 
 /**
- * Types of `i18n-ally.translate.openai` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.translate.openai` registed by `lokalise`
  */
 export interface TranslateOpenaiConfigs {
   /**
@@ -2942,7 +2942,7 @@ export interface TranslateOpenaiConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.translate.openai` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.translate.openai` registed by `lokalise`
  */
 export const translateOpenaiConfigs = {
 /**
@@ -2961,7 +2961,7 @@ export const translateOpenaiConfigs = {
 
 
 /**
- * Types of `i18n-ally.usage` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.usage` registed by `lokalise`
  */
 export interface UsageConfigs {
   /**
@@ -2981,7 +2981,7 @@ export interface UsageConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.usage` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.usage` registed by `lokalise`
  */
 export const usageConfigs = {
 /**
@@ -2999,7 +2999,7 @@ export const usageConfigs = {
 
 
 /**
- * Types of `i18n-ally.frameworks` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.frameworks` registed by `lokalise`
  */
 export interface FrameworksConfigs {
   /**
@@ -3012,7 +3012,7 @@ export interface FrameworksConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.frameworks` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.frameworks` registed by `lokalise`
  */
 export const frameworksConfigs = {
 /**
@@ -3029,7 +3029,7 @@ export const frameworksConfigs = {
 
 
 /**
- * Types of `i18n-ally.frameworks.ruby-rails` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.frameworks.ruby-rails` registed by `lokalise`
  */
 export interface FrameworksRubyRailsConfigs {
   /**
@@ -3042,7 +3042,7 @@ export interface FrameworksRubyRailsConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.frameworks.ruby-rails` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.frameworks.ruby-rails` registed by `lokalise`
  */
 export const frameworksRubyRailsConfigs = {
 /**
@@ -3059,7 +3059,7 @@ export const frameworksRubyRailsConfigs = {
 
 
 /**
- * Types of `i18n-ally.parsers` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.parsers` registed by `lokalise`
  */
 export interface ParsersConfigs {
   /**
@@ -3086,7 +3086,7 @@ export interface ParsersConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.parsers` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.parsers` registed by `lokalise`
  */
 export const parsersConfigs = {
 /**
@@ -3105,7 +3105,7 @@ export const parsersConfigs = {
 
 
 /**
- * Types of `i18n-ally.parsers.typescript` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.parsers.typescript` registed by `lokalise`
  */
 export interface ParsersTypescriptConfigs {
   /**
@@ -3125,7 +3125,7 @@ export interface ParsersTypescriptConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.parsers.typescript` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.parsers.typescript` registed by `lokalise`
  */
 export const parsersTypescriptConfigs = {
 /**
@@ -3143,7 +3143,7 @@ export const parsersTypescriptConfigs = {
 
 
 /**
- * Types of `i18n-ally.review` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.review` registed by `lokalise`
  */
 export interface ReviewConfigs {
   /**
@@ -3184,7 +3184,7 @@ export interface ReviewConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.review` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.review` registed by `lokalise`
  */
 export const reviewConfigs = {
 /**
@@ -3205,7 +3205,7 @@ export const reviewConfigs = {
 
 
 /**
- * Types of `i18n-ally.review.user` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.review.user` registed by `lokalise`
  */
 export interface ReviewUserConfigs {
   /**
@@ -3225,7 +3225,7 @@ export interface ReviewUserConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.review.user` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.review.user` registed by `lokalise`
  */
 export const reviewUserConfigs = {
 /**
@@ -3243,7 +3243,7 @@ export const reviewUserConfigs = {
 
 
 /**
- * Types of `i18n-ally.editor` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.editor` registed by `lokalise`
  */
 export interface EditorConfigs {
   /**
@@ -3256,7 +3256,7 @@ export interface EditorConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.editor` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.editor` registed by `lokalise`
  */
 export const editorConfigs = {
 /**
@@ -3273,7 +3273,7 @@ export const editorConfigs = {
 
 
 /**
- * Types of `i18n-ally.extract` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.extract` registed by `lokalise`
  */
 export interface ExtractConfigs {
   /**
@@ -3349,7 +3349,7 @@ export interface ExtractConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.extract` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.extract` registed by `lokalise`
  */
 export const extractConfigs = {
 /**
@@ -3375,7 +3375,7 @@ export const extractConfigs = {
 
 
 /**
- * Types of `i18n-ally.extract.parsers` registed by `lokalise.i18n-ally`
+ * Types of `i18n-ally.extract.parsers` registed by `lokalise`
  */
 export interface ExtractParsersConfigs {
   /**
@@ -3395,7 +3395,7 @@ export interface ExtractParsersConfigs {
 }
 
 /**
- * defaults/scope of `i18n-ally.extract.parsers` registed by `lokalise.i18n-ally`
+ * defaults/scope of `i18n-ally.extract.parsers` registed by `lokalise`
  */
 export const extractParsersConfigs = {
 /**
@@ -3413,7 +3413,7 @@ export const extractParsersConfigs = {
 
 
 /**
- * Types of `vue-i18n-ally` registed by `lokalise.i18n-ally`
+ * Types of `vue-i18n-ally` registed by `lokalise`
  */
 export interface VueI18nAllyConfigs {
   /**
@@ -3531,7 +3531,7 @@ export interface VueI18nAllyConfigs {
 }
 
 /**
- * defaults/scope of `vue-i18n-ally` registed by `lokalise.i18n-ally`
+ * defaults/scope of `vue-i18n-ally` registed by `lokalise`
  */
 export const vueI18nAllyConfigs = {
 /**

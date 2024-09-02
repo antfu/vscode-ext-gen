@@ -120,7 +120,7 @@ export const scopedConfigs = {
 
 
 /**
- * Types of `smartClicks` registed by `antfu.smart-clicks`
+ * Types of `smartClicks` registed by `antfu`
  */
 export interface SmartClicksConfigs {
   /**
@@ -154,7 +154,7 @@ export interface SmartClicksConfigs {
 }
 
 /**
- * defaults/scope of `smartClicks` registed by `antfu.smart-clicks`
+ * defaults/scope of `smartClicks` registed by `antfu`
  */
 export const smartClicksConfigs = {
 /**

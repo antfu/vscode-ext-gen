@@ -118,6 +118,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
   const extensionScopeWithDot = `${extensionScope}.`
   const extensionId = `${packageJson.publisher}.${packageJson.name}`
+  const publisher = packageJson.publisher
 
   function withoutExtensionPrefix(name: string) {
     if (name.startsWith(extensionScopeWithDot)) {
@@ -251,7 +252,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
     lines.push(
       ``,
-      ...commentBlock(`Types of \`${scope}\` registed by \`${extensionId}\``),
+      ...commentBlock(`Types of \`${scope}\` registed by \`${publisher}\``),
       `export interface ${interfaceName} {`,
       ...scopedConfigs
         .flatMap(([key, value]) => {
@@ -268,7 +269,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
         }),
       '}',
       '',
-      ...commentBlock(`defaults/scope of \`${scope}\` registed by \`${extensionId}\``),
+      ...commentBlock(`defaults/scope of \`${scope}\` registed by \`${publisher}\``),
       `export const ${varName} = {`,
       ...commentBlock(`scope: \`${scope}\``),
       `  scope: ${JSON.stringify(scope)},`,

@@ -180,7 +180,7 @@ export const scopedConfigs = {
 
 
 /**
- * Types of `whichkey` registed by `VSpaceCode.whichkey`
+ * Types of `whichkey` registed by `VSpaceCode`
  */
 export interface WhichkeyConfigs {
   /**
@@ -242,7 +242,7 @@ export interface WhichkeyConfigs {
 }
 
 /**
- * defaults/scope of `whichkey` registed by `VSpaceCode.whichkey`
+ * defaults/scope of `whichkey` registed by `VSpaceCode`
  */
 export const whichkeyConfigs = {
 /**

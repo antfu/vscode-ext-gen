@@ -297,7 +297,7 @@ export const scopedConfigs = {
 
 
 /**
- * Types of `iconify` registed by `kvoon3.iconify-fork`
+ * Types of `iconify` registed by `kvoon3`
  */
 export interface IconifyConfigs {
   /**
@@ -408,7 +408,7 @@ export interface IconifyConfigs {
 }
 
 /**
- * defaults/scope of `iconify` registed by `kvoon3.iconify-fork`
+ * defaults/scope of `iconify` registed by `kvoon3`
  */
 export const iconifyConfigs = {
 /**

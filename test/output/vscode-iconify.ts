@@ -297,7 +297,7 @@ export const scopedConfigs = {
 
 
 /**
- * Types of `iconify` registed by `antfu.iconify`
+ * Types of `iconify` registed by `antfu`
  */
 export interface IconifyConfigs {
   /**
@@ -408,7 +408,7 @@ export interface IconifyConfigs {
 }
 
 /**
- * defaults/scope of `iconify` registed by `antfu.iconify`
+ * defaults/scope of `iconify` registed by `antfu`
  */
 export const iconifyConfigs = {
 /**
