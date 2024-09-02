@@ -1,4 +1,4 @@
-import { camelCase } from 'scule'
+import { camelCase, upperFirst } from 'scule'
 import { assign, isArray } from 'radash'
 
 const forwardKeys = [
@@ -236,7 +236,6 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   )
   function genScoped(lines: string[], scopedConfigs: [string, any][], scope: string) {
     const scopeWithDot = `${scope}.`
-
     function removeScope(name: string) {
       if (name.startsWith(scopeWithDot)) {
         return name.slice(scopeWithDot.length)
@@ -244,28 +243,45 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       return name
     }
 
+    const varName = `${convertCase(withoutExtensionPrefix(scope))}Configs`
+    const interfaceName = `${upperFirst(varName)}`
+
+    // const varName = `scoped${convertCase((scope))}Configs`
+    // const interfaceName = `Scoped${convertCase((scope))}ConfigKeyTypeMap`
+
     lines.push(
       ``,
-      `export interface Scoped${convertCase(scope)}ConfigKeyTypeMap {`,
+      // ...commentBlock(`config items under \`${scope}\``),
+      `export interface ${interfaceName} {`,
       ...scopedConfigs
-        .map(([key, value]) => {
-          return `  ${JSON.stringify(removeScope(key))}: ${typeFromSchema(value)},`
+        .flatMap(([key, value]) => {
+          const defaultValue = defaultValFromSchema(value)
+          return [
+            ...commentBlock([
+              value.description,
+              `@key \`${key}\``,
+              `@default \`${defaultValue}\``,
+              `@type \`${value.type}\``,
+            ].join('\n'), 2),
+            `  ${JSON.stringify(removeScope(key))}: ${typeFromSchema(value)},`,
+          ]
         }),
       '}',
       '',
-      `export const scoped${convertCase(scope)}Configs = {`,
+      `export const ${varName} = {`,
       `  scope: ${JSON.stringify(scope)},`,
       `  defaults: {`,
       ...scopedConfigs
         .map(([key, value]: any) => {
           return `    ${JSON.stringify(removeScope(key))}: ${defaultValFromSchema(value)},`
         }),
-      `  } satisfies Scoped${convertCase(scope)}ConfigKeyTypeMap,`,
+      `  } satisfies ${interfaceName},`,
       `}`,
       '',
     )
   }
 
+  // for complatibility of pre version
   function genBase(lines: string[], scopedConfigs: [string, any][], scope: string) {
     const scopeWithDot = `${scope}.`
 
@@ -297,6 +313,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
     )
   }
+  // for complatibility of pre version
   const scopedConfigs = Object.entries(configsObject)
     .filter(([key]) => key.startsWith(extensionScopeWithDot))
   genBase(lines, scopedConfigs, extensionScope)
@@ -317,6 +334,9 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     acc.set(scope, conf)
     return acc
   }, new Map<string, [string, any][]>())
+
+  // add scope with ''
+  // scopeConfPairs.set('', Object.entries(configsObject).filter(([key]) => !key.includes('.')))
 
   scopeConfPairs.forEach((conf, scope) => {
     genScoped(lines, conf, scope)
