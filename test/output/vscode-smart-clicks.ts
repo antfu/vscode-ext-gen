@@ -2,6 +2,9 @@
 // @see https://github.com/antfu/vscode-ext-gen
 
 // Meta info
+
+import { defineConfigObject, defineConfigs } from 'reactive-vscode'
+
 export const publisher = "antfu"
 export const name = "smart-clicks"
 export const version = "0.2.0"
@@ -35,94 +38,10 @@ export type ConfigKey =
   | "smartClicks.htmlLanguageIds"
   | "smartClicks.rules"
 
-export interface ConfigKeyTypeMap {
-  "smartClicks.clicksInterval": number,
-  "smartClicks.triggerDelay": number,
-  "smartClicks.htmlLanguageIds": string[],
-  "smartClicks.rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
-}
-
-export interface ConfigShorthandMap {
-  clicksInterval: "smartClicks.clicksInterval",
-  triggerDelay: "smartClicks.triggerDelay",
-  htmlLanguageIds: "smartClicks.htmlLanguageIds",
-  rules: "smartClicks.rules",
-}
-
-export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {
-  key: T,
-  default: ConfigKeyTypeMap[T],
-}
-
-
-/**
- * Configs map registed by `antfu.smart-clicks`
- */
-export const configs = {
-  /**
-   * The interval between clicks in milliseconds.
-   * @key `smartClicks.clicksInterval`
-   * @default `600`
-   * @type `number`
-   */
-  clicksInterval: {
-    key: "smartClicks.clicksInterval",
-    default: 600,
-  } as ConfigItem<"smartClicks.clicksInterval">,
-  /**
-   * The delay after triggering the selection. To prevent conflicting with normal selection.
-   * @key `smartClicks.triggerDelay`
-   * @default `150`
-   * @type `number`
-   */
-  triggerDelay: {
-    key: "smartClicks.triggerDelay",
-    default: 150,
-  } as ConfigItem<"smartClicks.triggerDelay">,
-  /**
-   * Array of language IDs to enable html smartClicks
-   * @key `smartClicks.htmlLanguageIds`
-   * @default `["html","vue","svelte"]`
-   * @type `array`
-   */
-  htmlLanguageIds: {
-    key: "smartClicks.htmlLanguageIds",
-    default: ["html","vue","svelte"],
-  } as ConfigItem<"smartClicks.htmlLanguageIds">,
-  /**
-   * Rule toggles
-   * @key `smartClicks.rules`
-   * @default `{ "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true }`
-   * @type `object`
-   */
-  rules: {
-    key: "smartClicks.rules",
-    default: { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
-  } as ConfigItem<"smartClicks.rules">,
-}
-
-export interface ScopedConfigKeyTypeMap {
-  "clicksInterval": number,
-  "triggerDelay": number,
-  "htmlLanguageIds": string[],
-  "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
-}
-
-export const scopedConfigs = {
-  scope: "smartClicks",
-  defaults: {
-    "clicksInterval": 600,
-    "triggerDelay": 150,
-    "htmlLanguageIds": ["html","vue","svelte"],
-    "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
-  } satisfies ScopedConfigKeyTypeMap,
-}
-
-
 /**
  * Types of `smartClicks` registed by `antfu`
  */
-export interface SmartClicksConfigs {
+export interface SmartClicks {
   /**
    * The interval between clicks in milliseconds.
    * @key `smartClicks.clicksInterval`
@@ -156,7 +75,7 @@ export interface SmartClicksConfigs {
 /**
  * defaults/scope of `smartClicks` registed by `antfu`
  */
-export const smartClicksConfigs = {
+const _smartClicks = {
 /**
  * scope: `smartClicks`
  */
@@ -169,6 +88,23 @@ export const smartClicksConfigs = {
     "triggerDelay": 150,
     "htmlLanguageIds": ["html","vue","svelte"],
     "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
-  } satisfies SmartClicksConfigs,
+  } satisfies SmartClicks,
 }
+
+/**
+ * config objects of `smartClicks` registed by `antfu`
+ */
+export const smartClicksConfigObject = defineConfigObject<SmartClicks>(
+  _smartClicks.scope,
+  _smartClicks.defaults
+)
+
+
+/**
+ * configs of `smartClicks` registed by `antfu`
+ */
+export const smartClicksConfigs = defineConfigs<SmartClicks>(
+  _smartClicks.scope,
+  _smartClicks.defaults
+)
 

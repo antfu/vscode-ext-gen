@@ -70,6 +70,7 @@
     "esno": "^4.7.0",
     "fast-glob": "^3.3.2",
     "lint-staged": "^15.2.9",
+    "reactive-vscode": "^0.2.2",
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.11.1",
     "taze": "^0.16.7",

@@ -2,6 +2,9 @@
 // @see https://github.com/antfu/vscode-ext-gen
 
 // Meta info
+
+import { defineConfigObject, defineConfigs } from 'reactive-vscode'
+
 export const publisher = "lokalise"
 export const name = "i18n-ally"
 export const version = "2.12.0"
@@ -378,1420 +381,10 @@ export type ConfigKey =
   | "vue-i18n-ally.preferredDelimiter"
   | "vue-i18n-ally.readonly"
 
-export interface ConfigKeyTypeMap {
-  "i18n-ally.disabled": boolean,
-  "i18n-ally.autoDetection": boolean,
-  "i18n-ally.localesPaths": (string | string[] | undefined),
-  "i18n-ally.encoding": string,
-  "i18n-ally.sourceLanguage": (string | undefined),
-  "i18n-ally.displayLanguage": (string | undefined),
-  "i18n-ally.ignoredLocales": (unknown[] | undefined),
-  "i18n-ally.keystyle": ("auto" | "nested" | "flat" | undefined),
-  "i18n-ally.dirStructure": ("auto" | "file" | "dir" | undefined),
-  "i18n-ally.annotations": boolean,
-  "i18n-ally.annotationInPlace": boolean,
-  "i18n-ally.annotationMaxLength": number,
-  "i18n-ally.annotationDelimiter": string,
-  "i18n-ally.includeSubfolders": boolean,
-  "i18n-ally.fullReloadOnChanged": boolean,
-  "i18n-ally.showFlags": boolean,
-  "i18n-ally.enabledFrameworks": (("vue" | "react" | "vscode" | "ngx-translate" | "i18next" | "react-i18next" | "i18next-shopify" | "i18n-tag" | "flutter" | "vue-sfc" | "ember" | "chrome-ext" | "ruby-rails" | "custom" | "laravel" | "transloco" | "svelte" | "globalize" | "ui5" | "next-translate" | "php-gettext" | "general" | "lingui" | "jekyll" | "fluent-vue" | "fluent-vue-sfc" | "next-intl" | "next-international")[] | undefined),
-  "i18n-ally.enabledParsers": (("js" | "ts" | "json" | "json5" | "yaml" | "ini" | "po" | "php" | "properties" | "ftl")[] | undefined),
-  "i18n-ally.keysInUse": (string[] | undefined),
-  "i18n-ally.sortKeys": boolean,
-  "i18n-ally.sortCompare": ("binary" | "locale"),
-  "i18n-ally.sortLocale": (string | undefined),
-  "i18n-ally.preferredDelimiter": string,
-  "i18n-ally.readonly": boolean,
-  "i18n-ally.keepFulfilled": boolean,
-  "i18n-ally.localeCountryMap": Record<string, unknown>,
-  "i18n-ally.indent": number,
-  "i18n-ally.disablePathParsing": boolean,
-  "i18n-ally.tabStyle": ("space" | "tab"),
-  "i18n-ally.namespace": (boolean | undefined),
-  "i18n-ally.pathMatcher": (string | undefined),
-  "i18n-ally.languageTagSystem": ("bcp47" | "legacy" | "none"),
-  "i18n-ally.ignoreFiles": (unknown[] | undefined),
-  "i18n-ally.theme.annotation": string,
-  "i18n-ally.theme.annotationMissing": string,
-  "i18n-ally.theme.annotationBorder": string,
-  "i18n-ally.theme.annotationMissingBorder": string,
-  "i18n-ally.regex.key": (string | undefined),
-  "i18n-ally.regex.usageMatch": (string[] | undefined),
-  "i18n-ally.regex.usageMatchAppend": (string[] | undefined),
-  "i18n-ally.refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
-  "i18n-ally.translate.saveAsCandidates": boolean,
-  "i18n-ally.translate.fallbackToKey": boolean,
-  "i18n-ally.translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
-  "i18n-ally.translate.parallels": number,
-  "i18n-ally.translate.promptSource": boolean,
-  "i18n-ally.translate.overrideExisting": boolean,
-  "i18n-ally.translate.google.apiKey": (string | null),
-  "i18n-ally.translate.deepl.apiKey": (string | null),
-  "i18n-ally.translate.baidu.appid": (string | null),
-  "i18n-ally.translate.baidu.apiSecret": (string | null),
-  "i18n-ally.translate.deepl.enableLog": boolean,
-  "i18n-ally.translate.deepl.useFreeApiEntry": boolean,
-  "i18n-ally.translate.libre.apiRoot": string,
-  "i18n-ally.translate.openai.apiKey": (string | null),
-  "i18n-ally.translate.openai.apiRoot": string,
-  "i18n-ally.translate.openai.apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
-  "i18n-ally.usage.scanningIgnore": (string[] | undefined),
-  "i18n-ally.usage.derivedKeyRules": (string[] | null),
-  "i18n-ally.frameworks.ruby-rails.scopeRoot": string,
-  "i18n-ally.parsers.typescript.tsNodePath": string,
-  "i18n-ally.parsers.typescript.compilerOptions": Record<string, unknown>,
-  "i18n-ally.parsers.extendFileExtensions": Record<string, unknown>,
-  "i18n-ally.review.enabled": boolean,
-  "i18n-ally.review.gutters": boolean,
-  "i18n-ally.review.user.name": (string | undefined),
-  "i18n-ally.review.user.email": (string | undefined),
-  "i18n-ally.review.removeCommentOnResolved": boolean,
-  "i18n-ally.editor.preferEditor": boolean,
-  "i18n-ally.extract.keygenStrategy": ("slug" | "random" | "empty" | "source"),
-  "i18n-ally.extract.keygenStyle": ("default" | "kebab-case" | "snake_case" | "camelCase" | "PascalCase" | "ALL_CAPS"),
-  "i18n-ally.extract.keyPrefix": string,
-  "i18n-ally.extract.keyMaxLength": (number | null),
-  "i18n-ally.extract.targetPickingStrategy": ("none" | "most-similar" | "most-similar-by-key" | "file-previous" | "global-previous"),
-  "i18n-ally.extract.parsers.html": Record<string, unknown>,
-  "i18n-ally.extract.parsers.babel": Record<string, unknown>,
-  "i18n-ally.extract.autoDetect": boolean,
-  "i18n-ally.extract.ignored": (string[] | undefined),
-  "i18n-ally.extract.ignoredByFiles": Record<string, unknown>,
-  "i18n-ally.parserOptions": Record<string, unknown>,
-  "i18n-ally.defaultNamespace": (string | undefined),
-  "i18n-ally.derivedKeyRules": (unknown | undefined),
-  "i18n-ally.filenameMatchRegex": (unknown | undefined),
-  "i18n-ally.fileNamespace": (unknown | undefined),
-  "i18n-ally.keyMatchRegex": (unknown | undefined),
-  "vue-i18n-ally.localesPaths": (unknown | undefined),
-  "vue-i18n-ally.encoding": (unknown | undefined),
-  "vue-i18n-ally.sourceLanguage": (unknown | undefined),
-  "vue-i18n-ally.displayLanguage": (unknown | undefined),
-  "vue-i18n-ally.ignoredLocales": (unknown | undefined),
-  "vue-i18n-ally.keystyle": (unknown | undefined),
-  "vue-i18n-ally.dirStructure": (unknown | undefined),
-  "vue-i18n-ally.annotations": (unknown | undefined),
-  "vue-i18n-ally.annotationMaxLength": (unknown | undefined),
-  "vue-i18n-ally.annotationDelimiter": (unknown | undefined),
-  "vue-i18n-ally.filenameMatchRegex": (unknown | undefined),
-  "vue-i18n-ally.includeSubfolders": (unknown | undefined),
-  "vue-i18n-ally.fullReloadOnChanged": (unknown | undefined),
-  "vue-i18n-ally.sortKeys": (unknown | undefined),
-  "vue-i18n-ally.preferredDelimiter": (unknown | undefined),
-  "vue-i18n-ally.readonly": (unknown | undefined),
-}
-
-export interface ConfigShorthandMap {
-  disabled: "i18n-ally.disabled",
-  autoDetection: "i18n-ally.autoDetection",
-  localesPaths: "i18n-ally.localesPaths",
-  encoding: "i18n-ally.encoding",
-  sourceLanguage: "i18n-ally.sourceLanguage",
-  displayLanguage: "i18n-ally.displayLanguage",
-  ignoredLocales: "i18n-ally.ignoredLocales",
-  keystyle: "i18n-ally.keystyle",
-  dirStructure: "i18n-ally.dirStructure",
-  annotations: "i18n-ally.annotations",
-  annotationInPlace: "i18n-ally.annotationInPlace",
-  annotationMaxLength: "i18n-ally.annotationMaxLength",
-  annotationDelimiter: "i18n-ally.annotationDelimiter",
-  includeSubfolders: "i18n-ally.includeSubfolders",
-  fullReloadOnChanged: "i18n-ally.fullReloadOnChanged",
-  showFlags: "i18n-ally.showFlags",
-  enabledFrameworks: "i18n-ally.enabledFrameworks",
-  enabledParsers: "i18n-ally.enabledParsers",
-  keysInUse: "i18n-ally.keysInUse",
-  sortKeys: "i18n-ally.sortKeys",
-  sortCompare: "i18n-ally.sortCompare",
-  sortLocale: "i18n-ally.sortLocale",
-  preferredDelimiter: "i18n-ally.preferredDelimiter",
-  readonly: "i18n-ally.readonly",
-  keepFulfilled: "i18n-ally.keepFulfilled",
-  localeCountryMap: "i18n-ally.localeCountryMap",
-  indent: "i18n-ally.indent",
-  disablePathParsing: "i18n-ally.disablePathParsing",
-  tabStyle: "i18n-ally.tabStyle",
-  namespace: "i18n-ally.namespace",
-  pathMatcher: "i18n-ally.pathMatcher",
-  languageTagSystem: "i18n-ally.languageTagSystem",
-  ignoreFiles: "i18n-ally.ignoreFiles",
-  themeAnnotation: "i18n-ally.theme.annotation",
-  themeAnnotationMissing: "i18n-ally.theme.annotationMissing",
-  themeAnnotationBorder: "i18n-ally.theme.annotationBorder",
-  themeAnnotationMissingBorder: "i18n-ally.theme.annotationMissingBorder",
-  regexKey: "i18n-ally.regex.key",
-  regexUsageMatch: "i18n-ally.regex.usageMatch",
-  regexUsageMatchAppend: "i18n-ally.regex.usageMatchAppend",
-  refactorTemplates: "i18n-ally.refactor.templates",
-  translateSaveAsCandidates: "i18n-ally.translate.saveAsCandidates",
-  translateFallbackToKey: "i18n-ally.translate.fallbackToKey",
-  translateEngines: "i18n-ally.translate.engines",
-  translateParallels: "i18n-ally.translate.parallels",
-  translatePromptSource: "i18n-ally.translate.promptSource",
-  translateOverrideExisting: "i18n-ally.translate.overrideExisting",
-  translateGoogleApiKey: "i18n-ally.translate.google.apiKey",
-  translateDeeplApiKey: "i18n-ally.translate.deepl.apiKey",
-  translateBaiduAppid: "i18n-ally.translate.baidu.appid",
-  translateBaiduApiSecret: "i18n-ally.translate.baidu.apiSecret",
-  translateDeeplEnableLog: "i18n-ally.translate.deepl.enableLog",
-  translateDeeplUseFreeApiEntry: "i18n-ally.translate.deepl.useFreeApiEntry",
-  translateLibreApiRoot: "i18n-ally.translate.libre.apiRoot",
-  translateOpenaiApiKey: "i18n-ally.translate.openai.apiKey",
-  translateOpenaiApiRoot: "i18n-ally.translate.openai.apiRoot",
-  translateOpenaiApiModel: "i18n-ally.translate.openai.apiModel",
-  usageScanningIgnore: "i18n-ally.usage.scanningIgnore",
-  usageDerivedKeyRules: "i18n-ally.usage.derivedKeyRules",
-  frameworksRubyRailsScopeRoot: "i18n-ally.frameworks.ruby-rails.scopeRoot",
-  parsersTypescriptTsNodePath: "i18n-ally.parsers.typescript.tsNodePath",
-  parsersTypescriptCompilerOptions: "i18n-ally.parsers.typescript.compilerOptions",
-  parsersExtendFileExtensions: "i18n-ally.parsers.extendFileExtensions",
-  reviewEnabled: "i18n-ally.review.enabled",
-  reviewGutters: "i18n-ally.review.gutters",
-  reviewUserName: "i18n-ally.review.user.name",
-  reviewUserEmail: "i18n-ally.review.user.email",
-  reviewRemoveCommentOnResolved: "i18n-ally.review.removeCommentOnResolved",
-  editorPreferEditor: "i18n-ally.editor.preferEditor",
-  extractKeygenStrategy: "i18n-ally.extract.keygenStrategy",
-  extractKeygenStyle: "i18n-ally.extract.keygenStyle",
-  extractKeyPrefix: "i18n-ally.extract.keyPrefix",
-  extractKeyMaxLength: "i18n-ally.extract.keyMaxLength",
-  extractTargetPickingStrategy: "i18n-ally.extract.targetPickingStrategy",
-  extractParsersHtml: "i18n-ally.extract.parsers.html",
-  extractParsersBabel: "i18n-ally.extract.parsers.babel",
-  extractAutoDetect: "i18n-ally.extract.autoDetect",
-  extractIgnored: "i18n-ally.extract.ignored",
-  extractIgnoredByFiles: "i18n-ally.extract.ignoredByFiles",
-  parserOptions: "i18n-ally.parserOptions",
-  defaultNamespace: "i18n-ally.defaultNamespace",
-  derivedKeyRules: "i18n-ally.derivedKeyRules",
-  filenameMatchRegex: "i18n-ally.filenameMatchRegex",
-  fileNamespace: "i18n-ally.fileNamespace",
-  keyMatchRegex: "i18n-ally.keyMatchRegex",
-  vueI18nAllyLocalesPaths: "vue-i18n-ally.localesPaths",
-  vueI18nAllyEncoding: "vue-i18n-ally.encoding",
-  vueI18nAllySourceLanguage: "vue-i18n-ally.sourceLanguage",
-  vueI18nAllyDisplayLanguage: "vue-i18n-ally.displayLanguage",
-  vueI18nAllyIgnoredLocales: "vue-i18n-ally.ignoredLocales",
-  vueI18nAllyKeystyle: "vue-i18n-ally.keystyle",
-  vueI18nAllyDirStructure: "vue-i18n-ally.dirStructure",
-  vueI18nAllyAnnotations: "vue-i18n-ally.annotations",
-  vueI18nAllyAnnotationMaxLength: "vue-i18n-ally.annotationMaxLength",
-  vueI18nAllyAnnotationDelimiter: "vue-i18n-ally.annotationDelimiter",
-  vueI18nAllyFilenameMatchRegex: "vue-i18n-ally.filenameMatchRegex",
-  vueI18nAllyIncludeSubfolders: "vue-i18n-ally.includeSubfolders",
-  vueI18nAllyFullReloadOnChanged: "vue-i18n-ally.fullReloadOnChanged",
-  vueI18nAllySortKeys: "vue-i18n-ally.sortKeys",
-  vueI18nAllyPreferredDelimiter: "vue-i18n-ally.preferredDelimiter",
-  vueI18nAllyReadonly: "vue-i18n-ally.readonly",
-}
-
-export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {
-  key: T,
-  default: ConfigKeyTypeMap[T],
-}
-
-
-/**
- * Configs map registed by `lokalise.i18n-ally`
- */
-export const configs = {
-  /**
-   * %config.disabled%
-   * @key `i18n-ally.disabled`
-   * @default `false`
-   * @type `boolean`
-   */
-  disabled: {
-    key: "i18n-ally.disabled",
-    default: false,
-  } as ConfigItem<"i18n-ally.disabled">,
-  /**
-   * %config.auto_detection%
-   * @key `i18n-ally.autoDetection`
-   * @default `true`
-   * @type `boolean`
-   */
-  autoDetection: {
-    key: "i18n-ally.autoDetection",
-    default: true,
-  } as ConfigItem<"i18n-ally.autoDetection">,
-  /**
-   * %config.locales_paths%
-   * @key `i18n-ally.localesPaths`
-   * @default `undefined`
-   * @type `string,array`
-   */
-  localesPaths: {
-    key: "i18n-ally.localesPaths",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.localesPaths">,
-  /**
-   * %config.encoding%
-   * @key `i18n-ally.encoding`
-   * @default `"utf-8"`
-   * @type `string`
-   */
-  encoding: {
-    key: "i18n-ally.encoding",
-    default: "utf-8",
-  } as ConfigItem<"i18n-ally.encoding">,
-  /**
-   * %config.source_language%
-   * @key `i18n-ally.sourceLanguage`
-   * @default `undefined`
-   * @type `string`
-   */
-  sourceLanguage: {
-    key: "i18n-ally.sourceLanguage",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.sourceLanguage">,
-  /**
-   * %config.display_language%
-   * @key `i18n-ally.displayLanguage`
-   * @default `undefined`
-   * @type `string`
-   */
-  displayLanguage: {
-    key: "i18n-ally.displayLanguage",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.displayLanguage">,
-  /**
-   * %config.ignored_locales%
-   * @key `i18n-ally.ignoredLocales`
-   * @default `undefined`
-   * @type `array`
-   */
-  ignoredLocales: {
-    key: "i18n-ally.ignoredLocales",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.ignoredLocales">,
-  /**
-   * %config.keystyle%
-   * @key `i18n-ally.keystyle`
-   * @default `undefined`
-   * @type `string`
-   */
-  keystyle: {
-    key: "i18n-ally.keystyle",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.keystyle">,
-  /**
-   * %config.dir_structure%
-   * @key `i18n-ally.dirStructure`
-   * @default `undefined`
-   * @type `string`
-   */
-  dirStructure: {
-    key: "i18n-ally.dirStructure",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.dirStructure">,
-  /**
-   * %config.annotations%
-   * @key `i18n-ally.annotations`
-   * @default `true`
-   * @type `boolean`
-   */
-  annotations: {
-    key: "i18n-ally.annotations",
-    default: true,
-  } as ConfigItem<"i18n-ally.annotations">,
-  /**
-   * %config.annotation_in_place%
-   * @key `i18n-ally.annotationInPlace`
-   * @default `true`
-   * @type `boolean`
-   */
-  annotationInPlace: {
-    key: "i18n-ally.annotationInPlace",
-    default: true,
-  } as ConfigItem<"i18n-ally.annotationInPlace">,
-  /**
-   * %config.annotation_max_length%
-   * @key `i18n-ally.annotationMaxLength`
-   * @default `40`
-   * @type `number`
-   */
-  annotationMaxLength: {
-    key: "i18n-ally.annotationMaxLength",
-    default: 40,
-  } as ConfigItem<"i18n-ally.annotationMaxLength">,
-  /**
-   * %config.annotation_delimiter%
-   * @key `i18n-ally.annotationDelimiter`
-   * @default `"·"`
-   * @type `string`
-   */
-  annotationDelimiter: {
-    key: "i18n-ally.annotationDelimiter",
-    default: "·",
-  } as ConfigItem<"i18n-ally.annotationDelimiter">,
-  /**
-   * %config.include_subfolders%
-   * @key `i18n-ally.includeSubfolders`
-   * @default `true`
-   * @type `boolean`
-   */
-  includeSubfolders: {
-    key: "i18n-ally.includeSubfolders",
-    default: true,
-  } as ConfigItem<"i18n-ally.includeSubfolders">,
-  /**
-   * %config.full_reload_on_changed%
-   * @key `i18n-ally.fullReloadOnChanged`
-   * @default `false`
-   * @type `boolean`
-   */
-  fullReloadOnChanged: {
-    key: "i18n-ally.fullReloadOnChanged",
-    default: false,
-  } as ConfigItem<"i18n-ally.fullReloadOnChanged">,
-  /**
-   * %config.show_flags%
-   * @key `i18n-ally.showFlags`
-   * @default `true`
-   * @type `boolean`
-   */
-  showFlags: {
-    key: "i18n-ally.showFlags",
-    default: true,
-  } as ConfigItem<"i18n-ally.showFlags">,
-  /**
-   * %config.enabled_frameworks%
-   * @key `i18n-ally.enabledFrameworks`
-   * @default `undefined`
-   * @type `array`
-   */
-  enabledFrameworks: {
-    key: "i18n-ally.enabledFrameworks",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.enabledFrameworks">,
-  /**
-   * %config.enabled_parsers%
-   * @key `i18n-ally.enabledParsers`
-   * @default `undefined`
-   * @type `array`
-   */
-  enabledParsers: {
-    key: "i18n-ally.enabledParsers",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.enabledParsers">,
-  /**
-   * %config.keys_in_use%
-   * @key `i18n-ally.keysInUse`
-   * @default `undefined`
-   * @type `array`
-   */
-  keysInUse: {
-    key: "i18n-ally.keysInUse",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.keysInUse">,
-  /**
-   * %config.sort_keys%
-   * @key `i18n-ally.sortKeys`
-   * @default `false`
-   * @type `boolean`
-   */
-  sortKeys: {
-    key: "i18n-ally.sortKeys",
-    default: false,
-  } as ConfigItem<"i18n-ally.sortKeys">,
-  /**
-   * %config.sort_compare%
-   * @key `i18n-ally.sortCompare`
-   * @default `"binary"`
-   * @type `string`
-   */
-  sortCompare: {
-    key: "i18n-ally.sortCompare",
-    default: "binary",
-  } as ConfigItem<"i18n-ally.sortCompare">,
-  /**
-   * %config.sort_locale%
-   * @key `i18n-ally.sortLocale`
-   * @default `undefined`
-   * @type `string`
-   */
-  sortLocale: {
-    key: "i18n-ally.sortLocale",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.sortLocale">,
-  /**
-   * %config.preferred_delimiter%
-   * @key `i18n-ally.preferredDelimiter`
-   * @default `"-"`
-   * @type `string`
-   */
-  preferredDelimiter: {
-    key: "i18n-ally.preferredDelimiter",
-    default: "-",
-  } as ConfigItem<"i18n-ally.preferredDelimiter">,
-  /**
-   * %config.readonly%
-   * @key `i18n-ally.readonly`
-   * @default `false`
-   * @type `boolean`
-   */
-  readonly: {
-    key: "i18n-ally.readonly",
-    default: false,
-  } as ConfigItem<"i18n-ally.readonly">,
-  /**
-   * %config.keep_fulfill%
-   * @key `i18n-ally.keepFulfilled`
-   * @default `false`
-   * @type `boolean`
-   */
-  keepFulfilled: {
-    key: "i18n-ally.keepFulfilled",
-    default: false,
-  } as ConfigItem<"i18n-ally.keepFulfilled">,
-  /**
-   * %config.locale_country_map%
-   * @key `i18n-ally.localeCountryMap`
-   * @default `{}`
-   * @type `object`
-   */
-  localeCountryMap: {
-    key: "i18n-ally.localeCountryMap",
-    default: {},
-  } as ConfigItem<"i18n-ally.localeCountryMap">,
-  /**
-   * %config.indent%
-   * @key `i18n-ally.indent`
-   * @default `2`
-   * @type `number`
-   */
-  indent: {
-    key: "i18n-ally.indent",
-    default: 2,
-  } as ConfigItem<"i18n-ally.indent">,
-  /**
-   * %config.disable_path_parsing%
-   * @key `i18n-ally.disablePathParsing`
-   * @default `false`
-   * @type `boolean`
-   */
-  disablePathParsing: {
-    key: "i18n-ally.disablePathParsing",
-    default: false,
-  } as ConfigItem<"i18n-ally.disablePathParsing">,
-  /**
-   * %config.tab_style%
-   * @key `i18n-ally.tabStyle`
-   * @default `"space"`
-   * @type `string`
-   */
-  tabStyle: {
-    key: "i18n-ally.tabStyle",
-    default: "space",
-  } as ConfigItem<"i18n-ally.tabStyle">,
-  /**
-   * %config.namespace%
-   * @key `i18n-ally.namespace`
-   * @default `undefined`
-   * @type `boolean`
-   */
-  namespace: {
-    key: "i18n-ally.namespace",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.namespace">,
-  /**
-   * %config.path_matcher%
-   * @key `i18n-ally.pathMatcher`
-   * @default `undefined`
-   * @type `string`
-   */
-  pathMatcher: {
-    key: "i18n-ally.pathMatcher",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.pathMatcher">,
-  /**
-   * %config.language_tag_system%
-   * @key `i18n-ally.languageTagSystem`
-   * @default `"bcp47"`
-   * @type `string`
-   */
-  languageTagSystem: {
-    key: "i18n-ally.languageTagSystem",
-    default: "bcp47",
-  } as ConfigItem<"i18n-ally.languageTagSystem">,
-  /**
-   * %config.ignore_files%
-   * @key `i18n-ally.ignoreFiles`
-   * @default `undefined`
-   * @type `array`
-   */
-  ignoreFiles: {
-    key: "i18n-ally.ignoreFiles",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.ignoreFiles">,
-  /**
-   * 
-   * @key `i18n-ally.theme.annotation`
-   * @default `"rgba(153, 153, 153, .8)"`
-   * @type `string`
-   */
-  themeAnnotation: {
-    key: "i18n-ally.theme.annotation",
-    default: "rgba(153, 153, 153, .8)",
-  } as ConfigItem<"i18n-ally.theme.annotation">,
-  /**
-   * 
-   * @key `i18n-ally.theme.annotationMissing`
-   * @default `"rgba(153, 153, 153, .3)"`
-   * @type `string`
-   */
-  themeAnnotationMissing: {
-    key: "i18n-ally.theme.annotationMissing",
-    default: "rgba(153, 153, 153, .3)",
-  } as ConfigItem<"i18n-ally.theme.annotationMissing">,
-  /**
-   * 
-   * @key `i18n-ally.theme.annotationBorder`
-   * @default `"rgba(153, 153, 153, .2)"`
-   * @type `string`
-   */
-  themeAnnotationBorder: {
-    key: "i18n-ally.theme.annotationBorder",
-    default: "rgba(153, 153, 153, .2)",
-  } as ConfigItem<"i18n-ally.theme.annotationBorder">,
-  /**
-   * 
-   * @key `i18n-ally.theme.annotationMissingBorder`
-   * @default `"rgba(153, 153, 153, .2)"`
-   * @type `string`
-   */
-  themeAnnotationMissingBorder: {
-    key: "i18n-ally.theme.annotationMissingBorder",
-    default: "rgba(153, 153, 153, .2)",
-  } as ConfigItem<"i18n-ally.theme.annotationMissingBorder">,
-  /**
-   * %config.regex_key%
-   * @key `i18n-ally.regex.key`
-   * @default `undefined`
-   * @type `string`
-   */
-  regexKey: {
-    key: "i18n-ally.regex.key",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.regex.key">,
-  /**
-   * %config.regex_usage_match%
-   * @key `i18n-ally.regex.usageMatch`
-   * @default `undefined`
-   * @type `array`
-   */
-  regexUsageMatch: {
-    key: "i18n-ally.regex.usageMatch",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.regex.usageMatch">,
-  /**
-   * %config.regex_usage_match_append%
-   * @key `i18n-ally.regex.usageMatchAppend`
-   * @default `undefined`
-   * @type `array`
-   */
-  regexUsageMatchAppend: {
-    key: "i18n-ally.regex.usageMatchAppend",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.regex.usageMatchAppend">,
-  /**
-   * %config.refactor_templates%
-   * @key `i18n-ally.refactor.templates`
-   * @default `undefined`
-   * @type `array`
-   */
-  refactorTemplates: {
-    key: "i18n-ally.refactor.templates",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.refactor.templates">,
-  /**
-   * %config.translate_save_as_candidates%
-   * @key `i18n-ally.translate.saveAsCandidates`
-   * @default `false`
-   * @type `boolean`
-   */
-  translateSaveAsCandidates: {
-    key: "i18n-ally.translate.saveAsCandidates",
-    default: false,
-  } as ConfigItem<"i18n-ally.translate.saveAsCandidates">,
-  /**
-   * %config.translate.fallbackToKey%
-   * @key `i18n-ally.translate.fallbackToKey`
-   * @default `false`
-   * @type `boolean`
-   */
-  translateFallbackToKey: {
-    key: "i18n-ally.translate.fallbackToKey",
-    default: false,
-  } as ConfigItem<"i18n-ally.translate.fallbackToKey">,
-  /**
-   * %config.translate.engines%
-   * @key `i18n-ally.translate.engines`
-   * @default `["google"]`
-   * @type `array`
-   */
-  translateEngines: {
-    key: "i18n-ally.translate.engines",
-    default: ["google"],
-  } as ConfigItem<"i18n-ally.translate.engines">,
-  /**
-   * %config.translate.parallels%
-   * @key `i18n-ally.translate.parallels`
-   * @default `5`
-   * @type `number`
-   */
-  translateParallels: {
-    key: "i18n-ally.translate.parallels",
-    default: 5,
-  } as ConfigItem<"i18n-ally.translate.parallels">,
-  /**
-   * %config.prompt_translating_source%
-   * @key `i18n-ally.translate.promptSource`
-   * @default `false`
-   * @type `boolean`
-   */
-  translatePromptSource: {
-    key: "i18n-ally.translate.promptSource",
-    default: false,
-  } as ConfigItem<"i18n-ally.translate.promptSource">,
-  /**
-   * %config.translate_override_existing%
-   * @key `i18n-ally.translate.overrideExisting`
-   * @default `false`
-   * @type `boolean`
-   */
-  translateOverrideExisting: {
-    key: "i18n-ally.translate.overrideExisting",
-    default: false,
-  } as ConfigItem<"i18n-ally.translate.overrideExisting">,
-  /**
-   * %config.google_api_key%
-   * @key `i18n-ally.translate.google.apiKey`
-   * @default `null`
-   * @type `string`
-   */
-  translateGoogleApiKey: {
-    key: "i18n-ally.translate.google.apiKey",
-    default: null,
-  } as ConfigItem<"i18n-ally.translate.google.apiKey">,
-  /**
-   * %config.deepl_api_key%
-   * @key `i18n-ally.translate.deepl.apiKey`
-   * @default `null`
-   * @type `string`
-   */
-  translateDeeplApiKey: {
-    key: "i18n-ally.translate.deepl.apiKey",
-    default: null,
-  } as ConfigItem<"i18n-ally.translate.deepl.apiKey">,
-  /**
-   * %config.baidu_appid%
-   * @key `i18n-ally.translate.baidu.appid`
-   * @default `null`
-   * @type `string`
-   */
-  translateBaiduAppid: {
-    key: "i18n-ally.translate.baidu.appid",
-    default: null,
-  } as ConfigItem<"i18n-ally.translate.baidu.appid">,
-  /**
-   * %config.baidu_app_secret%
-   * @key `i18n-ally.translate.baidu.apiSecret`
-   * @default `null`
-   * @type `string`
-   */
-  translateBaiduApiSecret: {
-    key: "i18n-ally.translate.baidu.apiSecret",
-    default: null,
-  } as ConfigItem<"i18n-ally.translate.baidu.apiSecret">,
-  /**
-   * %config.deepl_log%
-   * @key `i18n-ally.translate.deepl.enableLog`
-   * @default `false`
-   * @type `boolean`
-   */
-  translateDeeplEnableLog: {
-    key: "i18n-ally.translate.deepl.enableLog",
-    default: false,
-  } as ConfigItem<"i18n-ally.translate.deepl.enableLog">,
-  /**
-   * %config.deepl_use_free_api_entry%
-   * @key `i18n-ally.translate.deepl.useFreeApiEntry`
-   * @default `false`
-   * @type `boolean`
-   */
-  translateDeeplUseFreeApiEntry: {
-    key: "i18n-ally.translate.deepl.useFreeApiEntry",
-    default: false,
-  } as ConfigItem<"i18n-ally.translate.deepl.useFreeApiEntry">,
-  /**
-   * %config.libretranslate_api_root%
-   * @key `i18n-ally.translate.libre.apiRoot`
-   * @default `"http://localhost:5000"`
-   * @type `string`
-   */
-  translateLibreApiRoot: {
-    key: "i18n-ally.translate.libre.apiRoot",
-    default: "http://localhost:5000",
-  } as ConfigItem<"i18n-ally.translate.libre.apiRoot">,
-  /**
-   * %config.openai_api_key%
-   * @key `i18n-ally.translate.openai.apiKey`
-   * @default `null`
-   * @type `string`
-   */
-  translateOpenaiApiKey: {
-    key: "i18n-ally.translate.openai.apiKey",
-    default: null,
-  } as ConfigItem<"i18n-ally.translate.openai.apiKey">,
-  /**
-   * %config.openai_api_root%
-   * @key `i18n-ally.translate.openai.apiRoot`
-   * @default `"https://api.openai.com"`
-   * @type `string`
-   */
-  translateOpenaiApiRoot: {
-    key: "i18n-ally.translate.openai.apiRoot",
-    default: "https://api.openai.com",
-  } as ConfigItem<"i18n-ally.translate.openai.apiRoot">,
-  /**
-   * %config.openai_api_model%
-   * @key `i18n-ally.translate.openai.apiModel`
-   * @default `"gpt-3.5-turbo"`
-   * @type `string`
-   */
-  translateOpenaiApiModel: {
-    key: "i18n-ally.translate.openai.apiModel",
-    default: "gpt-3.5-turbo",
-  } as ConfigItem<"i18n-ally.translate.openai.apiModel">,
-  /**
-   * %config.usage.scanning_ignore%
-   * @key `i18n-ally.usage.scanningIgnore`
-   * @default `undefined`
-   * @type `array`
-   */
-  usageScanningIgnore: {
-    key: "i18n-ally.usage.scanningIgnore",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.usage.scanningIgnore">,
-  /**
-   * %config.derived_keys%
-   * @key `i18n-ally.usage.derivedKeyRules`
-   * @default `null`
-   * @type `array`
-   */
-  usageDerivedKeyRules: {
-    key: "i18n-ally.usage.derivedKeyRules",
-    default: null,
-  } as ConfigItem<"i18n-ally.usage.derivedKeyRules">,
-  /**
-   * 
-   * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
-   * @default `"app/views"`
-   * @type `string`
-   */
-  frameworksRubyRailsScopeRoot: {
-    key: "i18n-ally.frameworks.ruby-rails.scopeRoot",
-    default: "app/views",
-  } as ConfigItem<"i18n-ally.frameworks.ruby-rails.scopeRoot">,
-  /**
-   * 
-   * @key `i18n-ally.parsers.typescript.tsNodePath`
-   * @default `"node_modules/ts-node/dist/bin.js"`
-   * @type `string`
-   */
-  parsersTypescriptTsNodePath: {
-    key: "i18n-ally.parsers.typescript.tsNodePath",
-    default: "node_modules/ts-node/dist/bin.js",
-  } as ConfigItem<"i18n-ally.parsers.typescript.tsNodePath">,
-  /**
-   * 
-   * @key `i18n-ally.parsers.typescript.compilerOptions`
-   * @default `{}`
-   * @type `object`
-   */
-  parsersTypescriptCompilerOptions: {
-    key: "i18n-ally.parsers.typescript.compilerOptions",
-    default: {},
-  } as ConfigItem<"i18n-ally.parsers.typescript.compilerOptions">,
-  /**
-   * 
-   * @key `i18n-ally.parsers.extendFileExtensions`
-   * @default `{}`
-   * @type `object`
-   */
-  parsersExtendFileExtensions: {
-    key: "i18n-ally.parsers.extendFileExtensions",
-    default: {},
-  } as ConfigItem<"i18n-ally.parsers.extendFileExtensions">,
-  /**
-   * %config.review_enabled%
-   * @key `i18n-ally.review.enabled`
-   * @default `true`
-   * @type `boolean`
-   */
-  reviewEnabled: {
-    key: "i18n-ally.review.enabled",
-    default: true,
-  } as ConfigItem<"i18n-ally.review.enabled">,
-  /**
-   * %config.review_gutters%
-   * @key `i18n-ally.review.gutters`
-   * @default `true`
-   * @type `boolean`
-   */
-  reviewGutters: {
-    key: "i18n-ally.review.gutters",
-    default: true,
-  } as ConfigItem<"i18n-ally.review.gutters">,
-  /**
-   * %config.review_username%
-   * @key `i18n-ally.review.user.name`
-   * @default `undefined`
-   * @type `string`
-   */
-  reviewUserName: {
-    key: "i18n-ally.review.user.name",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.review.user.name">,
-  /**
-   * %config.review_email%
-   * @key `i18n-ally.review.user.email`
-   * @default `undefined`
-   * @type `string`
-   */
-  reviewUserEmail: {
-    key: "i18n-ally.review.user.email",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.review.user.email">,
-  /**
-   * %config.review_remove_on_resolved%
-   * @key `i18n-ally.review.removeCommentOnResolved`
-   * @default `false`
-   * @type `boolean`
-   */
-  reviewRemoveCommentOnResolved: {
-    key: "i18n-ally.review.removeCommentOnResolved",
-    default: false,
-  } as ConfigItem<"i18n-ally.review.removeCommentOnResolved">,
-  /**
-   * %config.editor_prefer_editor%
-   * @key `i18n-ally.editor.preferEditor`
-   * @default `false`
-   * @type `boolean`
-   */
-  editorPreferEditor: {
-    key: "i18n-ally.editor.preferEditor",
-    default: false,
-  } as ConfigItem<"i18n-ally.editor.preferEditor">,
-  /**
-   * %config.keygen_strategy%
-   * @key `i18n-ally.extract.keygenStrategy`
-   * @default `"slug"`
-   * @type `string`
-   */
-  extractKeygenStrategy: {
-    key: "i18n-ally.extract.keygenStrategy",
-    default: "slug",
-  } as ConfigItem<"i18n-ally.extract.keygenStrategy">,
-  /**
-   * %config.keygen_style%
-   * @key `i18n-ally.extract.keygenStyle`
-   * @default `"default"`
-   * @type `string`
-   */
-  extractKeygenStyle: {
-    key: "i18n-ally.extract.keygenStyle",
-    default: "default",
-  } as ConfigItem<"i18n-ally.extract.keygenStyle">,
-  /**
-   * %config.key_prefix%
-   * @key `i18n-ally.extract.keyPrefix`
-   * @default `""`
-   * @type `string`
-   */
-  extractKeyPrefix: {
-    key: "i18n-ally.extract.keyPrefix",
-    default: "",
-  } as ConfigItem<"i18n-ally.extract.keyPrefix">,
-  /**
-   * %config.key_max_length%
-   * @key `i18n-ally.extract.keyMaxLength`
-   * @default `null`
-   * @type `number`
-   */
-  extractKeyMaxLength: {
-    key: "i18n-ally.extract.keyMaxLength",
-    default: null,
-  } as ConfigItem<"i18n-ally.extract.keyMaxLength">,
-  /**
-   * %config.target_picking_strategy%
-   * @key `i18n-ally.extract.targetPickingStrategy`
-   * @default `"none"`
-   * @type `string`
-   */
-  extractTargetPickingStrategy: {
-    key: "i18n-ally.extract.targetPickingStrategy",
-    default: "none",
-  } as ConfigItem<"i18n-ally.extract.targetPickingStrategy">,
-  /**
-   * Parser options for extracting HTML, see https://github.com/lokalise/i18n-ally/blob/master/src/extraction/parsers/options.ts
-   * @key `i18n-ally.extract.parsers.html`
-   * @default `{}`
-   * @type `object`
-   */
-  extractParsersHtml: {
-    key: "i18n-ally.extract.parsers.html",
-    default: {},
-  } as ConfigItem<"i18n-ally.extract.parsers.html">,
-  /**
-   * Parser options for extracting JS/TS/JSX/TSX, see https://github.com/lokalise/i18n-ally/blob/master/src/extraction/parsers/options.ts
-   * @key `i18n-ally.extract.parsers.babel`
-   * @default `{}`
-   * @type `object`
-   */
-  extractParsersBabel: {
-    key: "i18n-ally.extract.parsers.babel",
-    default: {},
-  } as ConfigItem<"i18n-ally.extract.parsers.babel">,
-  /**
-   * Enables hard-coded strings detection automatically whenever opening a supported file
-   * @key `i18n-ally.extract.autoDetect`
-   * @default `false`
-   * @type `boolean`
-   */
-  extractAutoDetect: {
-    key: "i18n-ally.extract.autoDetect",
-    default: false,
-  } as ConfigItem<"i18n-ally.extract.autoDetect">,
-  /**
-   * Strings to be ignored on hard-coded strings detection
-   * @key `i18n-ally.extract.ignored`
-   * @default `undefined`
-   * @type `array`
-   */
-  extractIgnored: {
-    key: "i18n-ally.extract.ignored",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.extract.ignored">,
-  /**
-   * Strings to be ignored on hard-coded strings detection, by files
-   * @key `i18n-ally.extract.ignoredByFiles`
-   * @default `{}`
-   * @type `object`
-   */
-  extractIgnoredByFiles: {
-    key: "i18n-ally.extract.ignoredByFiles",
-    default: {},
-  } as ConfigItem<"i18n-ally.extract.ignoredByFiles">,
-  /**
-   * 
-   * @key `i18n-ally.parserOptions`
-   * @default `{}`
-   * @type `object`
-   */
-  parserOptions: {
-    key: "i18n-ally.parserOptions",
-    default: {},
-  } as ConfigItem<"i18n-ally.parserOptions">,
-  /**
-   * %config.default_namespace%
-   * @key `i18n-ally.defaultNamespace`
-   * @default `undefined`
-   * @type `string`
-   */
-  defaultNamespace: {
-    key: "i18n-ally.defaultNamespace",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.defaultNamespace">,
-  /**
-   * 
-   * @key `i18n-ally.derivedKeyRules`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  derivedKeyRules: {
-    key: "i18n-ally.derivedKeyRules",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.derivedKeyRules">,
-  /**
-   * 
-   * @key `i18n-ally.filenameMatchRegex`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  filenameMatchRegex: {
-    key: "i18n-ally.filenameMatchRegex",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.filenameMatchRegex">,
-  /**
-   * 
-   * @key `i18n-ally.fileNamespace`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  fileNamespace: {
-    key: "i18n-ally.fileNamespace",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.fileNamespace">,
-  /**
-   * 
-   * @key `i18n-ally.keyMatchRegex`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  keyMatchRegex: {
-    key: "i18n-ally.keyMatchRegex",
-    default: undefined,
-  } as ConfigItem<"i18n-ally.keyMatchRegex">,
-  /**
-   * 
-   * @key `vue-i18n-ally.localesPaths`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyLocalesPaths: {
-    key: "vue-i18n-ally.localesPaths",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.localesPaths">,
-  /**
-   * 
-   * @key `vue-i18n-ally.encoding`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyEncoding: {
-    key: "vue-i18n-ally.encoding",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.encoding">,
-  /**
-   * 
-   * @key `vue-i18n-ally.sourceLanguage`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllySourceLanguage: {
-    key: "vue-i18n-ally.sourceLanguage",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.sourceLanguage">,
-  /**
-   * 
-   * @key `vue-i18n-ally.displayLanguage`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyDisplayLanguage: {
-    key: "vue-i18n-ally.displayLanguage",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.displayLanguage">,
-  /**
-   * 
-   * @key `vue-i18n-ally.ignoredLocales`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyIgnoredLocales: {
-    key: "vue-i18n-ally.ignoredLocales",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.ignoredLocales">,
-  /**
-   * 
-   * @key `vue-i18n-ally.keystyle`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyKeystyle: {
-    key: "vue-i18n-ally.keystyle",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.keystyle">,
-  /**
-   * 
-   * @key `vue-i18n-ally.dirStructure`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyDirStructure: {
-    key: "vue-i18n-ally.dirStructure",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.dirStructure">,
-  /**
-   * 
-   * @key `vue-i18n-ally.annotations`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyAnnotations: {
-    key: "vue-i18n-ally.annotations",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.annotations">,
-  /**
-   * 
-   * @key `vue-i18n-ally.annotationMaxLength`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyAnnotationMaxLength: {
-    key: "vue-i18n-ally.annotationMaxLength",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.annotationMaxLength">,
-  /**
-   * 
-   * @key `vue-i18n-ally.annotationDelimiter`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyAnnotationDelimiter: {
-    key: "vue-i18n-ally.annotationDelimiter",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.annotationDelimiter">,
-  /**
-   * 
-   * @key `vue-i18n-ally.filenameMatchRegex`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyFilenameMatchRegex: {
-    key: "vue-i18n-ally.filenameMatchRegex",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.filenameMatchRegex">,
-  /**
-   * 
-   * @key `vue-i18n-ally.includeSubfolders`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyIncludeSubfolders: {
-    key: "vue-i18n-ally.includeSubfolders",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.includeSubfolders">,
-  /**
-   * 
-   * @key `vue-i18n-ally.fullReloadOnChanged`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyFullReloadOnChanged: {
-    key: "vue-i18n-ally.fullReloadOnChanged",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.fullReloadOnChanged">,
-  /**
-   * 
-   * @key `vue-i18n-ally.sortKeys`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllySortKeys: {
-    key: "vue-i18n-ally.sortKeys",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.sortKeys">,
-  /**
-   * 
-   * @key `vue-i18n-ally.preferredDelimiter`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyPreferredDelimiter: {
-    key: "vue-i18n-ally.preferredDelimiter",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.preferredDelimiter">,
-  /**
-   * 
-   * @key `vue-i18n-ally.readonly`
-   * @default `undefined`
-   * @type `undefined`
-   */
-  vueI18nAllyReadonly: {
-    key: "vue-i18n-ally.readonly",
-    default: undefined,
-  } as ConfigItem<"vue-i18n-ally.readonly">,
-}
-
-export interface ScopedConfigKeyTypeMap {
-  "disabled": boolean,
-  "autoDetection": boolean,
-  "localesPaths": (string | string[] | undefined),
-  "encoding": string,
-  "sourceLanguage": (string | undefined),
-  "displayLanguage": (string | undefined),
-  "ignoredLocales": (unknown[] | undefined),
-  "keystyle": ("auto" | "nested" | "flat" | undefined),
-  "dirStructure": ("auto" | "file" | "dir" | undefined),
-  "annotations": boolean,
-  "annotationInPlace": boolean,
-  "annotationMaxLength": number,
-  "annotationDelimiter": string,
-  "includeSubfolders": boolean,
-  "fullReloadOnChanged": boolean,
-  "showFlags": boolean,
-  "enabledFrameworks": (("vue" | "react" | "vscode" | "ngx-translate" | "i18next" | "react-i18next" | "i18next-shopify" | "i18n-tag" | "flutter" | "vue-sfc" | "ember" | "chrome-ext" | "ruby-rails" | "custom" | "laravel" | "transloco" | "svelte" | "globalize" | "ui5" | "next-translate" | "php-gettext" | "general" | "lingui" | "jekyll" | "fluent-vue" | "fluent-vue-sfc" | "next-intl" | "next-international")[] | undefined),
-  "enabledParsers": (("js" | "ts" | "json" | "json5" | "yaml" | "ini" | "po" | "php" | "properties" | "ftl")[] | undefined),
-  "keysInUse": (string[] | undefined),
-  "sortKeys": boolean,
-  "sortCompare": ("binary" | "locale"),
-  "sortLocale": (string | undefined),
-  "preferredDelimiter": string,
-  "readonly": boolean,
-  "keepFulfilled": boolean,
-  "localeCountryMap": Record<string, unknown>,
-  "indent": number,
-  "disablePathParsing": boolean,
-  "tabStyle": ("space" | "tab"),
-  "namespace": (boolean | undefined),
-  "pathMatcher": (string | undefined),
-  "languageTagSystem": ("bcp47" | "legacy" | "none"),
-  "ignoreFiles": (unknown[] | undefined),
-  "theme.annotation": string,
-  "theme.annotationMissing": string,
-  "theme.annotationBorder": string,
-  "theme.annotationMissingBorder": string,
-  "regex.key": (string | undefined),
-  "regex.usageMatch": (string[] | undefined),
-  "regex.usageMatchAppend": (string[] | undefined),
-  "refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
-  "translate.saveAsCandidates": boolean,
-  "translate.fallbackToKey": boolean,
-  "translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
-  "translate.parallels": number,
-  "translate.promptSource": boolean,
-  "translate.overrideExisting": boolean,
-  "translate.google.apiKey": (string | null),
-  "translate.deepl.apiKey": (string | null),
-  "translate.baidu.appid": (string | null),
-  "translate.baidu.apiSecret": (string | null),
-  "translate.deepl.enableLog": boolean,
-  "translate.deepl.useFreeApiEntry": boolean,
-  "translate.libre.apiRoot": string,
-  "translate.openai.apiKey": (string | null),
-  "translate.openai.apiRoot": string,
-  "translate.openai.apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
-  "usage.scanningIgnore": (string[] | undefined),
-  "usage.derivedKeyRules": (string[] | null),
-  "frameworks.ruby-rails.scopeRoot": string,
-  "parsers.typescript.tsNodePath": string,
-  "parsers.typescript.compilerOptions": Record<string, unknown>,
-  "parsers.extendFileExtensions": Record<string, unknown>,
-  "review.enabled": boolean,
-  "review.gutters": boolean,
-  "review.user.name": (string | undefined),
-  "review.user.email": (string | undefined),
-  "review.removeCommentOnResolved": boolean,
-  "editor.preferEditor": boolean,
-  "extract.keygenStrategy": ("slug" | "random" | "empty" | "source"),
-  "extract.keygenStyle": ("default" | "kebab-case" | "snake_case" | "camelCase" | "PascalCase" | "ALL_CAPS"),
-  "extract.keyPrefix": string,
-  "extract.keyMaxLength": (number | null),
-  "extract.targetPickingStrategy": ("none" | "most-similar" | "most-similar-by-key" | "file-previous" | "global-previous"),
-  "extract.parsers.html": Record<string, unknown>,
-  "extract.parsers.babel": Record<string, unknown>,
-  "extract.autoDetect": boolean,
-  "extract.ignored": (string[] | undefined),
-  "extract.ignoredByFiles": Record<string, unknown>,
-  "parserOptions": Record<string, unknown>,
-  "defaultNamespace": (string | undefined),
-  "derivedKeyRules": (unknown | undefined),
-  "filenameMatchRegex": (unknown | undefined),
-  "fileNamespace": (unknown | undefined),
-  "keyMatchRegex": (unknown | undefined),
-}
-
-export const scopedConfigs = {
-  scope: "i18n-ally",
-  defaults: {
-    "disabled": false,
-    "autoDetection": true,
-    "localesPaths": undefined,
-    "encoding": "utf-8",
-    "sourceLanguage": undefined,
-    "displayLanguage": undefined,
-    "ignoredLocales": undefined,
-    "keystyle": undefined,
-    "dirStructure": undefined,
-    "annotations": true,
-    "annotationInPlace": true,
-    "annotationMaxLength": 40,
-    "annotationDelimiter": "·",
-    "includeSubfolders": true,
-    "fullReloadOnChanged": false,
-    "showFlags": true,
-    "enabledFrameworks": undefined,
-    "enabledParsers": undefined,
-    "keysInUse": undefined,
-    "sortKeys": false,
-    "sortCompare": "binary",
-    "sortLocale": undefined,
-    "preferredDelimiter": "-",
-    "readonly": false,
-    "keepFulfilled": false,
-    "localeCountryMap": {},
-    "indent": 2,
-    "disablePathParsing": false,
-    "tabStyle": "space",
-    "namespace": undefined,
-    "pathMatcher": undefined,
-    "languageTagSystem": "bcp47",
-    "ignoreFiles": undefined,
-    "theme.annotation": "rgba(153, 153, 153, .8)",
-    "theme.annotationMissing": "rgba(153, 153, 153, .3)",
-    "theme.annotationBorder": "rgba(153, 153, 153, .2)",
-    "theme.annotationMissingBorder": "rgba(153, 153, 153, .2)",
-    "regex.key": undefined,
-    "regex.usageMatch": undefined,
-    "regex.usageMatchAppend": undefined,
-    "refactor.templates": undefined,
-    "translate.saveAsCandidates": false,
-    "translate.fallbackToKey": false,
-    "translate.engines": ["google"],
-    "translate.parallels": 5,
-    "translate.promptSource": false,
-    "translate.overrideExisting": false,
-    "translate.google.apiKey": null,
-    "translate.deepl.apiKey": null,
-    "translate.baidu.appid": null,
-    "translate.baidu.apiSecret": null,
-    "translate.deepl.enableLog": false,
-    "translate.deepl.useFreeApiEntry": false,
-    "translate.libre.apiRoot": "http://localhost:5000",
-    "translate.openai.apiKey": null,
-    "translate.openai.apiRoot": "https://api.openai.com",
-    "translate.openai.apiModel": "gpt-3.5-turbo",
-    "usage.scanningIgnore": undefined,
-    "usage.derivedKeyRules": null,
-    "frameworks.ruby-rails.scopeRoot": "app/views",
-    "parsers.typescript.tsNodePath": "node_modules/ts-node/dist/bin.js",
-    "parsers.typescript.compilerOptions": {},
-    "parsers.extendFileExtensions": {},
-    "review.enabled": true,
-    "review.gutters": true,
-    "review.user.name": undefined,
-    "review.user.email": undefined,
-    "review.removeCommentOnResolved": false,
-    "editor.preferEditor": false,
-    "extract.keygenStrategy": "slug",
-    "extract.keygenStyle": "default",
-    "extract.keyPrefix": "",
-    "extract.keyMaxLength": null,
-    "extract.targetPickingStrategy": "none",
-    "extract.parsers.html": {},
-    "extract.parsers.babel": {},
-    "extract.autoDetect": false,
-    "extract.ignored": undefined,
-    "extract.ignoredByFiles": {},
-    "parserOptions": {},
-    "defaultNamespace": undefined,
-    "derivedKeyRules": undefined,
-    "filenameMatchRegex": undefined,
-    "fileNamespace": undefined,
-    "keyMatchRegex": undefined,
-  } satisfies ScopedConfigKeyTypeMap,
-}
-
-
 /**
  * Types of `i18n-ally` registed by `lokalise`
  */
-export interface I18nAllyConfigs {
+export interface I18nAlly {
   /**
    * %config.disabled%
    * @key `i18n-ally.disabled`
@@ -2392,7 +985,7 @@ export interface I18nAllyConfigs {
 /**
  * defaults/scope of `i18n-ally` registed by `lokalise`
  */
-export const i18nAllyConfigs = {
+const _i18nAlly = {
 /**
  * scope: `i18n-ally`
  */
@@ -2486,14 +1079,31 @@ export const i18nAllyConfigs = {
     "filenameMatchRegex": undefined,
     "fileNamespace": undefined,
     "keyMatchRegex": undefined,
-  } satisfies I18nAllyConfigs,
+  } satisfies I18nAlly,
 }
+
+/**
+ * config objects of `i18n-ally` registed by `lokalise`
+ */
+export const i18nAllyConfigObject = defineConfigObject<I18nAlly>(
+  _i18nAlly.scope,
+  _i18nAlly.defaults
+)
+
+
+/**
+ * configs of `i18n-ally` registed by `lokalise`
+ */
+export const i18nAllyConfigs = defineConfigs<I18nAlly>(
+  _i18nAlly.scope,
+  _i18nAlly.defaults
+)
 
 
 /**
  * Types of `i18n-ally.theme` registed by `lokalise`
  */
-export interface ThemeConfigs {
+export interface Theme {
   /**
    * 
    * @key `i18n-ally.theme.annotation`
@@ -2527,7 +1137,7 @@ export interface ThemeConfigs {
 /**
  * defaults/scope of `i18n-ally.theme` registed by `lokalise`
  */
-export const themeConfigs = {
+const _theme = {
 /**
  * scope: `i18n-ally.theme`
  */
@@ -2540,14 +1150,31 @@ export const themeConfigs = {
     "annotationMissing": "rgba(153, 153, 153, .3)",
     "annotationBorder": "rgba(153, 153, 153, .2)",
     "annotationMissingBorder": "rgba(153, 153, 153, .2)",
-  } satisfies ThemeConfigs,
+  } satisfies Theme,
 }
+
+/**
+ * config objects of `i18n-ally.theme` registed by `lokalise`
+ */
+export const themeConfigObject = defineConfigObject<Theme>(
+  _theme.scope,
+  _theme.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.theme` registed by `lokalise`
+ */
+export const themeConfigs = defineConfigs<Theme>(
+  _theme.scope,
+  _theme.defaults
+)
 
 
 /**
  * Types of `i18n-ally.regex` registed by `lokalise`
  */
-export interface RegexConfigs {
+export interface Regex {
   /**
    * %config.regex_key%
    * @key `i18n-ally.regex.key`
@@ -2574,7 +1201,7 @@ export interface RegexConfigs {
 /**
  * defaults/scope of `i18n-ally.regex` registed by `lokalise`
  */
-export const regexConfigs = {
+const _regex = {
 /**
  * scope: `i18n-ally.regex`
  */
@@ -2586,14 +1213,31 @@ export const regexConfigs = {
     "key": undefined,
     "usageMatch": undefined,
     "usageMatchAppend": undefined,
-  } satisfies RegexConfigs,
+  } satisfies Regex,
 }
+
+/**
+ * config objects of `i18n-ally.regex` registed by `lokalise`
+ */
+export const regexConfigObject = defineConfigObject<Regex>(
+  _regex.scope,
+  _regex.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.regex` registed by `lokalise`
+ */
+export const regexConfigs = defineConfigs<Regex>(
+  _regex.scope,
+  _regex.defaults
+)
 
 
 /**
  * Types of `i18n-ally.refactor` registed by `lokalise`
  */
-export interface RefactorConfigs {
+export interface Refactor {
   /**
    * %config.refactor_templates%
    * @key `i18n-ally.refactor.templates`
@@ -2606,7 +1250,7 @@ export interface RefactorConfigs {
 /**
  * defaults/scope of `i18n-ally.refactor` registed by `lokalise`
  */
-export const refactorConfigs = {
+const _refactor = {
 /**
  * scope: `i18n-ally.refactor`
  */
@@ -2616,14 +1260,31 @@ export const refactorConfigs = {
  */
   defaults: {
     "templates": undefined,
-  } satisfies RefactorConfigs,
+  } satisfies Refactor,
 }
+
+/**
+ * config objects of `i18n-ally.refactor` registed by `lokalise`
+ */
+export const refactorConfigObject = defineConfigObject<Refactor>(
+  _refactor.scope,
+  _refactor.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.refactor` registed by `lokalise`
+ */
+export const refactorConfigs = defineConfigs<Refactor>(
+  _refactor.scope,
+  _refactor.defaults
+)
 
 
 /**
  * Types of `i18n-ally.translate` registed by `lokalise`
  */
-export interface TranslateConfigs {
+export interface Translate {
   /**
    * %config.translate_save_as_candidates%
    * @key `i18n-ally.translate.saveAsCandidates`
@@ -2741,7 +1402,7 @@ export interface TranslateConfigs {
 /**
  * defaults/scope of `i18n-ally.translate` registed by `lokalise`
  */
-export const translateConfigs = {
+const _translate = {
 /**
  * scope: `i18n-ally.translate`
  */
@@ -2766,14 +1427,31 @@ export const translateConfigs = {
     "openai.apiKey": null,
     "openai.apiRoot": "https://api.openai.com",
     "openai.apiModel": "gpt-3.5-turbo",
-  } satisfies TranslateConfigs,
+  } satisfies Translate,
 }
+
+/**
+ * config objects of `i18n-ally.translate` registed by `lokalise`
+ */
+export const translateConfigObject = defineConfigObject<Translate>(
+  _translate.scope,
+  _translate.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.translate` registed by `lokalise`
+ */
+export const translateConfigs = defineConfigs<Translate>(
+  _translate.scope,
+  _translate.defaults
+)
 
 
 /**
  * Types of `i18n-ally.translate.google` registed by `lokalise`
  */
-export interface TranslateGoogleConfigs {
+export interface TranslateGoogle {
   /**
    * %config.google_api_key%
    * @key `i18n-ally.translate.google.apiKey`
@@ -2786,7 +1464,7 @@ export interface TranslateGoogleConfigs {
 /**
  * defaults/scope of `i18n-ally.translate.google` registed by `lokalise`
  */
-export const translateGoogleConfigs = {
+const _translateGoogle = {
 /**
  * scope: `i18n-ally.translate.google`
  */
@@ -2796,14 +1474,31 @@ export const translateGoogleConfigs = {
  */
   defaults: {
     "apiKey": null,
-  } satisfies TranslateGoogleConfigs,
+  } satisfies TranslateGoogle,
 }
+
+/**
+ * config objects of `i18n-ally.translate.google` registed by `lokalise`
+ */
+export const translateGoogleConfigObject = defineConfigObject<TranslateGoogle>(
+  _translateGoogle.scope,
+  _translateGoogle.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.translate.google` registed by `lokalise`
+ */
+export const translateGoogleConfigs = defineConfigs<TranslateGoogle>(
+  _translateGoogle.scope,
+  _translateGoogle.defaults
+)
 
 
 /**
  * Types of `i18n-ally.translate.deepl` registed by `lokalise`
  */
-export interface TranslateDeeplConfigs {
+export interface TranslateDeepl {
   /**
    * %config.deepl_api_key%
    * @key `i18n-ally.translate.deepl.apiKey`
@@ -2830,7 +1525,7 @@ export interface TranslateDeeplConfigs {
 /**
  * defaults/scope of `i18n-ally.translate.deepl` registed by `lokalise`
  */
-export const translateDeeplConfigs = {
+const _translateDeepl = {
 /**
  * scope: `i18n-ally.translate.deepl`
  */
@@ -2842,14 +1537,31 @@ export const translateDeeplConfigs = {
     "apiKey": null,
     "enableLog": false,
     "useFreeApiEntry": false,
-  } satisfies TranslateDeeplConfigs,
+  } satisfies TranslateDeepl,
 }
+
+/**
+ * config objects of `i18n-ally.translate.deepl` registed by `lokalise`
+ */
+export const translateDeeplConfigObject = defineConfigObject<TranslateDeepl>(
+  _translateDeepl.scope,
+  _translateDeepl.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.translate.deepl` registed by `lokalise`
+ */
+export const translateDeeplConfigs = defineConfigs<TranslateDeepl>(
+  _translateDeepl.scope,
+  _translateDeepl.defaults
+)
 
 
 /**
  * Types of `i18n-ally.translate.baidu` registed by `lokalise`
  */
-export interface TranslateBaiduConfigs {
+export interface TranslateBaidu {
   /**
    * %config.baidu_appid%
    * @key `i18n-ally.translate.baidu.appid`
@@ -2869,7 +1581,7 @@ export interface TranslateBaiduConfigs {
 /**
  * defaults/scope of `i18n-ally.translate.baidu` registed by `lokalise`
  */
-export const translateBaiduConfigs = {
+const _translateBaidu = {
 /**
  * scope: `i18n-ally.translate.baidu`
  */
@@ -2880,14 +1592,31 @@ export const translateBaiduConfigs = {
   defaults: {
     "appid": null,
     "apiSecret": null,
-  } satisfies TranslateBaiduConfigs,
+  } satisfies TranslateBaidu,
 }
+
+/**
+ * config objects of `i18n-ally.translate.baidu` registed by `lokalise`
+ */
+export const translateBaiduConfigObject = defineConfigObject<TranslateBaidu>(
+  _translateBaidu.scope,
+  _translateBaidu.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.translate.baidu` registed by `lokalise`
+ */
+export const translateBaiduConfigs = defineConfigs<TranslateBaidu>(
+  _translateBaidu.scope,
+  _translateBaidu.defaults
+)
 
 
 /**
  * Types of `i18n-ally.translate.libre` registed by `lokalise`
  */
-export interface TranslateLibreConfigs {
+export interface TranslateLibre {
   /**
    * %config.libretranslate_api_root%
    * @key `i18n-ally.translate.libre.apiRoot`
@@ -2900,7 +1629,7 @@ export interface TranslateLibreConfigs {
 /**
  * defaults/scope of `i18n-ally.translate.libre` registed by `lokalise`
  */
-export const translateLibreConfigs = {
+const _translateLibre = {
 /**
  * scope: `i18n-ally.translate.libre`
  */
@@ -2910,14 +1639,31 @@ export const translateLibreConfigs = {
  */
   defaults: {
     "apiRoot": "http://localhost:5000",
-  } satisfies TranslateLibreConfigs,
+  } satisfies TranslateLibre,
 }
+
+/**
+ * config objects of `i18n-ally.translate.libre` registed by `lokalise`
+ */
+export const translateLibreConfigObject = defineConfigObject<TranslateLibre>(
+  _translateLibre.scope,
+  _translateLibre.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.translate.libre` registed by `lokalise`
+ */
+export const translateLibreConfigs = defineConfigs<TranslateLibre>(
+  _translateLibre.scope,
+  _translateLibre.defaults
+)
 
 
 /**
  * Types of `i18n-ally.translate.openai` registed by `lokalise`
  */
-export interface TranslateOpenaiConfigs {
+export interface TranslateOpenai {
   /**
    * %config.openai_api_key%
    * @key `i18n-ally.translate.openai.apiKey`
@@ -2944,7 +1690,7 @@ export interface TranslateOpenaiConfigs {
 /**
  * defaults/scope of `i18n-ally.translate.openai` registed by `lokalise`
  */
-export const translateOpenaiConfigs = {
+const _translateOpenai = {
 /**
  * scope: `i18n-ally.translate.openai`
  */
@@ -2956,14 +1702,31 @@ export const translateOpenaiConfigs = {
     "apiKey": null,
     "apiRoot": "https://api.openai.com",
     "apiModel": "gpt-3.5-turbo",
-  } satisfies TranslateOpenaiConfigs,
+  } satisfies TranslateOpenai,
 }
+
+/**
+ * config objects of `i18n-ally.translate.openai` registed by `lokalise`
+ */
+export const translateOpenaiConfigObject = defineConfigObject<TranslateOpenai>(
+  _translateOpenai.scope,
+  _translateOpenai.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.translate.openai` registed by `lokalise`
+ */
+export const translateOpenaiConfigs = defineConfigs<TranslateOpenai>(
+  _translateOpenai.scope,
+  _translateOpenai.defaults
+)
 
 
 /**
  * Types of `i18n-ally.usage` registed by `lokalise`
  */
-export interface UsageConfigs {
+export interface Usage {
   /**
    * %config.usage.scanning_ignore%
    * @key `i18n-ally.usage.scanningIgnore`
@@ -2983,7 +1746,7 @@ export interface UsageConfigs {
 /**
  * defaults/scope of `i18n-ally.usage` registed by `lokalise`
  */
-export const usageConfigs = {
+const _usage = {
 /**
  * scope: `i18n-ally.usage`
  */
@@ -2994,14 +1757,31 @@ export const usageConfigs = {
   defaults: {
     "scanningIgnore": undefined,
     "derivedKeyRules": null,
-  } satisfies UsageConfigs,
+  } satisfies Usage,
 }
+
+/**
+ * config objects of `i18n-ally.usage` registed by `lokalise`
+ */
+export const usageConfigObject = defineConfigObject<Usage>(
+  _usage.scope,
+  _usage.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.usage` registed by `lokalise`
+ */
+export const usageConfigs = defineConfigs<Usage>(
+  _usage.scope,
+  _usage.defaults
+)
 
 
 /**
  * Types of `i18n-ally.frameworks` registed by `lokalise`
  */
-export interface FrameworksConfigs {
+export interface Frameworks {
   /**
    * 
    * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
@@ -3014,7 +1794,7 @@ export interface FrameworksConfigs {
 /**
  * defaults/scope of `i18n-ally.frameworks` registed by `lokalise`
  */
-export const frameworksConfigs = {
+const _frameworks = {
 /**
  * scope: `i18n-ally.frameworks`
  */
@@ -3024,14 +1804,31 @@ export const frameworksConfigs = {
  */
   defaults: {
     "ruby-rails.scopeRoot": "app/views",
-  } satisfies FrameworksConfigs,
+  } satisfies Frameworks,
 }
+
+/**
+ * config objects of `i18n-ally.frameworks` registed by `lokalise`
+ */
+export const frameworksConfigObject = defineConfigObject<Frameworks>(
+  _frameworks.scope,
+  _frameworks.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.frameworks` registed by `lokalise`
+ */
+export const frameworksConfigs = defineConfigs<Frameworks>(
+  _frameworks.scope,
+  _frameworks.defaults
+)
 
 
 /**
  * Types of `i18n-ally.frameworks.ruby-rails` registed by `lokalise`
  */
-export interface FrameworksRubyRailsConfigs {
+export interface FrameworksRubyRails {
   /**
    * 
    * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
@@ -3044,7 +1841,7 @@ export interface FrameworksRubyRailsConfigs {
 /**
  * defaults/scope of `i18n-ally.frameworks.ruby-rails` registed by `lokalise`
  */
-export const frameworksRubyRailsConfigs = {
+const _frameworksRubyRails = {
 /**
  * scope: `i18n-ally.frameworks.ruby-rails`
  */
@@ -3054,14 +1851,31 @@ export const frameworksRubyRailsConfigs = {
  */
   defaults: {
     "scopeRoot": "app/views",
-  } satisfies FrameworksRubyRailsConfigs,
+  } satisfies FrameworksRubyRails,
 }
+
+/**
+ * config objects of `i18n-ally.frameworks.ruby-rails` registed by `lokalise`
+ */
+export const frameworksRubyRailsConfigObject = defineConfigObject<FrameworksRubyRails>(
+  _frameworksRubyRails.scope,
+  _frameworksRubyRails.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.frameworks.ruby-rails` registed by `lokalise`
+ */
+export const frameworksRubyRailsConfigs = defineConfigs<FrameworksRubyRails>(
+  _frameworksRubyRails.scope,
+  _frameworksRubyRails.defaults
+)
 
 
 /**
  * Types of `i18n-ally.parsers` registed by `lokalise`
  */
-export interface ParsersConfigs {
+export interface Parsers {
   /**
    * 
    * @key `i18n-ally.parsers.typescript.tsNodePath`
@@ -3088,7 +1902,7 @@ export interface ParsersConfigs {
 /**
  * defaults/scope of `i18n-ally.parsers` registed by `lokalise`
  */
-export const parsersConfigs = {
+const _parsers = {
 /**
  * scope: `i18n-ally.parsers`
  */
@@ -3100,14 +1914,31 @@ export const parsersConfigs = {
     "typescript.tsNodePath": "node_modules/ts-node/dist/bin.js",
     "typescript.compilerOptions": {},
     "extendFileExtensions": {},
-  } satisfies ParsersConfigs,
+  } satisfies Parsers,
 }
+
+/**
+ * config objects of `i18n-ally.parsers` registed by `lokalise`
+ */
+export const parsersConfigObject = defineConfigObject<Parsers>(
+  _parsers.scope,
+  _parsers.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.parsers` registed by `lokalise`
+ */
+export const parsersConfigs = defineConfigs<Parsers>(
+  _parsers.scope,
+  _parsers.defaults
+)
 
 
 /**
  * Types of `i18n-ally.parsers.typescript` registed by `lokalise`
  */
-export interface ParsersTypescriptConfigs {
+export interface ParsersTypescript {
   /**
    * 
    * @key `i18n-ally.parsers.typescript.tsNodePath`
@@ -3127,7 +1958,7 @@ export interface ParsersTypescriptConfigs {
 /**
  * defaults/scope of `i18n-ally.parsers.typescript` registed by `lokalise`
  */
-export const parsersTypescriptConfigs = {
+const _parsersTypescript = {
 /**
  * scope: `i18n-ally.parsers.typescript`
  */
@@ -3138,14 +1969,31 @@ export const parsersTypescriptConfigs = {
   defaults: {
     "tsNodePath": "node_modules/ts-node/dist/bin.js",
     "compilerOptions": {},
-  } satisfies ParsersTypescriptConfigs,
+  } satisfies ParsersTypescript,
 }
+
+/**
+ * config objects of `i18n-ally.parsers.typescript` registed by `lokalise`
+ */
+export const parsersTypescriptConfigObject = defineConfigObject<ParsersTypescript>(
+  _parsersTypescript.scope,
+  _parsersTypescript.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.parsers.typescript` registed by `lokalise`
+ */
+export const parsersTypescriptConfigs = defineConfigs<ParsersTypescript>(
+  _parsersTypescript.scope,
+  _parsersTypescript.defaults
+)
 
 
 /**
  * Types of `i18n-ally.review` registed by `lokalise`
  */
-export interface ReviewConfigs {
+export interface Review {
   /**
    * %config.review_enabled%
    * @key `i18n-ally.review.enabled`
@@ -3186,7 +2034,7 @@ export interface ReviewConfigs {
 /**
  * defaults/scope of `i18n-ally.review` registed by `lokalise`
  */
-export const reviewConfigs = {
+const _review = {
 /**
  * scope: `i18n-ally.review`
  */
@@ -3200,14 +2048,31 @@ export const reviewConfigs = {
     "user.name": undefined,
     "user.email": undefined,
     "removeCommentOnResolved": false,
-  } satisfies ReviewConfigs,
+  } satisfies Review,
 }
+
+/**
+ * config objects of `i18n-ally.review` registed by `lokalise`
+ */
+export const reviewConfigObject = defineConfigObject<Review>(
+  _review.scope,
+  _review.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.review` registed by `lokalise`
+ */
+export const reviewConfigs = defineConfigs<Review>(
+  _review.scope,
+  _review.defaults
+)
 
 
 /**
  * Types of `i18n-ally.review.user` registed by `lokalise`
  */
-export interface ReviewUserConfigs {
+export interface ReviewUser {
   /**
    * %config.review_username%
    * @key `i18n-ally.review.user.name`
@@ -3227,7 +2092,7 @@ export interface ReviewUserConfigs {
 /**
  * defaults/scope of `i18n-ally.review.user` registed by `lokalise`
  */
-export const reviewUserConfigs = {
+const _reviewUser = {
 /**
  * scope: `i18n-ally.review.user`
  */
@@ -3238,14 +2103,31 @@ export const reviewUserConfigs = {
   defaults: {
     "name": undefined,
     "email": undefined,
-  } satisfies ReviewUserConfigs,
+  } satisfies ReviewUser,
 }
+
+/**
+ * config objects of `i18n-ally.review.user` registed by `lokalise`
+ */
+export const reviewUserConfigObject = defineConfigObject<ReviewUser>(
+  _reviewUser.scope,
+  _reviewUser.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.review.user` registed by `lokalise`
+ */
+export const reviewUserConfigs = defineConfigs<ReviewUser>(
+  _reviewUser.scope,
+  _reviewUser.defaults
+)
 
 
 /**
  * Types of `i18n-ally.editor` registed by `lokalise`
  */
-export interface EditorConfigs {
+export interface Editor {
   /**
    * %config.editor_prefer_editor%
    * @key `i18n-ally.editor.preferEditor`
@@ -3258,7 +2140,7 @@ export interface EditorConfigs {
 /**
  * defaults/scope of `i18n-ally.editor` registed by `lokalise`
  */
-export const editorConfigs = {
+const _editor = {
 /**
  * scope: `i18n-ally.editor`
  */
@@ -3268,14 +2150,31 @@ export const editorConfigs = {
  */
   defaults: {
     "preferEditor": false,
-  } satisfies EditorConfigs,
+  } satisfies Editor,
 }
+
+/**
+ * config objects of `i18n-ally.editor` registed by `lokalise`
+ */
+export const editorConfigObject = defineConfigObject<Editor>(
+  _editor.scope,
+  _editor.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.editor` registed by `lokalise`
+ */
+export const editorConfigs = defineConfigs<Editor>(
+  _editor.scope,
+  _editor.defaults
+)
 
 
 /**
  * Types of `i18n-ally.extract` registed by `lokalise`
  */
-export interface ExtractConfigs {
+export interface Extract {
   /**
    * %config.keygen_strategy%
    * @key `i18n-ally.extract.keygenStrategy`
@@ -3351,7 +2250,7 @@ export interface ExtractConfigs {
 /**
  * defaults/scope of `i18n-ally.extract` registed by `lokalise`
  */
-export const extractConfigs = {
+const _extract = {
 /**
  * scope: `i18n-ally.extract`
  */
@@ -3370,14 +2269,31 @@ export const extractConfigs = {
     "autoDetect": false,
     "ignored": undefined,
     "ignoredByFiles": {},
-  } satisfies ExtractConfigs,
+  } satisfies Extract,
 }
+
+/**
+ * config objects of `i18n-ally.extract` registed by `lokalise`
+ */
+export const extractConfigObject = defineConfigObject<Extract>(
+  _extract.scope,
+  _extract.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.extract` registed by `lokalise`
+ */
+export const extractConfigs = defineConfigs<Extract>(
+  _extract.scope,
+  _extract.defaults
+)
 
 
 /**
  * Types of `i18n-ally.extract.parsers` registed by `lokalise`
  */
-export interface ExtractParsersConfigs {
+export interface ExtractParsers {
   /**
    * Parser options for extracting HTML, see https://github.com/lokalise/i18n-ally/blob/master/src/extraction/parsers/options.ts
    * @key `i18n-ally.extract.parsers.html`
@@ -3397,7 +2313,7 @@ export interface ExtractParsersConfigs {
 /**
  * defaults/scope of `i18n-ally.extract.parsers` registed by `lokalise`
  */
-export const extractParsersConfigs = {
+const _extractParsers = {
 /**
  * scope: `i18n-ally.extract.parsers`
  */
@@ -3408,14 +2324,31 @@ export const extractParsersConfigs = {
   defaults: {
     "html": {},
     "babel": {},
-  } satisfies ExtractParsersConfigs,
+  } satisfies ExtractParsers,
 }
+
+/**
+ * config objects of `i18n-ally.extract.parsers` registed by `lokalise`
+ */
+export const extractParsersConfigObject = defineConfigObject<ExtractParsers>(
+  _extractParsers.scope,
+  _extractParsers.defaults
+)
+
+
+/**
+ * configs of `i18n-ally.extract.parsers` registed by `lokalise`
+ */
+export const extractParsersConfigs = defineConfigs<ExtractParsers>(
+  _extractParsers.scope,
+  _extractParsers.defaults
+)
 
 
 /**
  * Types of `vue-i18n-ally` registed by `lokalise`
  */
-export interface VueI18nAllyConfigs {
+export interface VueI18nAlly {
   /**
    * 
    * @key `vue-i18n-ally.localesPaths`
@@ -3533,7 +2466,7 @@ export interface VueI18nAllyConfigs {
 /**
  * defaults/scope of `vue-i18n-ally` registed by `lokalise`
  */
-export const vueI18nAllyConfigs = {
+const _vueI18nAlly = {
 /**
  * scope: `vue-i18n-ally`
  */
@@ -3558,6 +2491,23 @@ export const vueI18nAllyConfigs = {
     "sortKeys": undefined,
     "preferredDelimiter": undefined,
     "readonly": undefined,
-  } satisfies VueI18nAllyConfigs,
+  } satisfies VueI18nAlly,
 }
+
+/**
+ * config objects of `vue-i18n-ally` registed by `lokalise`
+ */
+export const vueI18nAllyConfigObject = defineConfigObject<VueI18nAlly>(
+  _vueI18nAlly.scope,
+  _vueI18nAlly.defaults
+)
+
+
+/**
+ * configs of `vue-i18n-ally` registed by `lokalise`
+ */
+export const vueI18nAllyConfigs = defineConfigs<VueI18nAlly>(
+  _vueI18nAlly.scope,
+  _vueI18nAlly.defaults
+)
 
