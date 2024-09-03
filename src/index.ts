@@ -45,10 +45,9 @@ export interface ConfigurationProperty {
   typeHintLabel?: string
 }
 
-function isProperties(propterties: any): propterties is ConfigurationProperty {
-  return 'type' in propterties
-    && typeof propterties.type === 'string'
-    && 'default' in propterties
+function isProperty(propterty: any): propterty is ConfigurationProperty {
+  const ret = Object.hasOwn(propterty, 'type') && (typeof propterty.type) === 'string'
+  return ret
 }
 
 function convertCase(input: string) {
@@ -57,7 +56,7 @@ function convertCase(input: string) {
   return camelCase(input)
 }
 
-function getConfigObject(packageJson: any): Record<string, any> {
+function getConfigObject(packageJson: any): Record<string, ConfigurationProperty> {
   const conf = packageJson.contributes?.configuration
   return (isArray(conf)
     ? conf.reduce((acc, cur) => assign(acc, cur), {}).properties
@@ -264,29 +263,28 @@ useCommand(commands.${convertCase(name)}, async () => {
   //   '}',
   // )
 
-  const scopeKeys = Array.from(Object.keys(configsObject).reduce((acc, curr) => {
-    const parts = curr.split('.')
-    if (parts.length > 1) {
-      const scopeParts = parts.slice(0, -1)
-      for (let i = 0; i < scopeParts.length; i++) {
-        acc.add(scopeParts.slice(0, i + 1).join('.'))
+  const scopeKeys = Array.from(Object.entries(configsObject).reduce((acc, [curr, value]) => {
+    if (isProperty(value)) {
+      const parts = curr.split('.')
+      if (parts.length > 1) {
+        const scopeParts = parts.slice(0, -1)
+        for (let i = 0; i < scopeParts.length; i++) {
+          acc.add(scopeParts.slice(0, i + 1).join('.'))
+        }
       }
-    }
-    else {
-      acc.add('')
+      else {
+        acc.add('')
+      }
     }
     return acc
   }, new Set<string>()))
 
   const scopeConfigurationPairs = scopeKeys.reduce((acc, scope) => {
-    let conf
-    if (scope === '') {
-      conf = Object.entries(configsObject)
-        .filter(([key, value]) => !key.includes('.') && isProperties(value))
-    }
-    else {
-      conf = Object.entries(configsObject)
-        .filter(([key, value]) => key.startsWith(`${scope}.`) && isProperties(value))
+    const conf = Object.entries(configsObject)
+      .filter(([key, value]) => isProperty(value) && (key.startsWith(`${scope}.`) || (scope === '' && !key.includes('.'))))
+
+    if (!conf || conf.length === 0) {
+      console.warn('scope:', scope, 'no found any properties')
     }
     acc.set(scope, conf)
     return acc

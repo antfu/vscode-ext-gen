@@ -62,6 +62,13 @@ export interface SmartClicks {
    * @type `array`
    */
   "htmlLanguageIds": string[],
+  /**
+   * Rule toggles
+   * @key `smartClicks.rules`
+   * @default `{ "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true }`
+   * @type `object`
+   */
+  "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
 }
 
 /**
@@ -79,6 +86,7 @@ const _smartClicks = {
     "clicksInterval": 600,
     "triggerDelay": 150,
     "htmlLanguageIds": ["html","vue","svelte"],
+    "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
   } satisfies SmartClicks,
 }
 

@@ -456,10 +456,6 @@ export interface I18nAlly {
    * @key `i18n-ally.disabled`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "disabled": boolean,
   /**
@@ -467,10 +463,6 @@ export interface I18nAlly {
    * @key `i18n-ally.autoDetection`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "autoDetection": boolean,
   /**
@@ -478,21 +470,48 @@ export interface I18nAlly {
    * @key `i18n-ally.encoding`
    * @default `"utf-8"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "encoding": string,
+  /**
+   * %config.source_language%
+   * @key `i18n-ally.sourceLanguage`
+   * @default `undefined`
+   * @type `string`
+   */
+  "sourceLanguage": (string | undefined),
+  /**
+   * %config.display_language%
+   * @key `i18n-ally.displayLanguage`
+   * @default `undefined`
+   * @type `string`
+   */
+  "displayLanguage": (string | undefined),
+  /**
+   * %config.ignored_locales%
+   * @key `i18n-ally.ignoredLocales`
+   * @default `undefined`
+   * @type `array`
+   */
+  "ignoredLocales": (unknown[] | undefined),
+  /**
+   * %config.keystyle%
+   * @key `i18n-ally.keystyle`
+   * @default `undefined`
+   * @type `string`
+   */
+  "keystyle": ("auto" | "nested" | "flat" | undefined),
+  /**
+   * %config.dir_structure%
+   * @key `i18n-ally.dirStructure`
+   * @default `undefined`
+   * @type `string`
+   */
+  "dirStructure": ("auto" | "file" | "dir" | undefined),
   /**
    * %config.annotations%
    * @key `i18n-ally.annotations`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotations": boolean,
   /**
@@ -500,10 +519,6 @@ export interface I18nAlly {
    * @key `i18n-ally.annotationInPlace`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotationInPlace": boolean,
   /**
@@ -511,10 +526,6 @@ export interface I18nAlly {
    * @key `i18n-ally.annotationMaxLength`
    * @default `40`
    * @type `number`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotationMaxLength": number,
   /**
@@ -522,10 +533,6 @@ export interface I18nAlly {
    * @key `i18n-ally.annotationDelimiter`
    * @default `"·"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotationDelimiter": string,
   /**
@@ -533,10 +540,6 @@ export interface I18nAlly {
    * @key `i18n-ally.includeSubfolders`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "includeSubfolders": boolean,
   /**
@@ -544,10 +547,6 @@ export interface I18nAlly {
    * @key `i18n-ally.fullReloadOnChanged`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "fullReloadOnChanged": boolean,
   /**
@@ -555,21 +554,34 @@ export interface I18nAlly {
    * @key `i18n-ally.showFlags`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "showFlags": boolean,
+  /**
+   * %config.enabled_frameworks%
+   * @key `i18n-ally.enabledFrameworks`
+   * @default `undefined`
+   * @type `array`
+   */
+  "enabledFrameworks": (("vue" | "react" | "vscode" | "ngx-translate" | "i18next" | "react-i18next" | "i18next-shopify" | "i18n-tag" | "flutter" | "vue-sfc" | "ember" | "chrome-ext" | "ruby-rails" | "custom" | "laravel" | "transloco" | "svelte" | "globalize" | "ui5" | "next-translate" | "php-gettext" | "general" | "lingui" | "jekyll" | "fluent-vue" | "fluent-vue-sfc" | "next-intl" | "next-international")[] | undefined),
+  /**
+   * %config.enabled_parsers%
+   * @key `i18n-ally.enabledParsers`
+   * @default `undefined`
+   * @type `array`
+   */
+  "enabledParsers": (("js" | "ts" | "json" | "json5" | "yaml" | "ini" | "po" | "php" | "properties" | "ftl")[] | undefined),
+  /**
+   * %config.keys_in_use%
+   * @key `i18n-ally.keysInUse`
+   * @default `undefined`
+   * @type `array`
+   */
+  "keysInUse": (string[] | undefined),
   /**
    * %config.sort_keys%
    * @key `i18n-ally.sortKeys`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "sortKeys": boolean,
   /**
@@ -577,21 +589,20 @@ export interface I18nAlly {
    * @key `i18n-ally.sortCompare`
    * @default `"binary"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "sortCompare": ("binary" | "locale"),
+  /**
+   * %config.sort_locale%
+   * @key `i18n-ally.sortLocale`
+   * @default `undefined`
+   * @type `string`
+   */
+  "sortLocale": (string | undefined),
   /**
    * %config.preferred_delimiter%
    * @key `i18n-ally.preferredDelimiter`
    * @default `"-"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "preferredDelimiter": string,
   /**
@@ -599,10 +610,6 @@ export interface I18nAlly {
    * @key `i18n-ally.readonly`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "readonly": boolean,
   /**
@@ -610,10 +617,6 @@ export interface I18nAlly {
    * @key `i18n-ally.keepFulfilled`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "keepFulfilled": boolean,
   /**
@@ -621,10 +624,6 @@ export interface I18nAlly {
    * @key `i18n-ally.localeCountryMap`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "localeCountryMap": Record<string, unknown>,
   /**
@@ -632,10 +631,6 @@ export interface I18nAlly {
    * @key `i18n-ally.indent`
    * @default `2`
    * @type `number`
-   * @example
-   *               
-   *               
-   *               
    */
   "indent": number,
   /**
@@ -643,10 +638,6 @@ export interface I18nAlly {
    * @key `i18n-ally.disablePathParsing`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "disablePathParsing": boolean,
   /**
@@ -654,32 +645,41 @@ export interface I18nAlly {
    * @key `i18n-ally.tabStyle`
    * @default `"space"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "tabStyle": ("space" | "tab"),
+  /**
+   * %config.namespace%
+   * @key `i18n-ally.namespace`
+   * @default `undefined`
+   * @type `boolean`
+   */
+  "namespace": (boolean | undefined),
+  /**
+   * %config.path_matcher%
+   * @key `i18n-ally.pathMatcher`
+   * @default `undefined`
+   * @type `string`
+   */
+  "pathMatcher": (string | undefined),
   /**
    * %config.language_tag_system%
    * @key `i18n-ally.languageTagSystem`
    * @default `"bcp47"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "languageTagSystem": ("bcp47" | "legacy" | "none"),
+  /**
+   * %config.ignore_files%
+   * @key `i18n-ally.ignoreFiles`
+   * @default `undefined`
+   * @type `array`
+   */
+  "ignoreFiles": (unknown[] | undefined),
   /**
    * 
    * @key `i18n-ally.theme.annotation`
    * @default `"rgba(153, 153, 153, .8)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "theme.annotation": string,
   /**
@@ -687,10 +687,6 @@ export interface I18nAlly {
    * @key `i18n-ally.theme.annotationMissing`
    * @default `"rgba(153, 153, 153, .3)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "theme.annotationMissing": string,
   /**
@@ -698,10 +694,6 @@ export interface I18nAlly {
    * @key `i18n-ally.theme.annotationBorder`
    * @default `"rgba(153, 153, 153, .2)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "theme.annotationBorder": string,
   /**
@@ -709,21 +701,41 @@ export interface I18nAlly {
    * @key `i18n-ally.theme.annotationMissingBorder`
    * @default `"rgba(153, 153, 153, .2)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "theme.annotationMissingBorder": string,
+  /**
+   * %config.regex_key%
+   * @key `i18n-ally.regex.key`
+   * @default `undefined`
+   * @type `string`
+   */
+  "regex.key": (string | undefined),
+  /**
+   * %config.regex_usage_match%
+   * @key `i18n-ally.regex.usageMatch`
+   * @default `undefined`
+   * @type `array`
+   */
+  "regex.usageMatch": (string[] | undefined),
+  /**
+   * %config.regex_usage_match_append%
+   * @key `i18n-ally.regex.usageMatchAppend`
+   * @default `undefined`
+   * @type `array`
+   */
+  "regex.usageMatchAppend": (string[] | undefined),
+  /**
+   * %config.refactor_templates%
+   * @key `i18n-ally.refactor.templates`
+   * @default `undefined`
+   * @type `array`
+   */
+  "refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
   /**
    * %config.translate_save_as_candidates%
    * @key `i18n-ally.translate.saveAsCandidates`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.saveAsCandidates": boolean,
   /**
@@ -731,10 +743,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.fallbackToKey`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.fallbackToKey": boolean,
   /**
@@ -742,10 +750,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.engines`
    * @default `["google"]`
    * @type `array`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
   /**
@@ -753,10 +757,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.parallels`
    * @default `5`
    * @type `number`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.parallels": number,
   /**
@@ -764,10 +764,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.promptSource`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.promptSource": boolean,
   /**
@@ -775,10 +771,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.overrideExisting`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.overrideExisting": boolean,
   /**
@@ -786,10 +778,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.google.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.google.apiKey": (string | null),
   /**
@@ -797,10 +785,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.deepl.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.deepl.apiKey": (string | null),
   /**
@@ -808,10 +792,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.baidu.appid`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.baidu.appid": (string | null),
   /**
@@ -819,10 +799,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.baidu.apiSecret`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.baidu.apiSecret": (string | null),
   /**
@@ -830,10 +806,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.deepl.enableLog`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.deepl.enableLog": boolean,
   /**
@@ -841,10 +813,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.deepl.useFreeApiEntry`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.deepl.useFreeApiEntry": boolean,
   /**
@@ -852,10 +820,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.libre.apiRoot`
    * @default `"http://localhost:5000"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.libre.apiRoot": string,
   /**
@@ -863,10 +827,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.openai.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.openai.apiKey": (string | null),
   /**
@@ -874,10 +834,6 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.openai.apiRoot`
    * @default `"https://api.openai.com"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.openai.apiRoot": string,
   /**
@@ -885,21 +841,20 @@ export interface I18nAlly {
    * @key `i18n-ally.translate.openai.apiModel`
    * @default `"gpt-3.5-turbo"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "translate.openai.apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
+  /**
+   * %config.usage.scanning_ignore%
+   * @key `i18n-ally.usage.scanningIgnore`
+   * @default `undefined`
+   * @type `array`
+   */
+  "usage.scanningIgnore": (string[] | undefined),
   /**
    * %config.derived_keys%
    * @key `i18n-ally.usage.derivedKeyRules`
    * @default `null`
    * @type `array`
-   * @example
-   *               
-   *               
-   *               
    */
   "usage.derivedKeyRules": (string[] | null),
   /**
@@ -907,10 +862,6 @@ export interface I18nAlly {
    * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
    * @default `"app/views"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "frameworks.ruby-rails.scopeRoot": string,
   /**
@@ -918,10 +869,6 @@ export interface I18nAlly {
    * @key `i18n-ally.parsers.typescript.tsNodePath`
    * @default `"node_modules/ts-node/dist/bin.js"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "parsers.typescript.tsNodePath": string,
   /**
@@ -929,10 +876,6 @@ export interface I18nAlly {
    * @key `i18n-ally.parsers.typescript.compilerOptions`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "parsers.typescript.compilerOptions": Record<string, unknown>,
   /**
@@ -940,10 +883,6 @@ export interface I18nAlly {
    * @key `i18n-ally.parsers.extendFileExtensions`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "parsers.extendFileExtensions": Record<string, unknown>,
   /**
@@ -951,10 +890,6 @@ export interface I18nAlly {
    * @key `i18n-ally.review.enabled`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "review.enabled": boolean,
   /**
@@ -962,21 +897,27 @@ export interface I18nAlly {
    * @key `i18n-ally.review.gutters`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "review.gutters": boolean,
+  /**
+   * %config.review_username%
+   * @key `i18n-ally.review.user.name`
+   * @default `undefined`
+   * @type `string`
+   */
+  "review.user.name": (string | undefined),
+  /**
+   * %config.review_email%
+   * @key `i18n-ally.review.user.email`
+   * @default `undefined`
+   * @type `string`
+   */
+  "review.user.email": (string | undefined),
   /**
    * %config.review_remove_on_resolved%
    * @key `i18n-ally.review.removeCommentOnResolved`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "review.removeCommentOnResolved": boolean,
   /**
@@ -984,10 +925,6 @@ export interface I18nAlly {
    * @key `i18n-ally.editor.preferEditor`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "editor.preferEditor": boolean,
   /**
@@ -995,10 +932,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.keygenStrategy`
    * @default `"slug"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.keygenStrategy": ("slug" | "random" | "empty" | "source"),
   /**
@@ -1006,10 +939,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.keygenStyle`
    * @default `"default"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.keygenStyle": ("default" | "kebab-case" | "snake_case" | "camelCase" | "PascalCase" | "ALL_CAPS"),
   /**
@@ -1017,10 +946,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.keyPrefix`
    * @default `""`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.keyPrefix": string,
   /**
@@ -1028,10 +953,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.keyMaxLength`
    * @default `null`
    * @type `number`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.keyMaxLength": (number | null),
   /**
@@ -1039,10 +960,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.targetPickingStrategy`
    * @default `"none"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.targetPickingStrategy": ("none" | "most-similar" | "most-similar-by-key" | "file-previous" | "global-previous"),
   /**
@@ -1050,10 +967,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.parsers.html`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.parsers.html": Record<string, unknown>,
   /**
@@ -1061,10 +974,6 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.parsers.babel`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.parsers.babel": Record<string, unknown>,
   /**
@@ -1072,23 +981,36 @@ export interface I18nAlly {
    * @key `i18n-ally.extract.autoDetect`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.autoDetect": boolean,
+  /**
+   * Strings to be ignored on hard-coded strings detection
+   * @key `i18n-ally.extract.ignored`
+   * @default `undefined`
+   * @type `array`
+   */
+  "extract.ignored": (string[] | undefined),
   /**
    * Strings to be ignored on hard-coded strings detection, by files
    * @key `i18n-ally.extract.ignoredByFiles`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "extract.ignoredByFiles": Record<string, unknown>,
+  /**
+   * 
+   * @key `i18n-ally.parserOptions`
+   * @default `{}`
+   * @type `object`
+   */
+  "parserOptions": Record<string, unknown>,
+  /**
+   * %config.default_namespace%
+   * @key `i18n-ally.defaultNamespace`
+   * @default `undefined`
+   * @type `string`
+   */
+  "defaultNamespace": (string | undefined),
 }
 
 /**
@@ -1106,6 +1028,11 @@ const _i18nAlly = {
     "disabled": false,
     "autoDetection": true,
     "encoding": "utf-8",
+    "sourceLanguage": undefined,
+    "displayLanguage": undefined,
+    "ignoredLocales": undefined,
+    "keystyle": undefined,
+    "dirStructure": undefined,
     "annotations": true,
     "annotationInPlace": true,
     "annotationMaxLength": 40,
@@ -1113,8 +1040,12 @@ const _i18nAlly = {
     "includeSubfolders": true,
     "fullReloadOnChanged": false,
     "showFlags": true,
+    "enabledFrameworks": undefined,
+    "enabledParsers": undefined,
+    "keysInUse": undefined,
     "sortKeys": false,
     "sortCompare": "binary",
+    "sortLocale": undefined,
     "preferredDelimiter": "-",
     "readonly": false,
     "keepFulfilled": false,
@@ -1122,11 +1053,18 @@ const _i18nAlly = {
     "indent": 2,
     "disablePathParsing": false,
     "tabStyle": "space",
+    "namespace": undefined,
+    "pathMatcher": undefined,
     "languageTagSystem": "bcp47",
+    "ignoreFiles": undefined,
     "theme.annotation": "rgba(153, 153, 153, .8)",
     "theme.annotationMissing": "rgba(153, 153, 153, .3)",
     "theme.annotationBorder": "rgba(153, 153, 153, .2)",
     "theme.annotationMissingBorder": "rgba(153, 153, 153, .2)",
+    "regex.key": undefined,
+    "regex.usageMatch": undefined,
+    "regex.usageMatchAppend": undefined,
+    "refactor.templates": undefined,
     "translate.saveAsCandidates": false,
     "translate.fallbackToKey": false,
     "translate.engines": ["google"],
@@ -1143,6 +1081,7 @@ const _i18nAlly = {
     "translate.openai.apiKey": null,
     "translate.openai.apiRoot": "https://api.openai.com",
     "translate.openai.apiModel": "gpt-3.5-turbo",
+    "usage.scanningIgnore": undefined,
     "usage.derivedKeyRules": null,
     "frameworks.ruby-rails.scopeRoot": "app/views",
     "parsers.typescript.tsNodePath": "node_modules/ts-node/dist/bin.js",
@@ -1150,6 +1089,8 @@ const _i18nAlly = {
     "parsers.extendFileExtensions": {},
     "review.enabled": true,
     "review.gutters": true,
+    "review.user.name": undefined,
+    "review.user.email": undefined,
     "review.removeCommentOnResolved": false,
     "editor.preferEditor": false,
     "extract.keygenStrategy": "slug",
@@ -1160,31 +1101,36 @@ const _i18nAlly = {
     "extract.parsers.html": {},
     "extract.parsers.babel": {},
     "extract.autoDetect": false,
+    "extract.ignored": undefined,
     "extract.ignoredByFiles": {},
+    "parserOptions": {},
+    "defaultNamespace": undefined,
   } satisfies I18nAlly,
 }
 
 /**
  * Reactive ConfigObject of `i18n-ally`
  * @example
- * //import { i18nAllyConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = i18nAllyConfigObject.disabled //get value 
+ * i18nAllyConfigObject.disabled = true // set value
+ * i18nAllyConfigObject.$update("disabled", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const i18nAllyConfigObject = defineConfigObject<I18nAlly>(
   _i18nAlly.scope,
   _i18nAlly.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally`
+ * @example
+ * let configValue:boolean =i18nAllyConfigs.disabled.value //get value 
+ * i18nAllyConfigs.disabled.value = false // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * i18nAllyConfigs.disabled.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const i18nAllyConfigs = defineConfigs<I18nAlly>(
   _i18nAlly.scope,
   _i18nAlly.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.theme`
@@ -1195,10 +1141,6 @@ export interface Theme {
    * @key `i18n-ally.theme.annotation`
    * @default `"rgba(153, 153, 153, .8)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotation": string,
   /**
@@ -1206,10 +1148,6 @@ export interface Theme {
    * @key `i18n-ally.theme.annotationMissing`
    * @default `"rgba(153, 153, 153, .3)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotationMissing": string,
   /**
@@ -1217,10 +1155,6 @@ export interface Theme {
    * @key `i18n-ally.theme.annotationBorder`
    * @default `"rgba(153, 153, 153, .2)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotationBorder": string,
   /**
@@ -1228,10 +1162,6 @@ export interface Theme {
    * @key `i18n-ally.theme.annotationMissingBorder`
    * @default `"rgba(153, 153, 153, .2)"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "annotationMissingBorder": string,
 }
@@ -1258,29 +1188,52 @@ const _theme = {
 /**
  * Reactive ConfigObject of `i18n-ally.theme`
  * @example
- * //import { themeConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = themeConfigObject.annotation //get value 
+ * themeConfigObject.annotation = true // set value
+ * themeConfigObject.$update("annotation", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const themeConfigObject = defineConfigObject<Theme>(
   _theme.scope,
   _theme.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.theme`
+ * @example
+ * let configValue:string =themeConfigs.annotation.value //get value 
+ * themeConfigs.annotation.value = "rgba(153, 153, 153, .8)" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * themeConfigs.annotation.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const themeConfigs = defineConfigs<Theme>(
   _theme.scope,
   _theme.defaults
 )
 
-
 /**
  * Config keys of `i18n-ally.regex`
  */
 export interface Regex {
+  /**
+   * %config.regex_key%
+   * @key `i18n-ally.regex.key`
+   * @default `undefined`
+   * @type `string`
+   */
+  "key": (string | undefined),
+  /**
+   * %config.regex_usage_match%
+   * @key `i18n-ally.regex.usageMatch`
+   * @default `undefined`
+   * @type `array`
+   */
+  "usageMatch": (string[] | undefined),
+  /**
+   * %config.regex_usage_match_append%
+   * @key `i18n-ally.regex.usageMatchAppend`
+   * @default `undefined`
+   * @type `array`
+   */
+  "usageMatchAppend": (string[] | undefined),
 }
 
 /**
@@ -1295,35 +1248,47 @@ const _regex = {
  * Keys' defaults of `i18n-ally.regex`
  */
   defaults: {
+    "key": undefined,
+    "usageMatch": undefined,
+    "usageMatchAppend": undefined,
   } satisfies Regex,
 }
 
 /**
  * Reactive ConfigObject of `i18n-ally.regex`
  * @example
- * //import { regexConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = regexConfigObject.key //get value 
+ * regexConfigObject.key = true // set value
+ * regexConfigObject.$update("key", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const regexConfigObject = defineConfigObject<Regex>(
   _regex.scope,
   _regex.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.regex`
+ * @example
+ * let configValue:string =regexConfigs.key.value //get value 
+ * regexConfigs.key.value = undefined // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * regexConfigs.key.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const regexConfigs = defineConfigs<Regex>(
   _regex.scope,
   _regex.defaults
 )
 
-
 /**
  * Config keys of `i18n-ally.refactor`
  */
 export interface Refactor {
+  /**
+   * %config.refactor_templates%
+   * @key `i18n-ally.refactor.templates`
+   * @default `undefined`
+   * @type `array`
+   */
+  "templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
 }
 
 /**
@@ -1338,30 +1303,33 @@ const _refactor = {
  * Keys' defaults of `i18n-ally.refactor`
  */
   defaults: {
+    "templates": undefined,
   } satisfies Refactor,
 }
 
 /**
  * Reactive ConfigObject of `i18n-ally.refactor`
  * @example
- * //import { refactorConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = refactorConfigObject.templates //get value 
+ * refactorConfigObject.templates = true // set value
+ * refactorConfigObject.$update("templates", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const refactorConfigObject = defineConfigObject<Refactor>(
   _refactor.scope,
   _refactor.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.refactor`
+ * @example
+ * let configValue:array =refactorConfigs.templates.value //get value 
+ * refactorConfigs.templates.value = undefined // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * refactorConfigs.templates.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const refactorConfigs = defineConfigs<Refactor>(
   _refactor.scope,
   _refactor.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.translate`
@@ -1372,10 +1340,6 @@ export interface Translate {
    * @key `i18n-ally.translate.saveAsCandidates`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "saveAsCandidates": boolean,
   /**
@@ -1383,10 +1347,6 @@ export interface Translate {
    * @key `i18n-ally.translate.fallbackToKey`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "fallbackToKey": boolean,
   /**
@@ -1394,10 +1354,6 @@ export interface Translate {
    * @key `i18n-ally.translate.engines`
    * @default `["google"]`
    * @type `array`
-   * @example
-   *               
-   *               
-   *               
    */
   "engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
   /**
@@ -1405,10 +1361,6 @@ export interface Translate {
    * @key `i18n-ally.translate.parallels`
    * @default `5`
    * @type `number`
-   * @example
-   *               
-   *               
-   *               
    */
   "parallels": number,
   /**
@@ -1416,10 +1368,6 @@ export interface Translate {
    * @key `i18n-ally.translate.promptSource`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "promptSource": boolean,
   /**
@@ -1427,10 +1375,6 @@ export interface Translate {
    * @key `i18n-ally.translate.overrideExisting`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "overrideExisting": boolean,
   /**
@@ -1438,10 +1382,6 @@ export interface Translate {
    * @key `i18n-ally.translate.google.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "google.apiKey": (string | null),
   /**
@@ -1449,10 +1389,6 @@ export interface Translate {
    * @key `i18n-ally.translate.deepl.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "deepl.apiKey": (string | null),
   /**
@@ -1460,10 +1396,6 @@ export interface Translate {
    * @key `i18n-ally.translate.baidu.appid`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "baidu.appid": (string | null),
   /**
@@ -1471,10 +1403,6 @@ export interface Translate {
    * @key `i18n-ally.translate.baidu.apiSecret`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "baidu.apiSecret": (string | null),
   /**
@@ -1482,10 +1410,6 @@ export interface Translate {
    * @key `i18n-ally.translate.deepl.enableLog`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "deepl.enableLog": boolean,
   /**
@@ -1493,10 +1417,6 @@ export interface Translate {
    * @key `i18n-ally.translate.deepl.useFreeApiEntry`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "deepl.useFreeApiEntry": boolean,
   /**
@@ -1504,10 +1424,6 @@ export interface Translate {
    * @key `i18n-ally.translate.libre.apiRoot`
    * @default `"http://localhost:5000"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "libre.apiRoot": string,
   /**
@@ -1515,10 +1431,6 @@ export interface Translate {
    * @key `i18n-ally.translate.openai.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "openai.apiKey": (string | null),
   /**
@@ -1526,10 +1438,6 @@ export interface Translate {
    * @key `i18n-ally.translate.openai.apiRoot`
    * @default `"https://api.openai.com"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "openai.apiRoot": string,
   /**
@@ -1537,10 +1445,6 @@ export interface Translate {
    * @key `i18n-ally.translate.openai.apiModel`
    * @default `"gpt-3.5-turbo"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "openai.apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
 }
@@ -1579,24 +1483,26 @@ const _translate = {
 /**
  * Reactive ConfigObject of `i18n-ally.translate`
  * @example
- * //import { translateConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = translateConfigObject.saveAsCandidates //get value 
+ * translateConfigObject.saveAsCandidates = true // set value
+ * translateConfigObject.$update("saveAsCandidates", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const translateConfigObject = defineConfigObject<Translate>(
   _translate.scope,
   _translate.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.translate`
+ * @example
+ * let configValue:boolean =translateConfigs.saveAsCandidates.value //get value 
+ * translateConfigs.saveAsCandidates.value = false // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * translateConfigs.saveAsCandidates.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const translateConfigs = defineConfigs<Translate>(
   _translate.scope,
   _translate.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.translate.google`
@@ -1607,10 +1513,6 @@ export interface TranslateGoogle {
    * @key `i18n-ally.translate.google.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiKey": (string | null),
 }
@@ -1634,24 +1536,26 @@ const _translateGoogle = {
 /**
  * Reactive ConfigObject of `i18n-ally.translate.google`
  * @example
- * //import { translateGoogleConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = translateGoogleConfigObject.apiKey //get value 
+ * translateGoogleConfigObject.apiKey = true // set value
+ * translateGoogleConfigObject.$update("apiKey", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const translateGoogleConfigObject = defineConfigObject<TranslateGoogle>(
   _translateGoogle.scope,
   _translateGoogle.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.translate.google`
+ * @example
+ * let configValue:string =translateGoogleConfigs.apiKey.value //get value 
+ * translateGoogleConfigs.apiKey.value = null // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * translateGoogleConfigs.apiKey.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const translateGoogleConfigs = defineConfigs<TranslateGoogle>(
   _translateGoogle.scope,
   _translateGoogle.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.translate.deepl`
@@ -1662,10 +1566,6 @@ export interface TranslateDeepl {
    * @key `i18n-ally.translate.deepl.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiKey": (string | null),
   /**
@@ -1673,10 +1573,6 @@ export interface TranslateDeepl {
    * @key `i18n-ally.translate.deepl.enableLog`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "enableLog": boolean,
   /**
@@ -1684,10 +1580,6 @@ export interface TranslateDeepl {
    * @key `i18n-ally.translate.deepl.useFreeApiEntry`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "useFreeApiEntry": boolean,
 }
@@ -1713,24 +1605,26 @@ const _translateDeepl = {
 /**
  * Reactive ConfigObject of `i18n-ally.translate.deepl`
  * @example
- * //import { translateDeeplConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = translateDeeplConfigObject.apiKey //get value 
+ * translateDeeplConfigObject.apiKey = true // set value
+ * translateDeeplConfigObject.$update("apiKey", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const translateDeeplConfigObject = defineConfigObject<TranslateDeepl>(
   _translateDeepl.scope,
   _translateDeepl.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.translate.deepl`
+ * @example
+ * let configValue:string =translateDeeplConfigs.apiKey.value //get value 
+ * translateDeeplConfigs.apiKey.value = null // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * translateDeeplConfigs.apiKey.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const translateDeeplConfigs = defineConfigs<TranslateDeepl>(
   _translateDeepl.scope,
   _translateDeepl.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.translate.baidu`
@@ -1741,10 +1635,6 @@ export interface TranslateBaidu {
    * @key `i18n-ally.translate.baidu.appid`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "appid": (string | null),
   /**
@@ -1752,10 +1642,6 @@ export interface TranslateBaidu {
    * @key `i18n-ally.translate.baidu.apiSecret`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiSecret": (string | null),
 }
@@ -1780,24 +1666,26 @@ const _translateBaidu = {
 /**
  * Reactive ConfigObject of `i18n-ally.translate.baidu`
  * @example
- * //import { translateBaiduConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = translateBaiduConfigObject.appid //get value 
+ * translateBaiduConfigObject.appid = true // set value
+ * translateBaiduConfigObject.$update("appid", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const translateBaiduConfigObject = defineConfigObject<TranslateBaidu>(
   _translateBaidu.scope,
   _translateBaidu.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.translate.baidu`
+ * @example
+ * let configValue:string =translateBaiduConfigs.appid.value //get value 
+ * translateBaiduConfigs.appid.value = null // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * translateBaiduConfigs.appid.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const translateBaiduConfigs = defineConfigs<TranslateBaidu>(
   _translateBaidu.scope,
   _translateBaidu.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.translate.libre`
@@ -1808,10 +1696,6 @@ export interface TranslateLibre {
    * @key `i18n-ally.translate.libre.apiRoot`
    * @default `"http://localhost:5000"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiRoot": string,
 }
@@ -1835,24 +1719,26 @@ const _translateLibre = {
 /**
  * Reactive ConfigObject of `i18n-ally.translate.libre`
  * @example
- * //import { translateLibreConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = translateLibreConfigObject.apiRoot //get value 
+ * translateLibreConfigObject.apiRoot = true // set value
+ * translateLibreConfigObject.$update("apiRoot", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const translateLibreConfigObject = defineConfigObject<TranslateLibre>(
   _translateLibre.scope,
   _translateLibre.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.translate.libre`
+ * @example
+ * let configValue:string =translateLibreConfigs.apiRoot.value //get value 
+ * translateLibreConfigs.apiRoot.value = "http://localhost:5000" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * translateLibreConfigs.apiRoot.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const translateLibreConfigs = defineConfigs<TranslateLibre>(
   _translateLibre.scope,
   _translateLibre.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.translate.openai`
@@ -1863,10 +1749,6 @@ export interface TranslateOpenai {
    * @key `i18n-ally.translate.openai.apiKey`
    * @default `null`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiKey": (string | null),
   /**
@@ -1874,10 +1756,6 @@ export interface TranslateOpenai {
    * @key `i18n-ally.translate.openai.apiRoot`
    * @default `"https://api.openai.com"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiRoot": string,
   /**
@@ -1885,10 +1763,6 @@ export interface TranslateOpenai {
    * @key `i18n-ally.translate.openai.apiModel`
    * @default `"gpt-3.5-turbo"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "apiModel": ("gpt-3.5-turbo" | "gpt-3.5-turbo-16k" | "gpt-3.5-turbo-0301" | "gpt-3.5-turbo-0613" | "gpt-4" | "gpt-4-0314" | "gpt-4-0613" | "gpt-4-32k" | "gpt-4-32k-0314" | "gpt-4-32k-0613"),
 }
@@ -1914,38 +1788,43 @@ const _translateOpenai = {
 /**
  * Reactive ConfigObject of `i18n-ally.translate.openai`
  * @example
- * //import { translateOpenaiConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = translateOpenaiConfigObject.apiKey //get value 
+ * translateOpenaiConfigObject.apiKey = true // set value
+ * translateOpenaiConfigObject.$update("apiKey", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const translateOpenaiConfigObject = defineConfigObject<TranslateOpenai>(
   _translateOpenai.scope,
   _translateOpenai.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.translate.openai`
+ * @example
+ * let configValue:string =translateOpenaiConfigs.apiKey.value //get value 
+ * translateOpenaiConfigs.apiKey.value = null // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * translateOpenaiConfigs.apiKey.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const translateOpenaiConfigs = defineConfigs<TranslateOpenai>(
   _translateOpenai.scope,
   _translateOpenai.defaults
 )
 
-
 /**
  * Config keys of `i18n-ally.usage`
  */
 export interface Usage {
   /**
+   * %config.usage.scanning_ignore%
+   * @key `i18n-ally.usage.scanningIgnore`
+   * @default `undefined`
+   * @type `array`
+   */
+  "scanningIgnore": (string[] | undefined),
+  /**
    * %config.derived_keys%
    * @key `i18n-ally.usage.derivedKeyRules`
    * @default `null`
    * @type `array`
-   * @example
-   *               
-   *               
-   *               
    */
   "derivedKeyRules": (string[] | null),
 }
@@ -1962,6 +1841,7 @@ const _usage = {
  * Keys' defaults of `i18n-ally.usage`
  */
   defaults: {
+    "scanningIgnore": undefined,
     "derivedKeyRules": null,
   } satisfies Usage,
 }
@@ -1969,24 +1849,26 @@ const _usage = {
 /**
  * Reactive ConfigObject of `i18n-ally.usage`
  * @example
- * //import { usageConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = usageConfigObject.scanningIgnore //get value 
+ * usageConfigObject.scanningIgnore = true // set value
+ * usageConfigObject.$update("scanningIgnore", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const usageConfigObject = defineConfigObject<Usage>(
   _usage.scope,
   _usage.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.usage`
+ * @example
+ * let configValue:array =usageConfigs.scanningIgnore.value //get value 
+ * usageConfigs.scanningIgnore.value = undefined // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * usageConfigs.scanningIgnore.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const usageConfigs = defineConfigs<Usage>(
   _usage.scope,
   _usage.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.frameworks`
@@ -1997,10 +1879,6 @@ export interface Frameworks {
    * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
    * @default `"app/views"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "ruby-rails.scopeRoot": string,
 }
@@ -2024,24 +1902,26 @@ const _frameworks = {
 /**
  * Reactive ConfigObject of `i18n-ally.frameworks`
  * @example
- * //import { frameworksConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = frameworksConfigObject.ruby-rails.scopeRoot //get value 
+ * frameworksConfigObject.ruby-rails.scopeRoot = true // set value
+ * frameworksConfigObject.$update("ruby-rails.scopeRoot", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const frameworksConfigObject = defineConfigObject<Frameworks>(
   _frameworks.scope,
   _frameworks.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.frameworks`
+ * @example
+ * let configValue:string =frameworksConfigs.ruby-rails.scopeRoot.value //get value 
+ * frameworksConfigs.ruby-rails.scopeRoot.value = "app/views" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * frameworksConfigs.ruby-rails.scopeRoot.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const frameworksConfigs = defineConfigs<Frameworks>(
   _frameworks.scope,
   _frameworks.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.frameworks.ruby-rails`
@@ -2052,10 +1932,6 @@ export interface FrameworksRubyRails {
    * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
    * @default `"app/views"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "scopeRoot": string,
 }
@@ -2079,24 +1955,26 @@ const _frameworksRubyRails = {
 /**
  * Reactive ConfigObject of `i18n-ally.frameworks.ruby-rails`
  * @example
- * //import { frameworksRubyRailsConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = frameworksRubyRailsConfigObject.scopeRoot //get value 
+ * frameworksRubyRailsConfigObject.scopeRoot = true // set value
+ * frameworksRubyRailsConfigObject.$update("scopeRoot", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const frameworksRubyRailsConfigObject = defineConfigObject<FrameworksRubyRails>(
   _frameworksRubyRails.scope,
   _frameworksRubyRails.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.frameworks.ruby-rails`
+ * @example
+ * let configValue:string =frameworksRubyRailsConfigs.scopeRoot.value //get value 
+ * frameworksRubyRailsConfigs.scopeRoot.value = "app/views" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * frameworksRubyRailsConfigs.scopeRoot.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const frameworksRubyRailsConfigs = defineConfigs<FrameworksRubyRails>(
   _frameworksRubyRails.scope,
   _frameworksRubyRails.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.parsers`
@@ -2107,10 +1985,6 @@ export interface Parsers {
    * @key `i18n-ally.parsers.typescript.tsNodePath`
    * @default `"node_modules/ts-node/dist/bin.js"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "typescript.tsNodePath": string,
   /**
@@ -2118,10 +1992,6 @@ export interface Parsers {
    * @key `i18n-ally.parsers.typescript.compilerOptions`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "typescript.compilerOptions": Record<string, unknown>,
   /**
@@ -2129,10 +1999,6 @@ export interface Parsers {
    * @key `i18n-ally.parsers.extendFileExtensions`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "extendFileExtensions": Record<string, unknown>,
 }
@@ -2158,24 +2024,26 @@ const _parsers = {
 /**
  * Reactive ConfigObject of `i18n-ally.parsers`
  * @example
- * //import { parsersConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = parsersConfigObject.typescript.tsNodePath //get value 
+ * parsersConfigObject.typescript.tsNodePath = true // set value
+ * parsersConfigObject.$update("typescript.tsNodePath", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const parsersConfigObject = defineConfigObject<Parsers>(
   _parsers.scope,
   _parsers.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.parsers`
+ * @example
+ * let configValue:string =parsersConfigs.typescript.tsNodePath.value //get value 
+ * parsersConfigs.typescript.tsNodePath.value = "node_modules/ts-node/dist/bin.js" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * parsersConfigs.typescript.tsNodePath.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const parsersConfigs = defineConfigs<Parsers>(
   _parsers.scope,
   _parsers.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.parsers.typescript`
@@ -2186,10 +2054,6 @@ export interface ParsersTypescript {
    * @key `i18n-ally.parsers.typescript.tsNodePath`
    * @default `"node_modules/ts-node/dist/bin.js"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "tsNodePath": string,
   /**
@@ -2197,10 +2061,6 @@ export interface ParsersTypescript {
    * @key `i18n-ally.parsers.typescript.compilerOptions`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "compilerOptions": Record<string, unknown>,
 }
@@ -2225,24 +2085,26 @@ const _parsersTypescript = {
 /**
  * Reactive ConfigObject of `i18n-ally.parsers.typescript`
  * @example
- * //import { parsersTypescriptConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = parsersTypescriptConfigObject.tsNodePath //get value 
+ * parsersTypescriptConfigObject.tsNodePath = true // set value
+ * parsersTypescriptConfigObject.$update("tsNodePath", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const parsersTypescriptConfigObject = defineConfigObject<ParsersTypescript>(
   _parsersTypescript.scope,
   _parsersTypescript.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.parsers.typescript`
+ * @example
+ * let configValue:string =parsersTypescriptConfigs.tsNodePath.value //get value 
+ * parsersTypescriptConfigs.tsNodePath.value = "node_modules/ts-node/dist/bin.js" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * parsersTypescriptConfigs.tsNodePath.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const parsersTypescriptConfigs = defineConfigs<ParsersTypescript>(
   _parsersTypescript.scope,
   _parsersTypescript.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.review`
@@ -2253,10 +2115,6 @@ export interface Review {
    * @key `i18n-ally.review.enabled`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "enabled": boolean,
   /**
@@ -2264,21 +2122,27 @@ export interface Review {
    * @key `i18n-ally.review.gutters`
    * @default `true`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "gutters": boolean,
+  /**
+   * %config.review_username%
+   * @key `i18n-ally.review.user.name`
+   * @default `undefined`
+   * @type `string`
+   */
+  "user.name": (string | undefined),
+  /**
+   * %config.review_email%
+   * @key `i18n-ally.review.user.email`
+   * @default `undefined`
+   * @type `string`
+   */
+  "user.email": (string | undefined),
   /**
    * %config.review_remove_on_resolved%
    * @key `i18n-ally.review.removeCommentOnResolved`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "removeCommentOnResolved": boolean,
 }
@@ -2297,6 +2161,8 @@ const _review = {
   defaults: {
     "enabled": true,
     "gutters": true,
+    "user.name": undefined,
+    "user.email": undefined,
     "removeCommentOnResolved": false,
   } satisfies Review,
 }
@@ -2304,29 +2170,45 @@ const _review = {
 /**
  * Reactive ConfigObject of `i18n-ally.review`
  * @example
- * //import { reviewConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = reviewConfigObject.enabled //get value 
+ * reviewConfigObject.enabled = true // set value
+ * reviewConfigObject.$update("enabled", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const reviewConfigObject = defineConfigObject<Review>(
   _review.scope,
   _review.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.review`
+ * @example
+ * let configValue:boolean =reviewConfigs.enabled.value //get value 
+ * reviewConfigs.enabled.value = true // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * reviewConfigs.enabled.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const reviewConfigs = defineConfigs<Review>(
   _review.scope,
   _review.defaults
 )
 
-
 /**
  * Config keys of `i18n-ally.review.user`
  */
 export interface ReviewUser {
+  /**
+   * %config.review_username%
+   * @key `i18n-ally.review.user.name`
+   * @default `undefined`
+   * @type `string`
+   */
+  "name": (string | undefined),
+  /**
+   * %config.review_email%
+   * @key `i18n-ally.review.user.email`
+   * @default `undefined`
+   * @type `string`
+   */
+  "email": (string | undefined),
 }
 
 /**
@@ -2341,30 +2223,34 @@ const _reviewUser = {
  * Keys' defaults of `i18n-ally.review.user`
  */
   defaults: {
+    "name": undefined,
+    "email": undefined,
   } satisfies ReviewUser,
 }
 
 /**
  * Reactive ConfigObject of `i18n-ally.review.user`
  * @example
- * //import { reviewUserConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = reviewUserConfigObject.name //get value 
+ * reviewUserConfigObject.name = true // set value
+ * reviewUserConfigObject.$update("name", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const reviewUserConfigObject = defineConfigObject<ReviewUser>(
   _reviewUser.scope,
   _reviewUser.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.review.user`
+ * @example
+ * let configValue:string =reviewUserConfigs.name.value //get value 
+ * reviewUserConfigs.name.value = undefined // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * reviewUserConfigs.name.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const reviewUserConfigs = defineConfigs<ReviewUser>(
   _reviewUser.scope,
   _reviewUser.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.editor`
@@ -2375,10 +2261,6 @@ export interface Editor {
    * @key `i18n-ally.editor.preferEditor`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "preferEditor": boolean,
 }
@@ -2402,24 +2284,26 @@ const _editor = {
 /**
  * Reactive ConfigObject of `i18n-ally.editor`
  * @example
- * //import { editorConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = editorConfigObject.preferEditor //get value 
+ * editorConfigObject.preferEditor = true // set value
+ * editorConfigObject.$update("preferEditor", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const editorConfigObject = defineConfigObject<Editor>(
   _editor.scope,
   _editor.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.editor`
+ * @example
+ * let configValue:boolean =editorConfigs.preferEditor.value //get value 
+ * editorConfigs.preferEditor.value = false // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * editorConfigs.preferEditor.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const editorConfigs = defineConfigs<Editor>(
   _editor.scope,
   _editor.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.extract`
@@ -2430,10 +2314,6 @@ export interface Extract {
    * @key `i18n-ally.extract.keygenStrategy`
    * @default `"slug"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "keygenStrategy": ("slug" | "random" | "empty" | "source"),
   /**
@@ -2441,10 +2321,6 @@ export interface Extract {
    * @key `i18n-ally.extract.keygenStyle`
    * @default `"default"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "keygenStyle": ("default" | "kebab-case" | "snake_case" | "camelCase" | "PascalCase" | "ALL_CAPS"),
   /**
@@ -2452,10 +2328,6 @@ export interface Extract {
    * @key `i18n-ally.extract.keyPrefix`
    * @default `""`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "keyPrefix": string,
   /**
@@ -2463,10 +2335,6 @@ export interface Extract {
    * @key `i18n-ally.extract.keyMaxLength`
    * @default `null`
    * @type `number`
-   * @example
-   *               
-   *               
-   *               
    */
   "keyMaxLength": (number | null),
   /**
@@ -2474,10 +2342,6 @@ export interface Extract {
    * @key `i18n-ally.extract.targetPickingStrategy`
    * @default `"none"`
    * @type `string`
-   * @example
-   *               
-   *               
-   *               
    */
   "targetPickingStrategy": ("none" | "most-similar" | "most-similar-by-key" | "file-previous" | "global-previous"),
   /**
@@ -2485,10 +2349,6 @@ export interface Extract {
    * @key `i18n-ally.extract.parsers.html`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "parsers.html": Record<string, unknown>,
   /**
@@ -2496,10 +2356,6 @@ export interface Extract {
    * @key `i18n-ally.extract.parsers.babel`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "parsers.babel": Record<string, unknown>,
   /**
@@ -2507,21 +2363,20 @@ export interface Extract {
    * @key `i18n-ally.extract.autoDetect`
    * @default `false`
    * @type `boolean`
-   * @example
-   *               
-   *               
-   *               
    */
   "autoDetect": boolean,
+  /**
+   * Strings to be ignored on hard-coded strings detection
+   * @key `i18n-ally.extract.ignored`
+   * @default `undefined`
+   * @type `array`
+   */
+  "ignored": (string[] | undefined),
   /**
    * Strings to be ignored on hard-coded strings detection, by files
    * @key `i18n-ally.extract.ignoredByFiles`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "ignoredByFiles": Record<string, unknown>,
 }
@@ -2546,6 +2401,7 @@ const _extract = {
     "parsers.html": {},
     "parsers.babel": {},
     "autoDetect": false,
+    "ignored": undefined,
     "ignoredByFiles": {},
   } satisfies Extract,
 }
@@ -2553,24 +2409,26 @@ const _extract = {
 /**
  * Reactive ConfigObject of `i18n-ally.extract`
  * @example
- * //import { extractConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = extractConfigObject.keygenStrategy //get value 
+ * extractConfigObject.keygenStrategy = true // set value
+ * extractConfigObject.$update("keygenStrategy", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const extractConfigObject = defineConfigObject<Extract>(
   _extract.scope,
   _extract.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.extract`
+ * @example
+ * let configValue:string =extractConfigs.keygenStrategy.value //get value 
+ * extractConfigs.keygenStrategy.value = "slug" // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * extractConfigs.keygenStrategy.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const extractConfigs = defineConfigs<Extract>(
   _extract.scope,
   _extract.defaults
 )
-
 
 /**
  * Config keys of `i18n-ally.extract.parsers`
@@ -2581,10 +2439,6 @@ export interface ExtractParsers {
    * @key `i18n-ally.extract.parsers.html`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "html": Record<string, unknown>,
   /**
@@ -2592,10 +2446,6 @@ export interface ExtractParsers {
    * @key `i18n-ally.extract.parsers.babel`
    * @default `{}`
    * @type `object`
-   * @example
-   *               
-   *               
-   *               
    */
   "babel": Record<string, unknown>,
 }
@@ -2620,64 +2470,23 @@ const _extractParsers = {
 /**
  * Reactive ConfigObject of `i18n-ally.extract.parsers`
  * @example
- * //import { extractParsersConfigObject } from '@/meta' //import on top        
- * 
- *         
+ * let configValue = extractParsersConfigObject.html //get value 
+ * extractParsersConfigObject.html = true // set value
+ * extractParsersConfigObject.$update("html", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const extractParsersConfigObject = defineConfigObject<ExtractParsers>(
   _extractParsers.scope,
   _extractParsers.defaults
 )
-
-
 /**
  * Reactive ToConfigRefs of `i18n-ally.extract.parsers`
+ * @example
+ * let configValue:object =extractParsersConfigs.html.value //get value 
+ * extractParsersConfigs.html.value = {} // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * extractParsersConfigs.html.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const extractParsersConfigs = defineConfigs<ExtractParsers>(
   _extractParsers.scope,
   _extractParsers.defaults
 )
-
-
-/**
- * Config keys of `vue-i18n-ally`
- */
-export interface VueI18nAlly {
-}
-
-/**
- * Scoped defaults of `vue-i18n-ally`
- */
-const _vueI18nAlly = {
-/**
- * scope: `vue-i18n-ally`
- */
-  scope: "vue-i18n-ally",
-/**
- * Keys' defaults of `vue-i18n-ally`
- */
-  defaults: {
-  } satisfies VueI18nAlly,
-}
-
-/**
- * Reactive ConfigObject of `vue-i18n-ally`
- * @example
- * //import { vueI18nAllyConfigObject } from '@/meta' //import on top        
- * 
- *         
- */
-export const vueI18nAllyConfigObject = defineConfigObject<VueI18nAlly>(
-  _vueI18nAlly.scope,
-  _vueI18nAlly.defaults
-)
-
-
-/**
- * Reactive ToConfigRefs of `vue-i18n-ally`
- */
-export const vueI18nAllyConfigs = defineConfigs<VueI18nAlly>(
-  _vueI18nAlly.scope,
-  _vueI18nAlly.defaults
-)
-
