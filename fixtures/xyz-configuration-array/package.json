@@ -1,0 +1,103 @@
+{
+  "activationEvents": [
+    "*"
+  ],
+  "engines": {
+    "vscode": "^1.67.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "category": "Project Config Updater",
+        "command": "project-config.manualUpdate",
+        "title": "Update config now"
+      },
+      {
+        "category": "Project Config Updater",
+        "command": "project-config.remove-watch-dir",
+        "title": "remove watch dir"
+      },
+      {
+        "category": "Project Config Updater",
+        "command": "project-config.add-watch-dir",
+        "title": "add watch dir"
+      }
+    ],
+    "configuration": [
+      {
+        "properties": {
+          "ww_should_not_show_up": {
+            "default": true,
+            "description": "Enabled project-config inline annotations"
+          },
+          "xxx": {
+            "default": true,
+            "description": "Enabled project-config inline annotations",
+            "type": "boolean"
+          },
+          "project-config.test.annotations": {
+            "default": true,
+            "description": "Enabled project-config inline annotations",
+            "type": "boolean"
+          },
+          "project-config.test.position": {
+            "default": "before",
+            "description": "Position the icon before or after the icon name",
+            "enum": [
+              "after",
+              "before"
+            ],
+            "type": "string"
+          },
+          "project-config.fileNestingUpdater.upstreamRepo": {
+            "type": "string",
+            "description": "The upstream repo you want to update from",
+            "default": "antfu/vscode-file-nesting-config"
+          },
+          "project-config.fileNestingUpdater.upstreamBranch": {
+            "type": "string",
+            "description": "The branch name of upstream repo",
+            "default": "main"
+          }
+        },
+        "title": "Config 1",
+        "type": "object"
+      },
+      {
+        "properties": {
+          "yyyy": {
+            "default": true,
+            "description": "Enabled project-config inline annotations",
+            "type": "boolean"
+          },
+          "project-config2.test.annotations": {
+            "default": true,
+            "description": "Enabled project-config inline annotations",
+            "type": "boolean"
+          }
+        },
+        "title": "Config 2",
+        "type": "object"
+      }
+    ]
+  },
+  "description": "Export current settings to workspace config file ",
+  "displayName": "Project Config Updater",
+  "icon": "res/logo.png",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "name": "project-config",
+  "preview": true,
+  "private": true,
+  "publisher": "cnjimbo",
+  "repository": {
+    "directory": "extension",
+    "type": "git",
+    "url": "https://github.com/open-dmsrs/vscode-project-config-updater"
+  },
+  "version": "1.1.2",
+  "type": "module"
+}

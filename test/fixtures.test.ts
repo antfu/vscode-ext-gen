@@ -38,6 +38,7 @@ describe('fixtures', async () => {
           '',
           markdown.configsTable,
         ]
+        // await fs.writeFile(`./test/output/${basename(dir)}.README.md`, readmeLines.join('\n'))
         await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/${basename(dir)}.README.md`)
       }
     })

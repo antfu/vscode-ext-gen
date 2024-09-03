@@ -29,6 +29,28 @@ export interface GenerateOptions {
   extensionScope?: string
 }
 
+export interface ConfigurationProperty {
+  type: string
+  default: any
+  description?: string
+  enum?: any[]
+  enumDescriptions?: string[]
+  markdownEnumDescriptions?: string[]
+  markdownDescription?: string
+  markdownDeprecationMessage?: string
+  deprecationMessage?: string
+  typeDescription?: string
+  typeLabel?: string
+  typeHint?: string
+  typeHintLabel?: string
+}
+
+function isProperties(propterties: any): propterties is ConfigurationProperty {
+  return 'type' in propterties
+    && typeof propterties.type === 'string'
+    && 'default' in propterties
+}
+
 function convertCase(input: string) {
   if (input.match(/^[a-z0-9$]*$/i) && !input.match(/^\d/)) // Valid JS identifier, keep as-is
     return input
@@ -119,7 +141,8 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
   const extensionScopeWithDot = `${extensionScope}.`
   const extensionId = `${packageJson.publisher}.${packageJson.name}`
-  const publisher = packageJson.publisher
+  const _publisher = packageJson.publisher
+  const _name = packageJson.name
 
   function withoutExtensionPrefix(name: string) {
     if (name.startsWith(extensionScopeWithDot)) {
@@ -154,7 +177,11 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       .flatMap((c: any) => {
         const name = withoutExtensionPrefix(c.command)
         return [
-          ...commentBlock(`${c.title}\n@value \`${c.command}\``, 2),
+          ...commentBlock(`${c.title}\n@value \`${c.command}\`
+@example
+useCommand(commands.${convertCase(name)}, async () => {
+  //do actions or update config 
+})`, 2),
           `  ${convertCase(name)}: ${JSON.stringify(c.command)},`,
         ]
       }),
@@ -172,12 +199,12 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     lines.push('export type ConfigKey = never')
   }
   else {
-    lines.push(
-      'export type ConfigKey = ',
-      ...Object.keys(configsObject).map(c =>
-        `  | "${c}"`,
-      ),
-    )
+    // lines.push(
+    //   'export type ConfigKey = ',
+    //   ...Object.keys(configsObject).map(c =>
+    //     `  | "${c}"`,
+    //   ),
+    // )
   }
 
   // lines.push(
@@ -251,7 +278,21 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     return acc
   }, new Set<string>()))
 
-  function genScoped(lines: string[], scopedConfigs: [string, any][], scope: string) {
+  const scopeConfigurationPairs = scopeKeys.reduce((acc, scope) => {
+    let conf
+    if (scope === '') {
+      conf = Object.entries(configsObject)
+        .filter(([key, value]) => !key.includes('.') && isProperties(value))
+    }
+    else {
+      conf = Object.entries(configsObject)
+        .filter(([key, value]) => key.startsWith(`${scope}.`) && isProperties(value))
+    }
+    acc.set(scope, conf)
+    return acc
+  }, new Map<string, [string, ConfigurationProperty][]>())
+
+  function generateScopedDts(lines: string[], scopedConfigs: [string, ConfigurationProperty][], scope: string) {
     const scopeWithDot = `${scope}.`
     function removeScope(name: string) {
       if (name.startsWith(scopeWithDot)) {
@@ -274,19 +315,18 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     }
     const interfaceName = `${upperFirst(varName)}`
 
-    // const varName = `scoped${convertCase((scope))}Configs`
-    // const interfaceName = `Scoped${convertCase((scope))}ConfigKeyTypeMap`
-
+    const example = scopedConfigs[0]
+    const exampleKey = removeScope(example[0])
     lines.push(
       ``,
-      ...commentBlock(`Types of \`${scopeComment}\` registed by \`${publisher}\``),
+      ...commentBlock(`Config keys of \`${scopeComment}\``),
       `export interface ${interfaceName} {`,
       ...scopedConfigs
         .flatMap(([key, value]) => {
           const defaultValue = defaultValFromSchema(value)
           return [
             ...commentBlock([
-              value.description,
+              value.description ?? value.markdownDescription,
               `@key \`${key}\``,
               `@default \`${defaultValue}\``,
               `@type \`${value.type}\``,
@@ -296,14 +336,14 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
         }),
       '}',
       '',
-      ...commentBlock(`defaults/scope of \`${scopeComment}\` registed by \`${publisher}\``),
+      ...commentBlock(`Scoped defaults of \`${scopeComment}\``),
       `const _${varName} = {`,
       ...commentBlock(`scope: \`${scopeComment}\``),
       `  scope: ${JSON.stringify(scope)},`,
-      ...commentBlock(`default values under \`${scopeComment}\``),
+      ...commentBlock(`Keys' defaults of \`${scopeComment}\``),
       `  defaults: {`,
       ...scopedConfigs
-        .flatMap(([key, value]: any) => {
+        .flatMap(([key, value]) => {
           return [
             // ...commentBlock([
             //   value.description,
@@ -314,24 +354,35 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       `  } satisfies ${interfaceName},`,
       `}`,
       '',
-      ...commentBlock(`config objects of \`${scopeComment}\` registed by \`${publisher}\``),
-      `export const ${varName}ConfigObject = defineConfigObject<${interfaceName}>(
-  _${varName}.scope,
-  _${varName}.defaults
-)
-
-`,
-      ...commentBlock(`configs of \`${scopeComment}\` registed by \`${publisher}\``),
-      `export const ${varName}Configs = defineConfigs<${interfaceName}>(
-  _${varName}.scope,
-  _${varName}.defaults
-)
-`,
+      ...commentBlock([
+        `Reactive ConfigObject of \`${scopeComment}\``,
+        `@example`,
+        `let configValue = ${varName}ConfigObject.${exampleKey} //get value `,
+        `${varName}ConfigObject.${exampleKey} = true // set value`,
+        `${varName}ConfigObject.$update("${exampleKey}", !configValue, ConfigurationTarget.Workspace, true)`,
+      ].join('\n'),
+      ),
+      `export const ${varName}ConfigObject = defineConfigObject<${interfaceName}>(`,
+      `  _${varName}.scope,`,
+      `  _${varName}.defaults`,
+      `)`,
+      ...commentBlock([
+        `Reactive ToConfigRefs of \`${scopeComment}\``,
+        `@example`,
+        `let configValue:${example[1].type} =${varName}Configs.${exampleKey}.value //get value `,
+        `${varName}Configs.${exampleKey}.value = ${defaultValFromSchema(example[1])} // set value`,
+        `//update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder`,
+        `${varName}Configs.${exampleKey}.update(true, ConfigurationTarget.WorkspaceFolder, true)`,
+      ].join('\n')),
+      `export const ${varName}Configs = defineConfigs<${interfaceName}>(`,
+      `  _${varName}.scope,`,
+      `  _${varName}.defaults`,
+      `)`,
     )
   }
 
   // for complatibility of pre version
-  function _genBase(lines: string[], scopedConfigs: [string, any][], scope: string) {
+  function _genBase(lines: string[], scopedConfigs: [string, ConfigurationProperty][], scope: string) {
     const scopeWithDot = `${scope}.`
 
     function removeScope(name: string) {
@@ -367,19 +418,8 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   //   .filter(([key]) => key.startsWith(extensionScopeWithDot))
   // genBase(lines, scopedConfigs, extensionScope)
 
-  const scopeConfPairs = scopeKeys.reduce((acc, scope) => {
-    if (scope === '') {
-      acc.set(scope, Object.entries(configsObject).filter(([key]) => !key.includes('.')))
-    }
-    else {
-      const conf = Object.entries(configsObject).filter(([key]) => key.startsWith(`${scope}.`))
-      acc.set(scope, conf)
-    }
-    return acc
-  }, new Map<string, [string, any][]>())
-
-  scopeConfPairs.forEach((conf, scope) => {
-    genScoped(lines, conf, scope)
+  scopeConfigurationPairs.forEach((keyPropList, scope) => {
+    generateScopedDts(lines, keyPropList, scope)
   })
   // ========== Namespace ==========
 

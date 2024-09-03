@@ -27,16 +27,28 @@ export const commands = {
   /**
    * Toggle Annotations
    * @value `iconify.toggle-annotations`
+   * @example
+   * useCommand(commands.toggleAnnotations, async () => {
+   *   //do actions or update config 
+   * })
    */
   toggleAnnotations: "iconify.toggle-annotations",
   /**
    * Toggle In-place Mode
    * @value `iconify.toggle-inplace`
+   * @example
+   * useCommand(commands.toggleInplace, async () => {
+   *   //do actions or update config 
+   * })
    */
   toggleInplace: "iconify.toggle-inplace",
   /**
    * Clear icon cache
    * @value `iconify.clear-cache`
+   * @example
+   * useCommand(commands.clearCache, async () => {
+   *   //do actions or update config 
+   * })
    */
   clearCache: "iconify.clear-cache",
 } satisfies Record<string, CommandKey>
@@ -44,25 +56,9 @@ export const commands = {
 /**
  * Type union of all configs
  */
-export type ConfigKey = 
-  | "iconify.inplace"
-  | "iconify.annotations"
-  | "iconify.position"
-  | "iconify.color"
-  | "iconify.delimiters"
-  | "iconify.prefixes"
-  | "iconify.suffixes"
-  | "iconify.languageIds"
-  | "iconify.includes"
-  | "iconify.excludes"
-  | "iconify.cdnEntry"
-  | "iconify.customCollectionJsonPaths"
-  | "iconify.customCollectionIdsMap"
-  | "iconify.customAliasesJsonPaths"
-  | "iconify.customAliasesOnly"
 
 /**
- * Types of `iconify` registed by `antfu`
+ * Config keys of `iconify`
  */
 export interface Iconify {
   /**
@@ -173,7 +169,7 @@ export interface Iconify {
 }
 
 /**
- * defaults/scope of `iconify` registed by `antfu`
+ * Scoped defaults of `iconify`
  */
 const _iconify = {
 /**
@@ -181,7 +177,7 @@ const _iconify = {
  */
   scope: "iconify",
 /**
- * default values under `iconify`
+ * Keys' defaults of `iconify`
  */
   defaults: {
     "inplace": true,
@@ -203,19 +199,25 @@ const _iconify = {
 }
 
 /**
- * config objects of `iconify` registed by `antfu`
+ * Reactive ConfigObject of `iconify`
+ * @example
+ * let configValue = iconifyConfigObject.inplace //get value 
+ * iconifyConfigObject.inplace = true // set value
+ * iconifyConfigObject.$update("inplace", !configValue, ConfigurationTarget.Workspace, true)
  */
 export const iconifyConfigObject = defineConfigObject<Iconify>(
   _iconify.scope,
   _iconify.defaults
 )
-
-
 /**
- * configs of `iconify` registed by `antfu`
+ * Reactive ToConfigRefs of `iconify`
+ * @example
+ * let configValue:boolean =iconifyConfigs.inplace.value //get value 
+ * iconifyConfigs.inplace.value = true // set value
+ * //update value to ConfigurationTarget.Workspace/ConfigurationTarget.Global/ConfigurationTarget.WorkspaceFolder
+ * iconifyConfigs.inplace.update(true, ConfigurationTarget.WorkspaceFolder, true)
  */
 export const iconifyConfigs = defineConfigs<Iconify>(
   _iconify.scope,
   _iconify.defaults
 )
-
