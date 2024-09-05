@@ -1,7 +1,7 @@
 {
   "name": "reactive-meta-gen",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@9.9.0",
   "description": "Generate TypeScript meta with `reactive-vscode` info for VS Code extension from package.json",
   "author": "calmripple <ripple@dmsrs.xyz>",
