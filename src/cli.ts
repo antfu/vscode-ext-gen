@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import cac from 'cac'
-import { version } from '../package.json'
 import { generate } from '.'
+import { version } from '../package.json'
 
 const cli = cac()
   .version(version)

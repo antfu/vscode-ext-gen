@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import { basename } from 'node:path'
-import { describe, expect, it } from 'vitest'
 import fg from 'fast-glob'
+import { describe, expect, it } from 'vitest'
 import { generate } from '../src'
 
 describe('fixtures', async () => {

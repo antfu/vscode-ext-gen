@@ -77,7 +77,7 @@ export function generateMarkdown(packageJson: any) {
           const defaultVal = defaultValFromSchema(value) || ''
           return [
             `\`${key}\``,
-            value?.description || values?.markdownDescription || '',
+            value?.description || value?.markdownDescription || '',
             `\`${String(value.type)}\``,
             defaultVal.length < MAX_TABLE_COL_CHAR ? `\`${defaultVal}\`` : 'See package.json',
           ]
