@@ -264,7 +264,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     const path = key.split('.')
     let target = nestedConfig
     for (const key of path.slice(0, -1)) {
-      target = target[key] = target[key] || {
+      target = target[key] ||= {
         [isConfigMap]: true,
       }
     }
