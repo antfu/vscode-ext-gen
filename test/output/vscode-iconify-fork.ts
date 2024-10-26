@@ -295,7 +295,6 @@ export const scopedConfigs = {
   } satisfies ScopedConfigKeyTypeMap,
 }
 
-export const isConfigMap = Symbol.for("vscode-ext-gen.isConfigMap")
 export interface NestedConfigs {
   "iconify": {
     "inplace": boolean,
@@ -318,22 +317,21 @@ export interface NestedConfigs {
 
 export const nestedConfigs = {
   "iconify": {
-    [isConfigMap]: true,
-    "inplace": true,
-    "annotations": true,
-    "position": "before",
-    "color": "auto",
-    "delimiters": [":","--","-","/"],
-    "prefixes": ["","i-","~icons/"],
-    "suffixes": ["","i-"],
-    "languageIds": ["javascript","javascriptreact","typescript","typescriptreact","vue","svelte","html","pug","json","yaml"],
-    "includes": null,
-    "excludes": null,
-    "cdnEntry": "https://icones.js.org/collections",
-    "customCollectionJsonPaths": [],
-    "customCollectionIdsMap": {},
-    "customAliasesJsonPaths": [],
-    "customAliasesOnly": false,
+    "inplace": 0,
+    "annotations": 0,
+    "position": 0,
+    "color": 0,
+    "delimiters": 0,
+    "prefixes": 0,
+    "suffixes": 0,
+    "languageIds": 0,
+    "includes": 0,
+    "excludes": 0,
+    "cdnEntry": 0,
+    "customCollectionJsonPaths": 0,
+    "customCollectionIdsMap": 0,
+    "customAliasesJsonPaths": 0,
+    "customAliasesOnly": 0,
   },
 }
 
@@ -356,20 +354,20 @@ export interface NestedScopedConfigs {
 }
 
 export const nestedScopedConfigs = {
-  "inplace": true,
-  "annotations": true,
-  "position": "before",
-  "color": "auto",
-  "delimiters": [":","--","-","/"],
-  "prefixes": ["","i-","~icons/"],
-  "suffixes": ["","i-"],
-  "languageIds": ["javascript","javascriptreact","typescript","typescriptreact","vue","svelte","html","pug","json","yaml"],
-  "includes": null,
-  "excludes": null,
-  "cdnEntry": "https://icones.js.org/collections",
-  "customCollectionJsonPaths": [],
-  "customCollectionIdsMap": {},
-  "customAliasesJsonPaths": [],
-  "customAliasesOnly": false,
+  "inplace": 0,
+  "annotations": 0,
+  "position": 0,
+  "color": 0,
+  "delimiters": 0,
+  "prefixes": 0,
+  "suffixes": 0,
+  "languageIds": 0,
+  "includes": 0,
+  "excludes": 0,
+  "cdnEntry": 0,
+  "customCollectionJsonPaths": 0,
+  "customCollectionIdsMap": 0,
+  "customAliasesJsonPaths": 0,
+  "customAliasesOnly": 0,
 }
 

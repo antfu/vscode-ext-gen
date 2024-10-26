@@ -118,7 +118,6 @@ export const scopedConfigs = {
   } satisfies ScopedConfigKeyTypeMap,
 }
 
-export const isConfigMap = Symbol.for("vscode-ext-gen.isConfigMap")
 export interface NestedConfigs {
   "smartClicks": {
     "clicksInterval": number,
@@ -130,11 +129,10 @@ export interface NestedConfigs {
 
 export const nestedConfigs = {
   "smartClicks": {
-    [isConfigMap]: true,
-    "clicksInterval": 600,
-    "triggerDelay": 150,
-    "htmlLanguageIds": ["html","vue","svelte"],
-    "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
+    "clicksInterval": 0,
+    "triggerDelay": 0,
+    "htmlLanguageIds": 0,
+    "rules": 0,
   },
 }
 
@@ -146,9 +144,9 @@ export interface NestedScopedConfigs {
 }
 
 export const nestedScopedConfigs = {
-  "clicksInterval": 600,
-  "triggerDelay": 150,
-  "htmlLanguageIds": ["html","vue","svelte"],
-  "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
+  "clicksInterval": 0,
+  "triggerDelay": 0,
+  "htmlLanguageIds": 0,
+  "rules": 0,
 }
 

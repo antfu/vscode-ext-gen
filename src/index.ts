@@ -258,7 +258,6 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   )
 
   // ========== Nested ==========
-  lines.push('export const isConfigMap = Symbol.for("vscode-ext-gen.isConfigMap")')
   const nestedConfig: any = {}
   const isConfigMap = Symbol('isConfigMap')
   Object.entries(configsObject).forEach(([key, value]) => {
@@ -277,16 +276,13 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     const indent = '  '.repeat(depth)
     if (objOrValue[isConfigMap]) {
       lines.push(`${indent}${JSON.stringify(key)}: {`)
-      if (!isType) {
-        lines.push(`${indent}  [isConfigMap]: true,`)
-      }
       for (const entry of Object.entries(objOrValue)) {
         generateNestedConfig(entry, depth + 1, isType)
       }
       lines.push(`${indent}},`)
     }
     else {
-      const value = isType ? typeFromSchema(objOrValue) : defaultValFromSchema(objOrValue)
+      const value = isType ? typeFromSchema(objOrValue) : 0
       lines.push(`${indent}${JSON.stringify(key)}: ${value},`)
     }
   }
