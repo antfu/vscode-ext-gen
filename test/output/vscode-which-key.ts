@@ -191,19 +191,6 @@ export interface NestedConfigs {
   },
 }
 
-export const nestedConfigs = {
-  "whichkey": {
-    "transient": 0,
-    "delay": 0,
-    "showIcons": 0,
-    "showButtons": 0,
-    "useFullWidthCharacters": 0,
-    "sortOrder": 0,
-    "bindings": 0,
-    "bindingOverrides": 0,
-  },
-}
-
 export interface NestedScopedConfigs {
   "transient": Record<string, unknown>,
   "delay": number,
@@ -213,16 +200,5 @@ export interface NestedScopedConfigs {
   "sortOrder": ("none" | "custom" | "customNonNumberFirst" | "typeThenCustom" | "alphabetically" | "nonNumberFirst"),
   "bindings": unknown[],
   "bindingOverrides": (unknown[] | undefined),
-}
-
-export const nestedScopedConfigs = {
-  "transient": 0,
-  "delay": 0,
-  "showIcons": 0,
-  "showButtons": 0,
-  "useFullWidthCharacters": 0,
-  "sortOrder": 0,
-  "bindings": 0,
-  "bindingOverrides": 0,
 }
 

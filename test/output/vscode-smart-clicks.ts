@@ -127,26 +127,10 @@ export interface NestedConfigs {
   },
 }
 
-export const nestedConfigs = {
-  "smartClicks": {
-    "clicksInterval": 0,
-    "triggerDelay": 0,
-    "htmlLanguageIds": 0,
-    "rules": 0,
-  },
-}
-
 export interface NestedScopedConfigs {
   "clicksInterval": number,
   "triggerDelay": number,
   "htmlLanguageIds": string[],
   "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
-}
-
-export const nestedScopedConfigs = {
-  "clicksInterval": 0,
-  "triggerDelay": 0,
-  "htmlLanguageIds": 0,
-  "rules": 0,
 }
 

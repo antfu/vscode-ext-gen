@@ -315,26 +315,6 @@ export interface NestedConfigs {
   },
 }
 
-export const nestedConfigs = {
-  "iconify": {
-    "inplace": 0,
-    "annotations": 0,
-    "position": 0,
-    "color": 0,
-    "delimiters": 0,
-    "prefixes": 0,
-    "suffixes": 0,
-    "languageIds": 0,
-    "includes": 0,
-    "excludes": 0,
-    "cdnEntry": 0,
-    "customCollectionJsonPaths": 0,
-    "customCollectionIdsMap": 0,
-    "customAliasesJsonPaths": 0,
-    "customAliasesOnly": 0,
-  },
-}
-
 export interface NestedScopedConfigs {
   "inplace": boolean,
   "annotations": boolean,
@@ -351,23 +331,5 @@ export interface NestedScopedConfigs {
   "customCollectionIdsMap": Record<string, unknown>,
   "customAliasesJsonPaths": string[],
   "customAliasesOnly": boolean,
-}
-
-export const nestedScopedConfigs = {
-  "inplace": 0,
-  "annotations": 0,
-  "position": 0,
-  "color": 0,
-  "delimiters": 0,
-  "prefixes": 0,
-  "suffixes": 0,
-  "languageIds": 0,
-  "includes": 0,
-  "excludes": 0,
-  "cdnEntry": 0,
-  "customCollectionJsonPaths": 0,
-  "customCollectionIdsMap": 0,
-  "customAliasesJsonPaths": 0,
-  "customAliasesOnly": 0,
 }
 

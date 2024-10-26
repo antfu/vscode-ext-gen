@@ -262,14 +262,14 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   const isConfigMap = Symbol('isConfigMap')
   Object.entries(configsObject).forEach(([key, value]) => {
     const path = key.split('.')
-    let obj = nestedConfig
+    let target = nestedConfig
     for (const key of path.slice(0, -1)) {
-      obj = obj[key] = obj[key] || {
+      target = target[key] = target[key] || {
         [isConfigMap]: true,
       }
     }
     const lastKey = path[path.length - 1]
-    obj[lastKey] = value
+    target[lastKey] = value
   })
 
   function generateNestedConfig([key, objOrValue]: any, depth: number, isType: boolean) {
@@ -292,21 +292,9 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   }
   lines.push(`}`, '')
 
-  lines.push(`export const nestedConfigs = {`)
-  for (const entry of Object.entries(nestedConfig)) {
-    generateNestedConfig(entry, 1, false)
-  }
-  lines.push(`}`, '')
-
   lines.push(`export interface NestedScopedConfigs {`)
   for (const entry of Object.entries(nestedConfig[extensionScope])) {
     generateNestedConfig(entry, 1, true)
-  }
-  lines.push(`}`, '')
-
-  lines.push(`export const nestedScopedConfigs = {`)
-  for (const entry of Object.entries(nestedConfig[extensionScope])) {
-    generateNestedConfig(entry, 1, false)
   }
   lines.push(`}`, '')
 
