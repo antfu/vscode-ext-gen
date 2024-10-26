@@ -211,7 +211,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...commentBlock(`Configs map registed by \`${extensionId}\``),
+    ...commentBlock(`Configs map registered by \`${extensionId}\``),
     'export const configs = {',
     ...Object.entries(configsObject)
       .flatMap(([key, value]: any) => {
@@ -256,6 +256,47 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     `}`,
     '',
   )
+
+  // ========== Nested ==========
+  const nestedConfig: any = {}
+  const isConfigMap = Symbol('isConfigMap')
+  Object.entries(configsObject).forEach(([key, value]) => {
+    const path = key.split('.')
+    let target = nestedConfig
+    for (const key of path.slice(0, -1)) {
+      target = target[key] ||= {
+        [isConfigMap]: true,
+      }
+    }
+    const lastKey = path[path.length - 1]
+    target[lastKey] = value
+  })
+
+  function generateNestedConfig([key, objOrValue]: any, depth: number, isType: boolean) {
+    const indent = '  '.repeat(depth)
+    if (objOrValue[isConfigMap]) {
+      lines.push(`${indent}${JSON.stringify(key)}: {`)
+      for (const entry of Object.entries(objOrValue)) {
+        generateNestedConfig(entry, depth + 1, isType)
+      }
+      lines.push(`${indent}},`)
+    }
+    else {
+      const value = isType ? typeFromSchema(objOrValue) : 0
+      lines.push(`${indent}${JSON.stringify(key)}: ${value},`)
+    }
+  }
+  lines.push(`export interface NestedConfigs {`)
+  for (const entry of Object.entries(nestedConfig)) {
+    generateNestedConfig(entry, 1, true)
+  }
+  lines.push(`}`, '')
+
+  lines.push(`export interface NestedScopedConfigs {`)
+  for (const entry of Object.entries(nestedConfig[extensionScope])) {
+    generateNestedConfig(entry, 1, true)
+  }
+  lines.push(`}`, '')
 
   // ========== Namespace ==========
 

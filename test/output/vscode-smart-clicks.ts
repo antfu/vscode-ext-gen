@@ -56,7 +56,7 @@ export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {
 
 
 /**
- * Configs map registed by `antfu.smart-clicks`
+ * Configs map registered by `antfu.smart-clicks`
  */
 export const configs = {
   /**
@@ -116,5 +116,21 @@ export const scopedConfigs = {
     "htmlLanguageIds": ["html","vue","svelte"],
     "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
   } satisfies ScopedConfigKeyTypeMap,
+}
+
+export interface NestedConfigs {
+  "smartClicks": {
+    "clicksInterval": number,
+    "triggerDelay": number,
+    "htmlLanguageIds": string[],
+    "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
+  },
+}
+
+export interface NestedScopedConfigs {
+  "clicksInterval": number,
+  "triggerDelay": number,
+  "htmlLanguageIds": string[],
+  "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
 }
 
