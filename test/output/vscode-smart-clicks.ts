@@ -56,7 +56,7 @@ export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {
 
 
 /**
- * Configs map registed by `antfu.smart-clicks`
+ * Configs map registered by `antfu.smart-clicks`
  */
 export const configs = {
   /**
@@ -116,5 +116,39 @@ export const scopedConfigs = {
     "htmlLanguageIds": ["html","vue","svelte"],
     "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
   } satisfies ScopedConfigKeyTypeMap,
+}
+
+export const isConfigMap = Symbol.for("vscode-ext-gen.isConfigMap")
+export interface NestedConfigs {
+  "smartClicks": {
+    "clicksInterval": number,
+    "triggerDelay": number,
+    "htmlLanguageIds": string[],
+    "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
+  },
+}
+
+export const nestedConfigs = {
+  "smartClicks": {
+    [isConfigMap]: true,
+    "clicksInterval": 600,
+    "triggerDelay": 150,
+    "htmlLanguageIds": ["html","vue","svelte"],
+    "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
+  },
+}
+
+export interface NestedScopedConfigs {
+  "clicksInterval": number,
+  "triggerDelay": number,
+  "htmlLanguageIds": string[],
+  "rules": { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
+}
+
+export const nestedScopedConfigs = {
+  "clicksInterval": 600,
+  "triggerDelay": 150,
+  "htmlLanguageIds": ["html","vue","svelte"],
+  "rules": { "bracket-pair": true, "dash": true, "html-attr": true, "html-element": true, "html-tag-pair": true, "js-arrow-fn": true, "js-assign": true, "js-block": false, "js-colon": true, "jsx-tag-pair": true },
 }
 
