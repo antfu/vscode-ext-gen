@@ -49,7 +49,7 @@ export function generateMarkdown(packageJson: any) {
       .replace('&', '&amp;')
       .replace('<', '&lt;')
       .replace('>', '&gt;')
-      .replace('|', '&vert;');
+      .replace('|', '&vert;')
   }
 
   let commandsTable = [
