@@ -44,6 +44,14 @@ function getConfigObject(packageJson: any) {
 export function generateMarkdown(packageJson: any) {
   const MAX_TABLE_COL_CHAR = 150
 
+  function markdownEscape(text: string) {
+    return text
+      .replace('&', '&amp;')
+      .replace('<', '&lt;')
+      .replace('>', '&gt;')
+      .replace('|', '&vert;');
+  }
+
   let commandsTable = [
     ['Command', 'Title'],
   ]
@@ -57,9 +65,9 @@ export function generateMarkdown(packageJson: any) {
       ...packageJson.contributes.commands.map((c: any) => {
         return [
           `\`${c.command}\``,
-          c.category
+          markdownEscape(c.category
             ? `${c.category}: ${c.title}`
-            : c.title,
+            : c.title),
         ]
       }),
     )
@@ -77,7 +85,7 @@ export function generateMarkdown(packageJson: any) {
           const defaultVal = defaultValFromSchema(value) || ''
           return [
             `\`${key}\``,
-            value?.description || value?.markdownDescription || '',
+            markdownEscape(value?.description || value?.markdownDescription || ''),
             `\`${String(value.type)}\``,
             defaultVal.length < MAX_TABLE_COL_CHAR ? `\`${defaultVal}\`` : 'See package.json',
           ]
