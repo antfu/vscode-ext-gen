@@ -293,7 +293,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   lines.push(`}`, '')
 
   lines.push(`export interface NestedScopedConfigs {`)
-  for (const entry of Object.entries(nestedConfig[extensionScope])) {
+  for (const entry of Object.entries(nestedConfig[extensionScope] ?? {})) {
     generateNestedConfig(entry, 1, true)
   }
   lines.push(`}`, '')
