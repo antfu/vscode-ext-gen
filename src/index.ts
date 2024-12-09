@@ -52,7 +52,7 @@ export function generateMarkdown(packageJson: any) {
     ['Key', 'Description', 'Type', 'Default'],
   ]
 
-  if (packageJson.contributes?.commands.length) {
+  if (packageJson.contributes?.commands?.length) {
     commandsTable.push(
       ...packageJson.contributes.commands.map((c: any) => {
         return [
@@ -70,7 +70,7 @@ export function generateMarkdown(packageJson: any) {
 
   const configsObject = getConfigObject(packageJson)
 
-  if (Object.keys(configsObject).length) {
+  if (Object.keys(configsObject || {}).length) {
     configsTable.push(
       ...Object.entries(configsObject)
         .map(([key, value]: any) => {
