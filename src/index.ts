@@ -46,10 +46,10 @@ export function generateMarkdown(packageJson: any) {
 
   function markdownEscape(text: string) {
     return text
-      .replace('&', '&amp;')
-      .replace('<', '&lt;')
-      .replace('>', '&gt;')
-      .replace('|', '&vert;')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('|', '&vert;')
   }
 
   let commandsTable = [
