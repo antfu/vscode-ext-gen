@@ -49,6 +49,13 @@ export interface ConfigShorthandMap {
   rules: "smartClicks.rules",
 }
 
+export interface ConfigShorthandTypeMap {
+  clicksInterval: number,
+  triggerDelay: number,
+  htmlLanguageIds: string[],
+  rules: { 'bracket-pair': boolean; 'dash': boolean; 'html-attr': boolean; 'html-element': boolean; 'html-tag-pair': boolean; 'js-arrow-fn': boolean; 'js-assign': boolean; 'js-block': boolean; 'js-colon': boolean; 'jsx-tag-pair': boolean },
+}
+
 export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {
   key: T,
   default: ConfigKeyTypeMap[T],

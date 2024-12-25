@@ -61,6 +61,17 @@ export interface ConfigShorthandMap {
   bindingOverrides: "whichkey.bindingOverrides",
 }
 
+export interface ConfigShorthandTypeMap {
+  transient: Record<string, unknown>,
+  delay: number,
+  showIcons: boolean,
+  showButtons: boolean,
+  useFullWidthCharacters: boolean,
+  sortOrder: ("none" | "custom" | "customNonNumberFirst" | "typeThenCustom" | "alphabetically" | "nonNumberFirst"),
+  bindings: unknown[],
+  bindingOverrides: (unknown[] | undefined),
+}
+
 export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {
   key: T,
   default: ConfigKeyTypeMap[T],

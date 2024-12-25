@@ -210,6 +210,18 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
+    'export interface ConfigShorthandTypeMap {',
+    ...Object.entries(configsObject)
+      .flatMap(([key, value]: any) => {
+        return [
+          `  ${convertCase(withoutExtensionPrefix(key))}: ${typeFromSchema(value)},`,
+        ]
+      }),
+    '}',
+  )
+
+  lines.push(
+    '',
     `export interface ConfigItem<T extends keyof ConfigKeyTypeMap> {`,
     `  key: T,`,
     `  default: ConfigKeyTypeMap[T],`,
