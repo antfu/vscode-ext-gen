@@ -409,7 +409,9 @@ function typeFromSchema(schema: any, isSubType = false): string {
       case 'object':
         if (schema.properties) {
           const propertyKeyValues = Object.entries(schema.properties).map(([key, value]) => {
-            return `'${key}': ${typeFromSchema(value, true)}`
+            const isRequired = schema.required?.includes(key)
+            const optionalChar = isRequired ? '' : '?'
+            return `'${key}'${optionalChar}: ${typeFromSchema(value, true)}`
           })
 
           types.push(`{ ${propertyKeyValues.join('; ')} }`)

@@ -419,7 +419,7 @@ export interface ConfigKeyTypeMap {
   "i18n-ally.regex.key": (string | undefined),
   "i18n-ally.regex.usageMatch": (string[] | undefined),
   "i18n-ally.regex.usageMatchAppend": (string[] | undefined),
-  "i18n-ally.refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
+  "i18n-ally.refactor.templates": ({ 'source'?: ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template'?: string; 'templates'?: string[]; 'include'?: string[]; 'exclude'?: string[] }[] | undefined),
   "i18n-ally.translate.saveAsCandidates": boolean,
   "i18n-ally.translate.fallbackToKey": boolean,
   "i18n-ally.translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
@@ -627,7 +627,7 @@ export interface ConfigShorthandTypeMap {
   regexKey: (string | undefined),
   regexUsageMatch: (string[] | undefined),
   regexUsageMatchAppend: (string[] | undefined),
-  refactorTemplates: ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
+  refactorTemplates: ({ 'source'?: ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template'?: string; 'templates'?: string[]; 'include'?: string[]; 'exclude'?: string[] }[] | undefined),
   translateSaveAsCandidates: boolean,
   translateFallbackToKey: boolean,
   translateEngines: ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
@@ -1753,7 +1753,7 @@ export interface ScopedConfigKeyTypeMap {
   "regex.key": (string | undefined),
   "regex.usageMatch": (string[] | undefined),
   "regex.usageMatchAppend": (string[] | undefined),
-  "refactor.templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
+  "refactor.templates": ({ 'source'?: ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template'?: string; 'templates'?: string[]; 'include'?: string[]; 'exclude'?: string[] }[] | undefined),
   "translate.saveAsCandidates": boolean,
   "translate.fallbackToKey": boolean,
   "translate.engines": ("google" | "google-cn" | "deepl" | "libretranslate" | "baidu" | "openai")[],
@@ -1938,7 +1938,7 @@ export interface NestedConfigs {
       "usageMatchAppend": (string[] | undefined),
     },
     "refactor": {
-      "templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
+      "templates": ({ 'source'?: ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template'?: string; 'templates'?: string[]; 'include'?: string[]; 'exclude'?: string[] }[] | undefined),
     },
     "translate": {
       "saveAsCandidates": boolean,
@@ -2083,7 +2083,7 @@ export interface NestedScopedConfigs {
     "usageMatchAppend": (string[] | undefined),
   },
   "refactor": {
-    "templates": ({ 'source': ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template': string; 'templates': string[]; 'include': string[]; 'exclude': string[] }[] | undefined),
+    "templates": ({ 'source'?: ("html-attribute" | "html-inline" | "js-string" | "js-template" | "jsx-text"); 'template'?: string; 'templates'?: string[]; 'include'?: string[]; 'exclude'?: string[] }[] | undefined),
   },
   "translate": {
     "saveAsCandidates": boolean,
