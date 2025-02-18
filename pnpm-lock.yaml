@@ -11,12 +11,6 @@ importers:
       cac:
         specifier: ^6.7.14
         version: 6.7.14
-      scule:
-        specifier: ^1.3.0
-        version: 1.3.0
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^3.14.0
@@ -30,9 +24,6 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.10.7
-      '@types/yargs':
-        specifier: ^17.0.33
-        version: 17.0.33
       bumpp:
         specifier: ^9.10.1
         version: 9.10.1
@@ -54,6 +45,9 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      scule:
+        specifier: ^1.3.0
+        version: 1.3.0
       simple-git-hooks:
         specifier: ^2.11.1
         version: 2.11.1
@@ -819,12 +813,6 @@ packages:
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
-
-  '@types/yargs-parser@21.0.3':
-    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
-
-  '@types/yargs@17.0.33':
-    resolution: {integrity: sha512-WpxBCKWPLr4xSsHgz511rFJAM+wS28w2zEO1QDNY5zM/S8ok70NNfztH0xwhqKyaK0OHCbN98LDAZuy1ctxDkA==}
 
   '@typescript-eslint/eslint-plugin@8.20.0':
     resolution: {integrity: sha512-naduuphVw5StFfqp4Gq4WhIBE2gN1GEmMUExpJYknZJdRnc+2gDzB8Z3+5+/Kv33hPQRDGzQO/0opHE72lZZ6A==}
@@ -3511,12 +3499,6 @@ snapshots:
   '@types/resolve@1.20.2': {}
 
   '@types/unist@3.0.3': {}
-
-  '@types/yargs-parser@21.0.3': {}
-
-  '@types/yargs@17.0.33':
-    dependencies:
-      '@types/yargs-parser': 21.0.3
 
   '@typescript-eslint/eslint-plugin@8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.18.0(jiti@2.4.2))(typescript@5.7.3)':
     dependencies:
