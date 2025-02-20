@@ -36,7 +36,7 @@ function convertCase(input: string) {
 
 function getConfigObject(packageJson: any) {
   return (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes?.configuration?.[0].properties
+    ? packageJson.contributes?.configuration?.[0]?.properties
     : packageJson.contributes?.configuration?.properties
   ) || {}
 }
