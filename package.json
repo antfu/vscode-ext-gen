@@ -1,7 +1,7 @@
 {
   "name": "vscode-ext-gen",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "packageManager": "pnpm@10.12.2",
   "description": "Generate TypeScript meta info for VS Code extension from package.json",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
