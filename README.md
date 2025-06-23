@@ -51,10 +51,10 @@ export namespace ExtensionMeta {
   /**
    * Type union of all commands
    */
-  export type CommandKey =
-    | 'iconify.toggle-annotations'
-    | 'iconify.clear-cache'
-    // ...
+  export type CommandKey
+    = | 'iconify.toggle-annotations'
+      | 'iconify.clear-cache'
+      // ...
 
   /**
    * Commands map registed by `antfu.iconify`
@@ -71,10 +71,10 @@ export namespace ExtensionMeta {
   /**
    * Type union of all configs
    */
-  export type ConfigKey =
-    | 'iconify.annotations'
-    | 'iconify.position'
-    // ...
+  export type ConfigKey
+    = | 'iconify.annotations'
+      | 'iconify.position'
+      // ...
 
   export interface ConfigKeyTypeMap {
     'iconify.annotations': boolean
