@@ -60,6 +60,18 @@ export function generateMarkdown(packageJson: any) {
     ['Key', 'Description', 'Type', 'Default'],
   ]
 
+  let languagesTable = [
+    ['Language', 'Extension', 'Grammars', 'Snippets'],
+  ]
+
+  let customEditorsTable = [
+    ['Custom Editor', 'priority', 'filenamePattern'],
+  ]
+
+  let chatParticipantsTable = [
+    ['Chat Participant', 'FullName', 'Description', 'Commands'],
+  ]
+
   if (packageJson.contributes?.commands?.length) {
     commandsTable.push(
       ...packageJson.contributes.commands.map((c: any) => {
@@ -96,9 +108,53 @@ export function generateMarkdown(packageJson: any) {
     configsTable = []
   }
 
+  if (packageJson.contributes?.languages?.length) {
+    const snippets = packageJson.contributes.snippets.reduce((acc: any, snippet: any) => {
+      acc[snippet.language] = snippet.language && snippet.path
+      return acc
+    }, {})
+    const grammars = packageJson.contributes.grammars.reduce((acc: any, grammar: any) => {
+      acc[grammar.language] = grammar.language && grammar.path && grammar.scopeName
+      return acc
+    }, {})
+    languagesTable.push(
+      ...packageJson.contributes.languages.map((l: any) => {
+        return [l.id, l.label, grammars[l.id], snippets[l.id]]
+      }),
+    )
+  }
+  else {
+    languagesTable = []
+  }
+
+  if (packageJson.contributes?.customEditors?.length) {
+    customEditorsTable.push(
+      ...packageJson.contributes.customEditors.map((c: any) => {
+        return [c.viewType, c.priority, c.selector?.map((s: any) => s.filenamePattern).join(', ')]
+      }),
+    )
+  }
+  else {
+    customEditorsTable = []
+  }
+
+  if (packageJson.contributes?.chatParticipants?.length) {
+    chatParticipantsTable.push(
+      ...packageJson.contributes.chatParticipants.map((c: any) => {
+        return [c.id, c.fullName || '', c.description || '', c.commands?.map((cmd: any) => cmd.name).join(', ') || '']
+      }),
+    )
+  }
+  else {
+    chatParticipantsTable = []
+  }
+
   return {
     commandsTable: formatTable(commandsTable),
     configsTable: formatTable(configsTable),
+    languagesTable: formatTable(languagesTable),
+    customEditorsTable: formatTable(customEditorsTable),
+    chatParticipantsTable: formatTable(chatParticipantsTable),
   }
 }
 
@@ -164,6 +220,116 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       }),
     '} satisfies Record<string, CommandKey>',
   )
+  // ========== languages ==========
+
+  if (packageJson.contributes?.languages?.length) {
+    lines.push(
+      '',
+      ...commentBlock(`Type union of all languages`),
+      'export type LanguageKey = ',
+      ...(packageJson.contributes?.languages || []).map((l: any) =>
+        `  | ${JSON.stringify(l.id)}`,
+      ),
+    )
+    lines.push(
+      '',
+      ...commentBlock(`Languages map registed by \`${extensionId}\``),
+      'export const languages = {',
+      ...(packageJson.contributes?.languages || []).map((l: any) =>
+        `  ${convertCase(l.id)}: ${JSON.stringify(l.id)},`,
+      ),
+      '} satisfies Record<string, LanguageKey>',
+    )
+  }
+
+  // ========== customEditors ==========
+
+  if (packageJson.contributes?.customEditors?.length) {
+    lines.push(
+      '',
+      ...commentBlock(`Type union of all customEditors`),
+      'export type CustomEditorKey = ',
+      ...(packageJson.contributes?.customEditors || []).map((c: any) =>
+        `  | ${JSON.stringify(c.viewType)}`,
+      ),
+    )
+    lines.push(
+      '',
+      ...commentBlock(`CustomEditors map registed by \`${extensionId}\``),
+      'export const customEditors = {',
+      ...(packageJson.contributes?.customEditors || []).map((c: any) =>
+        `  ${convertCase(c.viewType)}: ${JSON.stringify(c.viewType)},`,
+      ),
+      '} satisfies Record<string, CustomEditorKey>',
+    )
+  }
+
+  // ========== chatParticipants ==========
+
+  if (packageJson.contributes?.chatParticipants?.length) {
+    lines.push(
+      '',
+      ...commentBlock(`Type union of all chatParticipants`),
+      'export type ChatParticipantKey = ',
+      ...(packageJson.contributes?.chatParticipants || []).map((c: any) =>
+        `  | ${JSON.stringify(c.id)}`,
+      ),
+    )
+    lines.push(
+      '',
+      'export interface ChatParticipantTypeMap {',
+      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: any) =>
+        [
+          `  ${JSON.stringify(c.id)}: ${c.commands ? (c.commands)?.map((cmd: any) => `\n   | ${JSON.stringify(cmd.name)}`).join('') : undefined}`,
+        ],
+      ),
+      '}',
+    )
+
+    lines.push(
+      '',
+      'export type ChatParticipantItem<T extends keyof ChatParticipantTypeMap> = ChatParticipantTypeMap[T]',
+    )
+    lines.push(
+      '',
+      ...commentBlock(`ChatParticipants map registed by \`${extensionId}\``),
+      'export const chatParticipants = {',
+      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: any) =>
+        [
+          ...commentBlock([
+            c.name,
+            `@fullName \`${c.fullName}\``,
+            `@description \`${c.description}\``,
+            `@id \`${c.id}\``,
+          ].join('\n'), 2),
+          `  ${convertCase(c.id)}: ${JSON.stringify(c.id)},`,
+        ],
+      ),
+      '} satisfies Record<string, ChatParticipantKey>',
+    )
+    lines.push(
+      '',
+      'export const chatParticipantCommandsMap = {',
+      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: any) =>
+        c.commands
+          ? [
+              `  ${convertCase(c.id)}: {`,
+              ...c.commands.flatMap((cmd: any) => {
+                return [
+                  ...commentBlock([
+                    cmd.name,
+                    `@description \`${cmd.description}\``,
+                  ].join('\n'), 2),
+                  `  ${convertCase(cmd.name)}: ${JSON.stringify(cmd.name)},`,
+                ]
+              }),
+              `  } satisfies Record<string, ChatParticipantItem<"${c.id}">>,`,
+            ]
+          : null,
+      ),
+      '}',
+    )
+  }
 
   // ========== Configs ==========
   const configsObject = getConfigObject(packageJson)
@@ -465,13 +631,13 @@ export function formatTable(table: string[][]) {
 
   table.forEach((row) => {
     row.forEach((col, idx) => {
-      colChars[idx] = Math.max(colChars[idx], col.length)
+      colChars[idx] = Math.max(colChars[idx], col?.length || 0)
     })
   })
 
   table.forEach((row, rowIdx) => {
     row.forEach((col, colIdx) => {
-      table[rowIdx][colIdx] = col.padEnd(colChars[colIdx], ' ')
+      table[rowIdx][colIdx] = col?.padEnd(colChars[colIdx], ' ') || ''
     })
   })
 
