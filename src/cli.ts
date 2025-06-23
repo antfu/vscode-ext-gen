@@ -26,9 +26,13 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
 
     if (options.readme && options.readme !== 'false') {
       const raw = await fs.readFile(options.readme, 'utf-8')
+
       const content = raw
         .replace(/<!-- commands -->[\s\S]*<!-- commands -->/, `<!-- commands -->\n\n${markdown.commandsTable}\n\n<!-- commands -->`)
         .replace(/<!-- configs -->[\s\S]*<!-- configs -->/, `<!-- configs -->\n\n${markdown.configsTable}\n\n<!-- configs -->`)
+        .replace(/<!-- languages -->[\s\S]*<!-- languages -->/, `<!-- languages -->\n\n${markdown.languagesTable}\n\n<!-- languages -->`)
+        .replace(/<!-- customEditors -->[\s\S]*<!-- customEditors -->/, `<!-- customEditors -->\n\n${markdown.customEditorsTable}\n\n<!-- customEditors -->`)
+        .replace(/<!-- chatParticipants -->[\s\S]*<!-- chatParticipants -->/, `<!-- chatParticipants -->\n\n${markdown.chatParticipantsTable}\n\n<!-- chatParticipants -->`)
 
       if (raw === content && !raw.includes('<!-- commands -->') && !raw.includes('<!-- configs -->')) {
         console.log('Add `<!-- commands --><!-- commands -->` and `<!-- configs --><!-- configs -->` to your README.md to insert commands and configurations table')
