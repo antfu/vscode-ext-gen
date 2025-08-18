@@ -12,11 +12,11 @@ export const extensionId = `${publisher}.${name}`
 /**
  * Type union of all commands
  */
-export type CommandKey = 
+export type CommandKey =
   | "smartClicks.trigger"
 
 /**
- * Commands map registed by `antfu.smart-clicks`
+ * Commands map registered by `antfu.smart-clicks`
  */
 export const commands = {
   /**
@@ -29,7 +29,7 @@ export const commands = {
 /**
  * Type union of all configs
  */
-export type ConfigKey = 
+export type ConfigKey =
   | "smartClicks.clicksInterval"
   | "smartClicks.triggerDelay"
   | "smartClicks.htmlLanguageIds"
@@ -140,4 +140,3 @@ export interface NestedScopedConfigs {
   "htmlLanguageIds": string[],
   "rules": { 'bracket-pair'?: boolean; 'dash'?: boolean; 'html-attr'?: boolean; 'html-element'?: boolean; 'html-tag-pair'?: boolean; 'js-arrow-fn'?: boolean; 'js-assign'?: boolean; 'js-block'?: boolean; 'js-colon'?: boolean; 'jsx-tag-pair'?: boolean },
 }
-
