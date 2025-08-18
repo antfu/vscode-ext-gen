@@ -57,7 +57,7 @@ export namespace ExtensionMeta {
       // ...
 
   /**
-   * Commands map registed by `antfu.iconify`
+   * Commands map registered by `antfu.iconify`
    */
   export const commands = {
     /**
@@ -88,7 +88,7 @@ export namespace ExtensionMeta {
   }
 
   /**
-   * Configs map registed by `antfu.iconify`
+   * Configs map registered by `antfu.iconify`
    */
   export const configs = {
     /**
