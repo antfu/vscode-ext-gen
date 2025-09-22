@@ -111,14 +111,14 @@ export function generateMarkdown(packageJson: any) {
   if (packageJson.contributes?.languages?.length) {
     const snippets = (packageJson.contributes.snippets || []).reduce((acc: any, snippet: any) => {
       if (snippet.language) {
-        acc[snippet.language] = acc[snippet.language] || []
+        acc[snippet.language] ||= []
         acc[snippet.language].push(snippet.path)
       }
       return acc
     }, {})
     const grammars = (packageJson.contributes.grammars || []).reduce((acc: any, grammar: any) => {
       if (grammar.language) {
-        acc[grammar.language] = acc[grammar.language] || []
+        acc[grammar.language] ||= []
         acc[grammar.language].push(grammar.scopeName || grammar.path)
       }
       return acc
