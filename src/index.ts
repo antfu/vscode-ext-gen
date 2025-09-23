@@ -61,7 +61,7 @@ export function generateMarkdown(packageJson: any) {
   ]
 
   let languagesTable = [
-    ['Language', 'Extension', 'Grammars', 'Snippets'],
+    ['Language', 'Extensions', 'Grammars', 'Snippets'],
   ]
 
   let customEditorsTable = [
@@ -109,17 +109,31 @@ export function generateMarkdown(packageJson: any) {
   }
 
   if (packageJson.contributes?.languages?.length) {
-    const snippets = packageJson.contributes.snippets.reduce((acc: any, snippet: any) => {
-      acc[snippet.language] = snippet.language && snippet.path
+    const snippets = (packageJson.contributes.snippets || []).reduce((acc: any, snippet: any) => {
+      if (snippet.language) {
+        acc[snippet.language] ||= []
+        acc[snippet.language].push(snippet.path)
+      }
       return acc
     }, {})
-    const grammars = packageJson.contributes.grammars.reduce((acc: any, grammar: any) => {
-      acc[grammar.language] = grammar.language && grammar.path && grammar.scopeName
+    const grammars = (packageJson.contributes.grammars || []).reduce((acc: any, grammar: any) => {
+      if (grammar.language) {
+        acc[grammar.language] ||= []
+        acc[grammar.language].push(grammar.scopeName || grammar.path)
+      }
       return acc
     }, {})
     languagesTable.push(
       ...packageJson.contributes.languages.map((l: any) => {
-        return [l.id, l.label, grammars[l.id], snippets[l.id]]
+        const grammarList = grammars[l.id] ? grammars[l.id].join(', ') : '-'
+        const snippetList = snippets[l.id] ? snippets[l.id].join(', ') : '-'
+        const extensions = l.extensions ? l.extensions.join(', ') : '-'
+        return [
+          `\`${l.id}\``,
+          extensions,
+          grammarList,
+          snippetList,
+        ]
       }),
     )
   }
