@@ -12,7 +12,7 @@ export const extensionId = `${publisher}.${name}`
 /**
  * Type union of all commands
  */
-export type CommandKey = 
+export type CommandKey =
   | "i18n-ally.config-locales"
   | "i18n-ally.config-locales-auto"
   | "i18n-ally.config-display-language"
@@ -57,7 +57,7 @@ export type CommandKey =
   | "i18n-ally.extract-enable-auto-detect"
 
 /**
- * Commands map registed by `lokalise.i18n-ally`
+ * Commands map registered by `lokalise.i18n-ally`
  */
 export const commands = {
   /**
@@ -275,7 +275,7 @@ export const commands = {
 /**
  * Type union of all configs
  */
-export type ConfigKey = 
+export type ConfigKey =
   | "i18n-ally.disabled"
   | "i18n-ally.autoDetection"
   | "i18n-ally.localesPaths"
@@ -1031,7 +1031,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"i18n-ally.ignoreFiles">,
   /**
-   * 
+   *
    * @key `i18n-ally.theme.annotation`
    * @default `"rgba(153, 153, 153, .8)"`
    * @type `string`
@@ -1041,7 +1041,7 @@ export const configs = {
     default: "rgba(153, 153, 153, .8)",
   } as ConfigItem<"i18n-ally.theme.annotation">,
   /**
-   * 
+   *
    * @key `i18n-ally.theme.annotationMissing`
    * @default `"rgba(153, 153, 153, .3)"`
    * @type `string`
@@ -1051,7 +1051,7 @@ export const configs = {
     default: "rgba(153, 153, 153, .3)",
   } as ConfigItem<"i18n-ally.theme.annotationMissing">,
   /**
-   * 
+   *
    * @key `i18n-ally.theme.annotationBorder`
    * @default `"rgba(153, 153, 153, .2)"`
    * @type `string`
@@ -1061,7 +1061,7 @@ export const configs = {
     default: "rgba(153, 153, 153, .2)",
   } as ConfigItem<"i18n-ally.theme.annotationBorder">,
   /**
-   * 
+   *
    * @key `i18n-ally.theme.annotationMissingBorder`
    * @default `"rgba(153, 153, 153, .2)"`
    * @type `string`
@@ -1291,7 +1291,7 @@ export const configs = {
     default: null,
   } as ConfigItem<"i18n-ally.usage.derivedKeyRules">,
   /**
-   * 
+   *
    * @key `i18n-ally.frameworks.ruby-rails.scopeRoot`
    * @default `"app/views"`
    * @type `string`
@@ -1301,7 +1301,7 @@ export const configs = {
     default: "app/views",
   } as ConfigItem<"i18n-ally.frameworks.ruby-rails.scopeRoot">,
   /**
-   * 
+   *
    * @key `i18n-ally.parsers.typescript.tsNodePath`
    * @default `"node_modules/ts-node/dist/bin.js"`
    * @type `string`
@@ -1311,7 +1311,7 @@ export const configs = {
     default: "node_modules/ts-node/dist/bin.js",
   } as ConfigItem<"i18n-ally.parsers.typescript.tsNodePath">,
   /**
-   * 
+   *
    * @key `i18n-ally.parsers.typescript.compilerOptions`
    * @default `{}`
    * @type `object`
@@ -1321,7 +1321,7 @@ export const configs = {
     default: {},
   } as ConfigItem<"i18n-ally.parsers.typescript.compilerOptions">,
   /**
-   * 
+   *
    * @key `i18n-ally.parsers.extendFileExtensions`
    * @default `{}`
    * @type `object`
@@ -1491,7 +1491,7 @@ export const configs = {
     default: {},
   } as ConfigItem<"i18n-ally.extract.ignoredByFiles">,
   /**
-   * 
+   *
    * @key `i18n-ally.parserOptions`
    * @default `{}`
    * @type `object`
@@ -1511,7 +1511,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"i18n-ally.defaultNamespace">,
   /**
-   * 
+   *
    * @key `i18n-ally.derivedKeyRules`
    * @default `undefined`
    * @type `undefined`
@@ -1521,7 +1521,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"i18n-ally.derivedKeyRules">,
   /**
-   * 
+   *
    * @key `i18n-ally.filenameMatchRegex`
    * @default `undefined`
    * @type `undefined`
@@ -1531,7 +1531,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"i18n-ally.filenameMatchRegex">,
   /**
-   * 
+   *
    * @key `i18n-ally.fileNamespace`
    * @default `undefined`
    * @type `undefined`
@@ -1541,7 +1541,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"i18n-ally.fileNamespace">,
   /**
-   * 
+   *
    * @key `i18n-ally.keyMatchRegex`
    * @default `undefined`
    * @type `undefined`
@@ -1551,7 +1551,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"i18n-ally.keyMatchRegex">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.localesPaths`
    * @default `undefined`
    * @type `undefined`
@@ -1561,7 +1561,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.localesPaths">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.encoding`
    * @default `undefined`
    * @type `undefined`
@@ -1571,7 +1571,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.encoding">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.sourceLanguage`
    * @default `undefined`
    * @type `undefined`
@@ -1581,7 +1581,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.sourceLanguage">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.displayLanguage`
    * @default `undefined`
    * @type `undefined`
@@ -1591,7 +1591,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.displayLanguage">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.ignoredLocales`
    * @default `undefined`
    * @type `undefined`
@@ -1601,7 +1601,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.ignoredLocales">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.keystyle`
    * @default `undefined`
    * @type `undefined`
@@ -1611,7 +1611,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.keystyle">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.dirStructure`
    * @default `undefined`
    * @type `undefined`
@@ -1621,7 +1621,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.dirStructure">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.annotations`
    * @default `undefined`
    * @type `undefined`
@@ -1631,7 +1631,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.annotations">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.annotationMaxLength`
    * @default `undefined`
    * @type `undefined`
@@ -1641,7 +1641,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.annotationMaxLength">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.annotationDelimiter`
    * @default `undefined`
    * @type `undefined`
@@ -1651,7 +1651,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.annotationDelimiter">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.filenameMatchRegex`
    * @default `undefined`
    * @type `undefined`
@@ -1661,7 +1661,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.filenameMatchRegex">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.includeSubfolders`
    * @default `undefined`
    * @type `undefined`
@@ -1671,7 +1671,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.includeSubfolders">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.fullReloadOnChanged`
    * @default `undefined`
    * @type `undefined`
@@ -1681,7 +1681,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.fullReloadOnChanged">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.sortKeys`
    * @default `undefined`
    * @type `undefined`
@@ -1691,7 +1691,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.sortKeys">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.preferredDelimiter`
    * @default `undefined`
    * @type `undefined`
@@ -1701,7 +1701,7 @@ export const configs = {
     default: undefined,
   } as ConfigItem<"vue-i18n-ally.preferredDelimiter">,
   /**
-   * 
+   *
    * @key `vue-i18n-ally.readonly`
    * @default `undefined`
    * @type `undefined`

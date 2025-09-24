@@ -213,7 +213,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   }
   else {
     lines.push(
-      'export type CommandKey = ',
+      'export type CommandKey =',
       ...(packageJson.contributes?.commands || []).map((c: any) =>
         `  | ${JSON.stringify(c.command)}`,
       ),
@@ -222,7 +222,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...commentBlock(`Commands map registed by \`${extensionId}\``),
+    ...commentBlock(`Commands map registered by \`${extensionId}\``),
     'export const commands = {',
     ...(packageJson.contributes?.commands || [])
       .flatMap((c: any) => {
@@ -240,7 +240,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     lines.push(
       '',
       ...commentBlock(`Type union of all languages`),
-      'export type LanguageKey = ',
+      'export type LanguageKey =',
       ...(packageJson.contributes?.languages || []).map((l: any) =>
         `  | ${JSON.stringify(l.id)}`,
       ),
@@ -262,7 +262,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     lines.push(
       '',
       ...commentBlock(`Type union of all customEditors`),
-      'export type CustomEditorKey = ',
+      'export type CustomEditorKey =',
       ...(packageJson.contributes?.customEditors || []).map((c: any) =>
         `  | ${JSON.stringify(c.viewType)}`,
       ),
@@ -284,7 +284,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     lines.push(
       '',
       ...commentBlock(`Type union of all chatParticipants`),
-      'export type ChatParticipantKey = ',
+      'export type ChatParticipantKey =',
       ...(packageJson.contributes?.chatParticipants || []).map((c: any) =>
         `  | ${JSON.stringify(c.id)}`,
       ),
@@ -357,7 +357,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   }
   else {
     lines.push(
-      'export type ConfigKey = ',
+      'export type ConfigKey =',
       ...Object.keys(configsObject).map(c =>
         `  | "${c}"`,
       ),
@@ -552,7 +552,7 @@ function commentBlock(text?: string, padding = 0): string[] {
 
   return [
     `${indent}/**`,
-    ..._text.split(/\n/g).map(l => `${indent} * ${l}`),
+    ..._text.split(/\n/g).map(l => `${indent} * ${l}`.trimEnd()),
     `${indent} */`,
   ]
 }
