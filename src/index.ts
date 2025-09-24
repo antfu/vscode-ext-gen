@@ -2,6 +2,7 @@ import type { GenerateOptions } from './types'
 import { generateDTS } from './dts'
 import { generateMarkdown } from './markdown'
 import { defaultValFromSchema } from './schema'
+import { formatTable } from './utils'
 
 export function generate(packageJson: any, options: GenerateOptions = {}) {
   return {
@@ -10,4 +11,4 @@ export function generate(packageJson: any, options: GenerateOptions = {}) {
   }
 }
 
-export { defaultValFromSchema, generateDTS, generateMarkdown, type GenerateOptions }
+export { defaultValFromSchema, formatTable, generateDTS, generateMarkdown, type GenerateOptions }
