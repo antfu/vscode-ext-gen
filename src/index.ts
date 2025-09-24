@@ -222,7 +222,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
 
   lines.push(
     '',
-    ...commentBlock(`Commands map registed by \`${extensionId}\``),
+    ...commentBlock(`Commands map registered by \`${extensionId}\``),
     'export const commands = {',
     ...(packageJson.contributes?.commands || [])
       .flatMap((c: any) => {
