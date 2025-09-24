@@ -12,13 +12,13 @@ export const extensionId = `${publisher}.${name}`
 /**
  * Type union of all commands
  */
-export type CommandKey = 
+export type CommandKey =
   | "iconify.toggle-annotations"
   | "iconify.toggle-inplace"
   | "iconify.clear-cache"
 
 /**
- * Commands map registed by `antfu.iconify`
+ * Commands map registered by `antfu.iconify`
  */
 export const commands = {
   /**
@@ -41,7 +41,7 @@ export const commands = {
 /**
  * Type union of all configs
  */
-export type ConfigKey = 
+export type ConfigKey =
   | "iconify.inplace"
   | "iconify.annotations"
   | "iconify.position"
