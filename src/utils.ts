@@ -55,3 +55,38 @@ export function markdownEscape(text: string) {
     .replaceAll('>', '&gt;')
     .replaceAll('|', '&vert;')
 }
+
+export function formatList(data: string[][]) {
+  if (!data.length || data.length === 1)
+    return '**No data**'
+
+  const [header, ...rows] = data
+
+  // The command list should be treated specially
+  // as we want the title to be the heading, not the command id
+  const isCommandTable = header.length === 2
+    && header[0].trim().toLowerCase() === 'command'
+    && header[1].trim().toLowerCase() === 'title'
+
+  const headingIndex = isCommandTable ? 1 : 0
+  const fieldOrder = isCommandTable ? [1, 0] : header.map((_, i) => i)
+
+  return rows.map((row) => {
+    const heading = row[headingIndex].trim() || '(Unnamed)'
+
+    const lines = [`#### ${heading}`]
+
+    for (const idx of fieldOrder) {
+      if (idx === headingIndex)
+        continue
+
+      const val = (row[idx] || '').trim()
+      if (!val || val === '-')
+        continue
+
+      lines.push(`${header[idx]}: ${val}  `)
+    }
+
+    return lines.join('\n')
+  }).join('\n\n')
+}

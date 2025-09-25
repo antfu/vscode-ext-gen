@@ -1,5 +1,5 @@
 import { defaultValFromSchema, getConfigObject } from './schema'
-import { formatTable, markdownEscape } from './utils'
+import { formatList, formatTable, markdownEscape } from './utils'
 
 export function generateMarkdown(packageJson: any) {
   const MAX_TABLE_COL_CHAR = 150
@@ -121,5 +121,10 @@ export function generateMarkdown(packageJson: any) {
     languagesTable: formatTable(languagesTable),
     customEditorsTable: formatTable(customEditorsTable),
     chatParticipantsTable: formatTable(chatParticipantsTable),
+    commandsList: formatList(commandsTable),
+    configsList: formatList(configsTable),
+    languagesList: formatList(languagesTable),
+    customEditorsList: formatList(customEditorsTable),
+    chatParticipantsList: formatList(chatParticipantsTable),
   }
 }
