@@ -160,6 +160,8 @@ Add comments `<!-- commands -->` and `<!-- configs -->` as the slots in your REA
 
 They will be replaced with the generated tables when you run `npx vscode-ext-gen`.
 
+You can also use the `<!-- commands-list -->` and `<!-- configs-list -->` slots to generate lists of commands and configurations.
+
 ## Sponsors
 
 <p align="center">
