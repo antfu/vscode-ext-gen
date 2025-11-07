@@ -1,3 +1,4 @@
+import type { ConfigTable } from './types'
 import { camelCase } from 'scule'
 
 export function convertCase(input: string) {
@@ -89,4 +90,31 @@ export function formatList(data: string[][]) {
 
     return lines.join('\n')
   }).join('\n\n')
+}
+
+export function formatConfigTable(data: ConfigTable[]) {
+  if (!data.length)
+    return '**No data**'
+  if (data.length === 1)
+    return formatTable(data[0].tableData)
+
+  const merged: string[][] = data.flatMap((item, index) => {
+    const [header, ...rows] = item.tableData
+    const lines: string[][] = []
+    if (index === 0)
+      lines.push(header)
+    lines.push([`▿ <b>${item.title}</b>`])
+    lines.push(...rows)
+    return lines
+  })
+  return formatTable(merged)
+}
+
+export function formatConfigList(data: ConfigTable[]) {
+  if (!data.length)
+    return '**No data**'
+  if (data.length === 1)
+    return formatList(data[0].tableData)
+
+  return data.map(item => `### ${item.title}\n\n${formatList(item.tableData)}`).join('\n\n')
 }

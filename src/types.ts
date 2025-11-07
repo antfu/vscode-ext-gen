@@ -18,6 +18,11 @@ export interface GenerateOptions {
   extensionScope?: string
 }
 
+export interface ConfigTable {
+  title: string
+  tableData: string[][]
+}
+
 export interface Manifest {
   [key: string]: unknown
   name: string

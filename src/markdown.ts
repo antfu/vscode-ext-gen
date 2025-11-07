@@ -1,16 +1,12 @@
-import type { ChatParticipant, CustomEditor, Grammar, Language, Manifest, Property, Snippet } from './types'
-import { defaultValFromSchema, getConfigObject } from './schema'
-import { formatList, formatTable, markdownEscape } from './utils'
+import type { ChatParticipant, ConfigTable, Configuration, CustomEditor, Grammar, Language, Manifest, Property, Snippet } from './types'
+import { defaultValFromSchema, extractConfigObject, getConfigArray } from './schema'
+import { formatConfigList, formatConfigTable, formatList, formatTable, markdownEscape } from './utils'
+
+const MAX_TABLE_COL_CHAR = 150
 
 export function generateMarkdown(packageJson: Manifest) {
-  const MAX_TABLE_COL_CHAR = 150
-
   let commandsTable = [
     ['Command', 'Title'],
-  ]
-
-  let configsTable = [
-    ['Key', 'Description', 'Type', 'Default'],
   ]
 
   let languagesTable = [
@@ -41,25 +37,8 @@ export function generateMarkdown(packageJson: Manifest) {
     commandsTable = []
   }
 
-  const configsObject = getConfigObject(packageJson)
-
-  if (Object.keys(configsObject || {}).length) {
-    configsTable.push(
-      ...Object.entries(configsObject)
-        .map(([key, value]: [string, Property]) => {
-          const defaultVal = defaultValFromSchema(value) || ''
-          return [
-            `\`${key}\``,
-            markdownEscape(value?.description || value?.markdownDescription || ''),
-            `\`${String(value.type)}\``,
-            defaultVal.length < MAX_TABLE_COL_CHAR ? `\`${defaultVal}\`` : 'See package.json',
-          ]
-        }),
-    )
-  }
-  else {
-    configsTable = []
-  }
+  const configsArray = getConfigArray(packageJson)
+  const configsTables = configsArray.map(config => generateConfigTable(config))
 
   if (packageJson.contributes?.languages?.length) {
     const snippets = (packageJson.contributes.snippets || []).reduce((acc: Record<string, string[]>, snippet: Snippet) => {
@@ -125,14 +104,42 @@ export function generateMarkdown(packageJson: Manifest) {
 
   return {
     commandsTable: formatTable(commandsTable),
-    configsTable: formatTable(configsTable),
+    configsTable: formatConfigTable(configsTables),
     languagesTable: formatTable(languagesTable),
     customEditorsTable: formatTable(customEditorsTable),
     chatParticipantsTable: formatTable(chatParticipantsTable),
     commandsList: formatList(commandsTable),
-    configsList: formatList(configsTable),
+    configsList: formatConfigList(configsTables),
     languagesList: formatList(languagesTable),
     customEditorsList: formatList(customEditorsTable),
     chatParticipantsList: formatList(chatParticipantsTable),
   }
+}
+
+export function generateConfigTable(configuration: Configuration): ConfigTable {
+  let configsTable = [
+    ['Key', 'Description', 'Type', 'Default'],
+  ]
+
+  const configsObject = extractConfigObject(configuration)
+
+  if (Object.keys(configsObject || {}).length) {
+    configsTable.push(
+      ...Object.entries(configsObject)
+        .map(([key, value]: [string, Property]) => {
+          const defaultVal = defaultValFromSchema(value) || ''
+          return [
+            `\`${key}\``,
+            markdownEscape(value?.description || value?.markdownDescription || ''),
+            `\`${String(value.type)}\``,
+            defaultVal.length < MAX_TABLE_COL_CHAR ? `\`${defaultVal}\`` : 'See package.json',
+          ]
+        }),
+    )
+  }
+  else {
+    configsTable = []
+  }
+
+  return { title: configuration.title, tableData: configsTable }
 }

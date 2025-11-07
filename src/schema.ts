@@ -1,4 +1,4 @@
-import type { Manifest, Property } from './types'
+import type { Configuration, Manifest, Property } from './types'
 
 export function typeFromSchema(schema: Property, isSubType = false): string {
   if (!schema)
@@ -79,18 +79,29 @@ export function defaultValFromSchema(schema: Property): string | undefined {
   return '{}'
 }
 
-export function getConfigObject(packageJson: Manifest): Record<string, Property> {
+export function getConfigArray(packageJson: Manifest): Configuration[] {
+  return (Array.isArray(packageJson.contributes?.configuration)
+    ? packageJson.contributes.configuration
+    : [packageJson.contributes?.configuration]) as Configuration[]
+}
+
+export function extractConfigObject(configuration: Configuration | Configuration[]): Record<string, Property> {
   let result: Record<string, Property> = {}
-  if (Array.isArray(packageJson.contributes?.configuration)) {
-    const configuration = packageJson.contributes.configuration
-    configuration.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).forEach((config) => {
+  if (Array.isArray(configuration)) {
+    configuration.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).forEach((config: Configuration) => {
       Object.entries(config.properties ?? {}).forEach(([key, value]) => {
         result[key] = value
       })
     })
   }
   else {
-    result = packageJson.contributes?.configuration?.properties || {}
+    result = configuration?.properties || {}
   }
   return result
+}
+
+export function getConfigObject(packageJson: Manifest): Record<string, Property> {
+  return packageJson.contributes?.configuration
+    ? extractConfigObject(packageJson.contributes.configuration)
+    : {}
 }
