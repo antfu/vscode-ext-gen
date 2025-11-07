@@ -78,7 +78,7 @@ export interface Configuration {
   title: string
   type?: 'object'
   order?: number
-  properties: Record<string, Property>
+  properties?: Record<string, Property>
 }
 
 export interface Property {

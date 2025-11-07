@@ -80,8 +80,16 @@ export function defaultValFromSchema(schema: Property): string | undefined {
 }
 
 export function getConfigObject(packageJson: Manifest): Record<string, Property> {
-  return (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes?.configuration?.[0]?.properties
-    : packageJson.contributes?.configuration?.properties
-  ) || {}
+  let result: Record<string, Property> = {}
+  if (Array.isArray(packageJson.contributes?.configuration)) {
+    packageJson.contributes.configuration.forEach((config) => {
+      Object.entries(config.properties ?? {}).forEach(([key, value]) => {
+        result[key] = value
+      })
+    })
+  }
+  else {
+    result = packageJson.contributes?.configuration?.properties || {}
+  }
+  return result
 }
