@@ -10,6 +10,13 @@ const forwardKeys = [
   'description',
 ]
 
+interface GenerateContext {
+  lines: string[]
+  configsObject: Record<string, Property>
+  withoutExtensionPrefix: (name: string) => string
+  extensionId: string
+}
+
 export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}) {
   let {
     header = true,
@@ -188,6 +195,13 @@ export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}
   // ========== Configs ==========
   const configsObject = getConfigObject(packageJson)
 
+  const generateContext: GenerateContext = {
+    lines,
+    configsObject,
+    withoutExtensionPrefix,
+    extensionId,
+  }
+
   lines.push(
     '',
     ...commentBlock('Type union of all configs'),
@@ -216,29 +230,8 @@ export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}
     '}',
   )
 
-  lines.push(
-    '',
-    'export interface ConfigShorthandMap {',
-    ...Object.entries(configsObject)
-      .flatMap(([key]: [string, Property]) => {
-        return [
-          `  ${convertCase(withoutExtensionPrefix(key))}: ${JSON.stringify(key)},`,
-        ]
-      }),
-    '}',
-  )
-
-  lines.push(
-    '',
-    'export interface ConfigShorthandTypeMap {',
-    ...Object.entries(configsObject)
-      .flatMap(([key, value]: [string, Property]) => {
-        return [
-          `  ${convertCase(withoutExtensionPrefix(key))}: ${typeFromSchema(value)},`,
-        ]
-      }),
-    '}',
-  )
+  generateConfigShorthandMap(generateContext)
+  generateConfigShorthandTypeMap(generateContext)
 
   lines.push(
     '',
@@ -249,29 +242,7 @@ export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}
     '',
   )
 
-  lines.push(
-    '',
-    ...commentBlock(`Configs map registered by \`${extensionId}\``),
-    'export const configs = {',
-    ...Object.entries(configsObject)
-      .flatMap(([key, value]: [string, Property]) => {
-        const name = withoutExtensionPrefix(key)
-        const defaultValue = defaultValFromSchema(value)
-        return [
-          ...commentBlock([
-            value.description,
-            `@key \`${key}\``,
-            `@default \`${defaultValue}\``,
-            `@type \`${value.type}\``,
-          ].join('\n'), 2),
-          `  ${convertCase(name)}: {`,
-          `    key: "${key}",`,
-          `    default: ${defaultValue},`,
-          `  } as ConfigItem<"${key}">,`,
-        ]
-      }),
-    '}',
-  )
+  generateConfigs(generateContext)
 
   const scopedConfigs = Object.entries(configsObject)
     .filter(([key]) => key.startsWith(extensionScopeWithDot))
@@ -372,4 +343,72 @@ export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}
   lines.push('') // EOL
 
   return lines.join('\n')
+}
+
+function generateConfigShorthandMap({ lines, configsObject, withoutExtensionPrefix }: GenerateContext) {
+  const cached = new Set<string>()
+  lines.push(
+    '',
+    'export interface ConfigShorthandMap {',
+    ...Object.entries(configsObject)
+      .flatMap(([key]: [string, Property]) => {
+        const name = convertCase(withoutExtensionPrefix(key))
+        if (cached.has(name))
+          return []
+        cached.add(name)
+        return [
+          `  ${name}: ${JSON.stringify(key)},`,
+        ]
+      }),
+    '}',
+  )
+}
+
+function generateConfigShorthandTypeMap({ lines, configsObject, withoutExtensionPrefix }: GenerateContext) {
+  const cached = new Set<string>()
+  lines.push(
+    '',
+    'export interface ConfigShorthandTypeMap {',
+    ...Object.entries(configsObject)
+      .flatMap(([key, value]: [string, Property]) => {
+        const name = convertCase(withoutExtensionPrefix(key))
+        if (cached.has(name))
+          return []
+        cached.add(name)
+        return [
+          `  ${name}: ${typeFromSchema(value)},`,
+        ]
+      }),
+    '}',
+  )
+}
+
+function generateConfigs({ lines, configsObject, withoutExtensionPrefix, extensionId }: GenerateContext) {
+  const cached = new Set<string>()
+  lines.push(
+    '',
+    ...commentBlock(`Configs map registered by \`${extensionId}\``),
+    'export const configs = {',
+    ...Object.entries(configsObject)
+      .flatMap(([key, value]: [string, Property]) => {
+        const name = convertCase(withoutExtensionPrefix(key))
+        const defaultValue = defaultValFromSchema(value)
+        if (cached.has(name))
+          return []
+        cached.add(name)
+        return [
+          ...commentBlock([
+            value.description,
+            `@key \`${key}\``,
+            `@default \`${defaultValue}\``,
+            `@type \`${value.type}\``,
+          ].join('\n'), 2),
+          `  ${name}: {`,
+          `    key: "${key}",`,
+          `    default: ${defaultValue},`,
+          `  } as ConfigItem<"${key}">,`,
+        ]
+      }),
+    '}',
+  )
 }

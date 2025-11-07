@@ -79,16 +79,20 @@ export function defaultValFromSchema(schema: Property): string | undefined {
   return '{}'
 }
 
+function sortConfigurations(configurations: Configuration[]): Configuration[] {
+  return [...configurations].sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
+}
+
 export function getConfigArray(packageJson: Manifest): Configuration[] {
   return (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes.configuration
+    ? sortConfigurations(packageJson.contributes.configuration)
     : [packageJson.contributes?.configuration]) as Configuration[]
 }
 
 export function extractConfigObject(configuration: Configuration | Configuration[]): Record<string, Property> {
   let result: Record<string, Property> = {}
   if (Array.isArray(configuration)) {
-    configuration.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).forEach((config: Configuration) => {
+    sortConfigurations(configuration).forEach((config: Configuration) => {
       Object.entries(config.properties ?? {}).forEach(([key, value]) => {
         result[key] = value
       })
