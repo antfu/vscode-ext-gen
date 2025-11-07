@@ -82,7 +82,8 @@ export function defaultValFromSchema(schema: Property): string | undefined {
 export function getConfigObject(packageJson: Manifest): Record<string, Property> {
   let result: Record<string, Property> = {}
   if (Array.isArray(packageJson.contributes?.configuration)) {
-    packageJson.contributes.configuration.forEach((config) => {
+    const configuration = packageJson.contributes.configuration
+    configuration.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).forEach((config) => {
       Object.entries(config.properties ?? {}).forEach(([key, value]) => {
         result[key] = value
       })
