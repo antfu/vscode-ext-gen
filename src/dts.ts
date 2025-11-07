@@ -1,4 +1,4 @@
-import type { GenerateOptions } from './types'
+import type { ChatParticipant, Command, CustomEditor, GenerateOptions, Language, Manifest, Property } from './types'
 import { defaultValFromSchema, getConfigObject, typeFromSchema } from './schema'
 import { commentBlock, convertCase } from './utils'
 
@@ -10,7 +10,7 @@ const forwardKeys = [
   'description',
 ]
 
-export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
+export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}) {
   let {
     header = true,
     namespace = false,
@@ -52,7 +52,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
   else {
     lines.push(
       'export type CommandKey =',
-      ...(packageJson.contributes?.commands || []).map((c: any) =>
+      ...(packageJson.contributes?.commands || []).map((c: Command) =>
         `  | ${JSON.stringify(c.command)}`,
       ),
     )
@@ -63,7 +63,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     ...commentBlock(`Commands map registered by \`${extensionId}\``),
     'export const commands = {',
     ...(packageJson.contributes?.commands || [])
-      .flatMap((c: any) => {
+      .flatMap((c: Command) => {
         const name = withoutExtensionPrefix(c.command)
         return [
           ...commentBlock(`${c.title}\n@value \`${c.command}\``, 2),
@@ -79,7 +79,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
       ...commentBlock(`Type union of all languages`),
       'export type LanguageKey =',
-      ...(packageJson.contributes?.languages || []).map((l: any) =>
+      ...(packageJson.contributes?.languages || []).map((l: Language) =>
         `  | ${JSON.stringify(l.id)}`,
       ),
     )
@@ -87,7 +87,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
       ...commentBlock(`Languages map registed by \`${extensionId}\``),
       'export const languages = {',
-      ...(packageJson.contributes?.languages || []).map((l: any) =>
+      ...(packageJson.contributes?.languages || []).map((l: Language) =>
         `  ${convertCase(l.id)}: ${JSON.stringify(l.id)},`,
       ),
       '} satisfies Record<string, LanguageKey>',
@@ -101,7 +101,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
       ...commentBlock(`Type union of all customEditors`),
       'export type CustomEditorKey =',
-      ...(packageJson.contributes?.customEditors || []).map((c: any) =>
+      ...(packageJson.contributes?.customEditors || []).map((c: CustomEditor) =>
         `  | ${JSON.stringify(c.viewType)}`,
       ),
     )
@@ -109,7 +109,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
       ...commentBlock(`CustomEditors map registed by \`${extensionId}\``),
       'export const customEditors = {',
-      ...(packageJson.contributes?.customEditors || []).map((c: any) =>
+      ...(packageJson.contributes?.customEditors || []).map((c: CustomEditor) =>
         `  ${convertCase(c.viewType)}: ${JSON.stringify(c.viewType)},`,
       ),
       '} satisfies Record<string, CustomEditorKey>',
@@ -123,16 +123,16 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
       ...commentBlock(`Type union of all chatParticipants`),
       'export type ChatParticipantKey =',
-      ...(packageJson.contributes?.chatParticipants || []).map((c: any) =>
+      ...(packageJson.contributes?.chatParticipants || []).map((c: ChatParticipant) =>
         `  | ${JSON.stringify(c.id)}`,
       ),
     )
     lines.push(
       '',
       'export interface ChatParticipantTypeMap {',
-      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: any) =>
+      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: ChatParticipant) =>
         [
-          `  ${JSON.stringify(c.id)}: ${c.commands ? (c.commands)?.map((cmd: any) => `\n   | ${JSON.stringify(cmd.name)}`).join('') : undefined}`,
+          `  ${JSON.stringify(c.id)}: ${c.commands ? (c.commands)?.map(cmd => `\n   | ${JSON.stringify(cmd.name)}`).join('') : undefined}`,
         ],
       ),
       '}',
@@ -146,7 +146,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
       '',
       ...commentBlock(`ChatParticipants map registed by \`${extensionId}\``),
       'export const chatParticipants = {',
-      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: any) =>
+      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: ChatParticipant) =>
         [
           ...commentBlock([
             c.name,
@@ -162,23 +162,25 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     lines.push(
       '',
       'export const chatParticipantCommandsMap = {',
-      ...(packageJson.contributes?.chatParticipants || []).flatMap((c: any) =>
-        c.commands
-          ? [
-              `  ${convertCase(c.id)}: {`,
-              ...c.commands.flatMap((cmd: any) => {
-                return [
-                  ...commentBlock([
-                    cmd.name,
-                    `@description \`${cmd.description}\``,
-                  ].join('\n'), 2),
-                  `  ${convertCase(cmd.name)}: ${JSON.stringify(cmd.name)},`,
-                ]
-              }),
-              `  } satisfies Record<string, ChatParticipantItem<"${c.id}">>,`,
-            ]
-          : null,
-      ),
+      ...(packageJson.contributes?.chatParticipants || [])
+        .flatMap((c: ChatParticipant) =>
+          c.commands
+            ? [
+                `  ${convertCase(c.id)}: {`,
+                ...c.commands.flatMap((cmd) => {
+                  return [
+                    ...commentBlock([
+                      cmd.name,
+                      `@description \`${cmd.description}\``,
+                    ].join('\n'), 2),
+                    `  ${convertCase(cmd.name)}: ${JSON.stringify(cmd.name)},`,
+                  ]
+                }),
+                `  } satisfies Record<string, ChatParticipantItem<"${c.id}">>,`,
+              ]
+            : null,
+        )
+        .filter(Boolean) as string[],
       '}',
     )
   }
@@ -206,7 +208,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     '',
     'export interface ConfigKeyTypeMap {',
     ...Object.entries(configsObject)
-      .flatMap(([key, value]: any) => {
+      .flatMap(([key, value]: [string, Property]) => {
         return [
           `  ${JSON.stringify(key)}: ${typeFromSchema(value)},`,
         ]
@@ -218,7 +220,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     '',
     'export interface ConfigShorthandMap {',
     ...Object.entries(configsObject)
-      .flatMap(([key]: any) => {
+      .flatMap(([key]: [string, Property]) => {
         return [
           `  ${convertCase(withoutExtensionPrefix(key))}: ${JSON.stringify(key)},`,
         ]
@@ -230,7 +232,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     '',
     'export interface ConfigShorthandTypeMap {',
     ...Object.entries(configsObject)
-      .flatMap(([key, value]: any) => {
+      .flatMap(([key, value]: [string, Property]) => {
         return [
           `  ${convertCase(withoutExtensionPrefix(key))}: ${typeFromSchema(value)},`,
         ]
@@ -252,7 +254,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     ...commentBlock(`Configs map registered by \`${extensionId}\``),
     'export const configs = {',
     ...Object.entries(configsObject)
-      .flatMap(([key, value]: any) => {
+      .flatMap(([key, value]: [string, Property]) => {
         const name = withoutExtensionPrefix(key)
         const defaultValue = defaultValFromSchema(value)
         return [
@@ -287,7 +289,7 @@ export function generateDTS(packageJson: any, options: GenerateOptions = {}) {
     `  scope: ${JSON.stringify(extensionScope)},`,
     `  defaults: {`,
     ...scopedConfigs
-      .map(([key, value]: any) => {
+      .map(([key, value]: [string, Property]) => {
         return `    ${JSON.stringify(withoutExtensionPrefix(key))}: ${defaultValFromSchema(value)},`
       }),
     `  } satisfies ScopedConfigKeyTypeMap,`,

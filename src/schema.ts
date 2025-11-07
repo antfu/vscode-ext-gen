@@ -1,4 +1,6 @@
-export function typeFromSchema(schema: any, isSubType = false): string {
+import type { Manifest, Property } from './types'
+
+export function typeFromSchema(schema: Property, isSubType = false): string {
   if (!schema)
     return 'unknown'
 
@@ -59,7 +61,7 @@ export function typeFromSchema(schema: any, isSubType = false): string {
     return `(${types.join(' | ')})`
 }
 
-export function defaultValFromSchema(schema: any): string | undefined {
+export function defaultValFromSchema(schema: Property): string | undefined {
   if (schema.type !== 'object')
     return JSON.stringify(schema.default)
 
@@ -67,7 +69,7 @@ export function defaultValFromSchema(schema: any): string | undefined {
     return JSON.stringify(schema.default)
 
   if ('properties' in schema) {
-    const keyValues = Object.entries(schema.properties).map(([key, value]): string => {
+    const keyValues = Object.entries(schema.properties || {}).map(([key, value]): string => {
       return `${JSON.stringify(key)}: ${defaultValFromSchema(value)}`
     })
 
@@ -77,7 +79,7 @@ export function defaultValFromSchema(schema: any): string | undefined {
   return '{}'
 }
 
-export function getConfigObject(packageJson: any) {
+export function getConfigObject(packageJson: Manifest): Record<string, Property> {
   return (Array.isArray(packageJson.contributes?.configuration)
     ? packageJson.contributes?.configuration?.[0]?.properties
     : packageJson.contributes?.configuration?.properties
