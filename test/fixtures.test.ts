@@ -1,13 +1,11 @@
 import fs from 'node:fs/promises'
 import { basename } from 'node:path'
-import fg from 'fast-glob'
+import { glob } from 'tinyglobby'
 import { describe, expect, it } from 'vitest'
 import { generate } from '../src'
 
 describe('fixtures', async () => {
-  const dirs = await fg([
-    './fixtures/*',
-  ], { onlyDirectories: true })
+  const dirs = await glob('./fixtures/*', { onlyDirectories: true })
 
   for (const dir of dirs) {
     it(basename(dir), async () => {
@@ -23,7 +21,7 @@ describe('fixtures', async () => {
           return extensionScope = 'smartClicks'
       }
       finally {
-        const { dts, markdown } = generate(json, { extensionScope })
+        const { dts, markdown } = await generate(json, { cwd: dir, extensionScope })
         await expect(dts).toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
 
         const readmeLines = [

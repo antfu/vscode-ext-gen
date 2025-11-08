@@ -12,14 +12,17 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
   .option('--namespace <namespace>', 'Generate with namespace')
   .option('--scope <scope>', 'The extension scope for commands and configs')
   .option('--readme <path>', 'The path to README.md', { default: 'README.md' })
+  .option('--locale <locale>', 'The locale to read from nls file', { default: 'en' })
   .action(async (input = 'package.json', options) => {
     const json = JSON.parse(await fs.readFile(input, 'utf-8'))
     if (!json.publisher)
       throw new Error('This package.json does not seem to be a valid VSCode extension package.json')
 
-    const { dts, markdown } = generate(json, {
+    const { dts, markdown } = await generate(json, {
+      cwd: input,
       namespace: options.namespace === 'false' ? false : options.namespace,
       extensionScope: options.scope,
+      locale: options.locale,
     })
     const outputDir = path.dirname(options.output)
     await fs.mkdir(outputDir, { recursive: true })
