@@ -13,3 +13,6 @@
 [submodule "fixtures/vscode-which-key"]
 	path = fixtures/vscode-which-key
 	url = https://github.com/VSpaceCode/vscode-which-key.git
+[submodule "fixtures/vscode-power-mode"]
+	path = fixtures/vscode-power-mode
+	url = https://github.com/hoovercj/vscode-power-mode.git

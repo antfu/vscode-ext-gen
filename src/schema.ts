@@ -1,4 +1,6 @@
-export function typeFromSchema(schema: any, isSubType = false): string {
+import type { Configuration, Manifest, Property } from './types'
+
+export function typeFromSchema(schema: Property, isSubType = false): string {
   if (!schema)
     return 'unknown'
 
@@ -59,7 +61,7 @@ export function typeFromSchema(schema: any, isSubType = false): string {
     return `(${types.join(' | ')})`
 }
 
-export function defaultValFromSchema(schema: any): string | undefined {
+export function defaultValFromSchema(schema: Property): string | undefined {
   if (schema.type !== 'object')
     return JSON.stringify(schema.default)
 
@@ -67,7 +69,7 @@ export function defaultValFromSchema(schema: any): string | undefined {
     return JSON.stringify(schema.default)
 
   if ('properties' in schema) {
-    const keyValues = Object.entries(schema.properties).map(([key, value]): string => {
+    const keyValues = Object.entries(schema.properties || {}).map(([key, value]): string => {
       return `${JSON.stringify(key)}: ${defaultValFromSchema(value)}`
     })
 
@@ -77,9 +79,33 @@ export function defaultValFromSchema(schema: any): string | undefined {
   return '{}'
 }
 
-export function getConfigObject(packageJson: any) {
+function sortConfigurations(configurations: Configuration[]): Configuration[] {
+  return [...configurations].sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
+}
+
+export function getConfigArray(packageJson: Manifest): Configuration[] {
   return (Array.isArray(packageJson.contributes?.configuration)
-    ? packageJson.contributes?.configuration?.[0]?.properties
-    : packageJson.contributes?.configuration?.properties
-  ) || {}
+    ? sortConfigurations(packageJson.contributes.configuration)
+    : [packageJson.contributes?.configuration]) as Configuration[]
+}
+
+export function extractConfigObject(configuration: Configuration | Configuration[]): Record<string, Property> {
+  let result: Record<string, Property> = {}
+  if (Array.isArray(configuration)) {
+    sortConfigurations(configuration).forEach((config: Configuration) => {
+      Object.entries(config.properties ?? {}).forEach(([key, value]) => {
+        result[key] = value
+      })
+    })
+  }
+  else {
+    result = configuration?.properties || {}
+  }
+  return result
+}
+
+export function getConfigObject(packageJson: Manifest): Record<string, Property> {
+  return packageJson.contributes?.configuration
+    ? extractConfigObject(packageJson.contributes.configuration)
+    : {}
 }
