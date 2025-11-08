@@ -385,10 +385,9 @@ function generateConfigShorthandTypeMap({ lines, configsObject, withoutExtension
     ...Array.from(shorthandTypeMap.entries()).map(([name, types]) => {
       // Deduplicate types and create union
       const uniqueTypes = Array.from(new Set(types))
-      const typeValue = uniqueTypes.length === 1
-        ? uniqueTypes[0]
-        : uniqueTypes.map(t => `(${t})`).join(' | ')
-      return `  ${name}: ${typeValue},`
+      if (uniqueTypes.length === 1)
+        return `  ${name}: ${uniqueTypes[0]},`
+      return `  ${name}: (${normalizeTypes(uniqueTypes)}),`
     }),
     '}',
   )
@@ -422,4 +421,44 @@ function generateConfigs({ lines, configsObject, withoutExtensionPrefix, extensi
       }),
     '}',
   )
+}
+
+function normalizeTypes(types: string[]) {
+  const typeSet = new Set<string>()
+
+  types.forEach((type) => {
+    const cleanType = type.trim()
+    if (cleanType.startsWith('(') && cleanType.endsWith(')')) {
+      const inner = cleanType.slice(1, -1)
+      // Split by | and trim each part
+      inner.split('|').forEach(t => typeSet.add(t.trim()))
+    }
+    else {
+      typeSet.add(cleanType)
+    }
+  })
+
+  // If the result has any clear type, remove unknown
+  const hasClearType = Array.from(typeSet).some(t => t !== 'unknown' && t !== 'null' && t !== 'undefined')
+  const resolved = Array.from(typeSet).filter((t) => {
+    if (t === 'unknown' && hasClearType)
+      return false
+    return true
+  })
+
+  // Sort for consistency: concrete types first, then null/undefined, then unknown
+  resolved.sort((a, b) => {
+    const priority = (t: string) => {
+      if (t === 'unknown')
+        return 3
+      if (t === 'null' || t === 'undefined')
+        return 2
+      return 1
+    }
+    return priority(a) - priority(b)
+  })
+
+  return resolved.length === 1
+    ? resolved[0]
+    : resolved.map(t => `(${t})`).join(' | ')
 }
