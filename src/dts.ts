@@ -346,39 +346,50 @@ export function generateDTS(packageJson: Manifest, options: GenerateOptions = {}
 }
 
 function generateConfigShorthandMap({ lines, configsObject, withoutExtensionPrefix }: GenerateContext) {
-  const cached = new Set<string>()
+  const shorthandMap = new Map<string, string[]>()
+  Object.entries(configsObject).forEach(([key]: [string, Property]) => {
+    const name = convertCase(withoutExtensionPrefix(key))
+    if (!shorthandMap.has(name))
+      shorthandMap.set(name, [])
+    shorthandMap.get(name)!.push(key)
+  })
+
   lines.push(
     '',
     'export interface ConfigShorthandMap {',
-    ...Object.entries(configsObject)
-      .flatMap(([key]: [string, Property]) => {
-        const name = convertCase(withoutExtensionPrefix(key))
-        if (cached.has(name))
-          return []
-        cached.add(name)
-        return [
-          `  ${name}: ${JSON.stringify(key)},`,
-        ]
-      }),
+    ...Array.from(shorthandMap.entries()).map(([name, keys]) => {
+      // If multiple keys, output as union type
+      const typeValue = keys.length === 1
+        ? JSON.stringify(keys[0])
+        : keys.map(k => JSON.stringify(k)).join(' | ')
+      return `  ${name}: ${typeValue},`
+    }),
     '}',
   )
 }
 
 function generateConfigShorthandTypeMap({ lines, configsObject, withoutExtensionPrefix }: GenerateContext) {
-  const cached = new Set<string>()
+  const shorthandTypeMap = new Map<string, string[]>()
+
+  Object.entries(configsObject).forEach(([key, value]: [string, Property]) => {
+    const name = convertCase(withoutExtensionPrefix(key))
+    const type = typeFromSchema(value)
+    if (!shorthandTypeMap.has(name))
+      shorthandTypeMap.set(name, [])
+    shorthandTypeMap.get(name)!.push(type)
+  })
+
   lines.push(
     '',
     'export interface ConfigShorthandTypeMap {',
-    ...Object.entries(configsObject)
-      .flatMap(([key, value]: [string, Property]) => {
-        const name = convertCase(withoutExtensionPrefix(key))
-        if (cached.has(name))
-          return []
-        cached.add(name)
-        return [
-          `  ${name}: ${typeFromSchema(value)},`,
-        ]
-      }),
+    ...Array.from(shorthandTypeMap.entries()).map(([name, types]) => {
+      // Deduplicate types and create union
+      const uniqueTypes = Array.from(new Set(types))
+      const typeValue = uniqueTypes.length === 1
+        ? uniqueTypes[0]
+        : uniqueTypes.map(t => `(${t})`).join(' | ')
+      return `  ${name}: ${typeValue},`
+    }),
     '}',
   )
 }
