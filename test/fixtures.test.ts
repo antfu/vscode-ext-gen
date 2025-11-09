@@ -12,7 +12,7 @@ describe('fixtures', async () => {
       const json = JSON.parse(await fs.readFile(`${dir}/package.json`, 'utf-8'))
 
       let extensionScope: string | undefined
-      let locale: string | undefined
+      let locale: string[] | undefined
 
       try {
         if (dir.includes('vscode-iconify-fork'))
@@ -22,32 +22,45 @@ describe('fixtures', async () => {
           return extensionScope = 'smartClicks'
 
         if (dir.includes('vscode-pets'))
-          return locale = 'en'
+          return locale = ['en', 'zh-cn', 'ja']
       }
       finally {
-        const { dts, markdown } = await generate(json, { cwd: dir, extensionScope, locale })
-        await expect(dts).toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
+        const process = async (locale?: string) => {
+          const filename = locale ? `${basename(dir)}.${locale}` : `${basename(dir)}`
 
-        const readmeLines = [
-          `# ${basename(dir)}`,
-          '',
-          '## Commands',
-          '',
-          markdown.commandsTable,
-          '',
-          '## Commands List',
-          '',
-          markdown.commandsList,
-          '',
-          '## Configuration',
-          '',
-          markdown.configsTable,
-          '',
-          '## Configuration List',
-          '',
-          markdown.configsList,
-        ]
-        await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/${basename(dir)}.README.md`)
+          const { dts, markdown } = await generate(json, { cwd: dir, extensionScope, locale })
+          await expect(dts).toMatchFileSnapshot(`./output/${filename}.ts`)
+
+          const readmeLines = [
+            `# ${basename(filename)}`,
+            '',
+            '## Commands',
+            '',
+            markdown.commandsTable,
+            '',
+            '## Commands List',
+            '',
+            markdown.commandsList,
+            '',
+            '## Configuration',
+            '',
+            markdown.configsTable,
+            '',
+            '## Configuration List',
+            '',
+            markdown.configsList,
+          ]
+          await expect(readmeLines.join('\n')).toMatchFileSnapshot(`./output/${basename(filename)}.README.md`)
+        }
+
+        if (locale?.length) {
+          for (const l of locale) {
+            await process(l)
+          }
+        }
+        else {
+          await process()
+        }
       }
     })
   }

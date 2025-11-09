@@ -1,4 +1,4 @@
-# vscode-pets
+# vscode-pets.en
 
 ## Commands
 
