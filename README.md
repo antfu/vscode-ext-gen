@@ -162,6 +162,16 @@ They will be replaced with the generated tables when you run `npx vscode-ext-gen
 
 You can also use the `<!-- commands-list -->` and `<!-- configs-list -->` slots to generate lists of commands and configurations.
 
+## Internationalization
+
+Use `--locale` option to read NLS files and replace placeholders in generated DTS and Markdown:
+
+```bash
+npx vscode-ext-gen --locale 'en'
+```
+
+##
+
 ## Sponsors
 
 <p align="center">

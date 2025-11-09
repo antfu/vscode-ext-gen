@@ -1,4 +1,11 @@
+import type { generateMarkdown } from './markdown'
+
 export interface GenerateOptions {
+  /**
+   * The current working directory
+   * @default process.cwd()
+   */
+  cwd?: string
   /**
    * The header of the generated file
    */
@@ -16,6 +23,22 @@ export interface GenerateOptions {
    * Useful when your extension name has different prefix from the package name.
    */
   extensionScope?: string
+  /**
+   * The locale to read from nls file
+   * @default 'en'
+   */
+  locale?: string
+}
+
+export interface GenerateResult {
+  /**
+   * The generated DTS file
+   */
+  dts: string
+  /**
+   * The generated markdown contents
+   */
+  markdown: ReturnType<typeof generateMarkdown>
 }
 
 export interface ConfigTable {
