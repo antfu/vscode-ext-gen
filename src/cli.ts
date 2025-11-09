@@ -19,7 +19,7 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
       throw new Error('This package.json does not seem to be a valid VSCode extension package.json')
 
     const { dts, markdown } = await generate(json, {
-      cwd: input,
+      cwd: path.dirname(input),
       namespace: options.namespace === 'false' ? false : options.namespace,
       extensionScope: options.scope,
       locale: options.locale,
