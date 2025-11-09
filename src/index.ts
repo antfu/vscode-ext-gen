@@ -8,9 +8,10 @@ import { formatTable } from './utils'
 export async function generate(packageJson: Manifest, options: GenerateOptions = {}) {
   const dts = generateDTS(packageJson, options)
   const markdown = generateMarkdown(packageJson)
+  const result = { dts, markdown }
   if (!options.locale)
-    return { dts, markdown }
-  return await processLocale({ ...options, dts, markdown })
+    return result
+  return await processLocale(options, result)
 }
 
 export {
