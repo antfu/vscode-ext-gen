@@ -2,7 +2,6 @@ import type { GenerateOptions, GenerateResult } from './types'
 import { readFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
 import process from 'node:process'
-import * as p from '@clack/prompts'
 import { glob } from 'tinyglobby'
 
 interface LocaleOptions extends GenerateOptions, GenerateResult {}
@@ -19,21 +18,8 @@ export async function processLocale(options: LocaleOptions): Promise<GenerateRes
   const choices = files.map(file => basename(file, '.json').replace('package.nls.', ''))
   if (choices.includes(locale))
     return await applyLocaleStrings({ locale, ...options })
-  if (choices.length === 1)
-    return await applyLocaleStrings({ locale: choices[0], ...options })
-
-  const lang = await p.select({
-    message: 'Select the locale to use',
-    options: choices.map(i => ({
-      value: i,
-      label: i,
-    })),
-    initialValue: locale,
-  })
-  if (p.isCancel(lang) || !lang)
-    throw new Error('No locale selected')
-
-  return await applyLocaleStrings({ locale: lang, ...options })
+  else
+    throw new Error(`${locale} locale not found, available locales: ${choices.join(', ')}`)
 }
 
 async function applyLocaleStrings(options: LocaleOptions): Promise<GenerateResult> {

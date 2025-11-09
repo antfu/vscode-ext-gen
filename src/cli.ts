@@ -12,7 +12,7 @@ cli.command('[input]', 'Generate TypeScript files from package.json')
   .option('--namespace <namespace>', 'Generate with namespace')
   .option('--scope <scope>', 'The extension scope for commands and configs')
   .option('--readme <path>', 'The path to README.md', { default: 'README.md' })
-  .option('--locale <locale>', 'The locale to read from nls file', { default: 'en' })
+  .option('--locale <locale>', 'The locale to read from nls file')
   .action(async (input = 'package.json', options) => {
     const json = JSON.parse(await fs.readFile(input, 'utf-8'))
     if (!json.publisher)

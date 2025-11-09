@@ -21,7 +21,7 @@ describe('fixtures', async () => {
           return extensionScope = 'smartClicks'
       }
       finally {
-        const { dts, markdown } = await generate(json, { cwd: dir, extensionScope })
+        const { dts, markdown } = await generate(json, { cwd: dir, extensionScope, locale: 'en' })
         await expect(dts).toMatchFileSnapshot(`./output/${basename(dir)}.ts`)
 
         const readmeLines = [
