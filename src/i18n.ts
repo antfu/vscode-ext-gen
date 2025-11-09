@@ -12,8 +12,6 @@ export async function processLocale(options: LocaleOptions): Promise<GenerateRes
     cwd,
     onlyFiles: true,
   })
-  if (!files.length)
-    return { dts: options.dts, markdown: options.markdown }
 
   const choices = files.map(file => path.basename(file, '.json').replace('package.nls.', ''))
   if (choices.includes(locale))
