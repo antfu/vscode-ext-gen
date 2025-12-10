@@ -16,3 +16,6 @@
 [submodule "fixtures/vscode-power-mode"]
 	path = fixtures/vscode-power-mode
 	url = https://github.com/hoovercj/vscode-power-mode.git
+[submodule "fixtures/vscode-pets"]
+	path = fixtures/vscode-pets
+	url = https://github.com/tonybaloney/vscode-pets.git
