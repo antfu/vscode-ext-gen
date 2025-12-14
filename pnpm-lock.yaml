@@ -62,7 +62,7 @@ catalogs:
       version: 4.0.15
 
 overrides:
-  chokidar: 5.0.0
+  chokidar: ^5.0.0
 
 importers:
 
